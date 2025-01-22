@@ -1,0 +1,353 @@
+framework,ref,domain,control,link
+CIS 8.1,1.1,Inventory and Control of Enterprise Assets,Establish and Maintain Detailed Enterprise Asset Inventory,https://controls-assessment-specification.readthedocs.io/en/stable/control-1/control-1.1.html
+CIS 8.1,1.2,Inventory and Control of Enterprise Assets,Address Unauthorized Assets,https://controls-assessment-specification.readthedocs.io/en/stable/control-1/control-1.2.html
+CIS 8.1,1.3,Inventory and Control of Enterprise Assets,Utilize an Active Discovery Tool,https://controls-assessment-specification.readthedocs.io/en/stable/control-1/control-1.3.html
+CIS 8.1,1.4,Inventory and Control of Enterprise Assets,Use Dynamic Host Configuration Protocol (DHCP) Logging to Update Enterprise Asset Inventory,https://controls-assessment-specification.readthedocs.io/en/stable/control-1/control-1.4.html
+CIS 8.1,1.5,Inventory and Control of Enterprise Assets,Use a Passive Asset Discovery Tool,https://controls-assessment-specification.readthedocs.io/en/stable/control-1/control-1.5.html
+CIS 8.1,2.1,Inventory and Control of Software Assets,Establish and Maintain a Software Inventory,https://controls-assessment-specification.readthedocs.io/en/stable/control-2/control-2.1.html
+CIS 8.1,2.2,Inventory and Control of Software Assets,Ensure Authorized Software is Currently Supported,https://controls-assessment-specification.readthedocs.io/en/stable/control-2/control-2.2.html
+CIS 8.1,2.3,Inventory and Control of Software Assets,Address Unauthorized Software,https://controls-assessment-specification.readthedocs.io/en/stable/control-2/control-2.3.html
+CIS 8.1,2.4,Inventory and Control of Software Assets,Utilize Automated Software Inventory Tools,https://controls-assessment-specification.readthedocs.io/en/stable/control-2/control-2.4.html
+CIS 8.1,2.5,Inventory and Control of Software Assets,Allowlist Authorized Software,https://controls-assessment-specification.readthedocs.io/en/stable/control-2/control-2.5.html
+CIS 8.1,2.6,Inventory and Control of Software Assets,Allowlist Authorized Libraries,https://controls-assessment-specification.readthedocs.io/en/stable/control-2/control-2.6.html
+CIS 8.1,2.7,Inventory and Control of Software Assets,Allowlist Authorized Scripts,https://controls-assessment-specification.readthedocs.io/en/stable/control-2/control-2.7.html
+CIS 8.1,3.1,Data Protection,Establish and Maintain a Data Management Process,https://controls-assessment-specification.readthedocs.io/en/stable/control-3/control-3.1.html
+CIS 8.1,3.2,Data Protection,Establish and Maintain a Data Inventory,https://controls-assessment-specification.readthedocs.io/en/stable/control-3/control-3.2.html
+CIS 8.1,3.3,Data Protection,Configure Data Access Control Lists,https://controls-assessment-specification.readthedocs.io/en/stable/control-3/control-3.3.html
+CIS 8.1,3.4,Data Protection,Enforce Data Retention,https://controls-assessment-specification.readthedocs.io/en/stable/control-3/control-3.4.html
+CIS 8.1,3.5,Data Protection,Securely Dispose of Data,https://controls-assessment-specification.readthedocs.io/en/stable/control-3/control-3.5.html
+CIS 8.1,3.6,Data Protection,Encrypt Data on End-User Devices,https://controls-assessment-specification.readthedocs.io/en/stable/control-3/control-3.6.html
+CIS 8.1,3.7,Data Protection,Establish and Maintain a Data Classification Scheme,https://controls-assessment-specification.readthedocs.io/en/stable/control-3/control-3.7.html
+CIS 8.1,3.8,Data Protection,Document Data Flows,https://controls-assessment-specification.readthedocs.io/en/stable/control-3/control-3.8.html
+CIS 8.1,3.9,Data Protection,Encrypt Data on Removable Media,https://controls-assessment-specification.readthedocs.io/en/stable/control-3/control-3.9.html
+CIS 8.1,3.10,Data Protection,Encrypt Sensitive Data in Transit,https://controls-assessment-specification.readthedocs.io/en/stable/control-3/control-3.10.html
+CIS 8.1,3.11,Data Protection,Encrypt Sensitive Data at Rest,https://controls-assessment-specification.readthedocs.io/en/stable/control-3/control-3.11.html
+CIS 8.1,3.12,Data Protection,Segment Data Processing and Storage Based on Sensitivity,https://controls-assessment-specification.readthedocs.io/en/stable/control-3/control-3.12.html
+CIS 8.1,3.13,Data Protection,Deploy a Data Loss Prevention Solution,https://controls-assessment-specification.readthedocs.io/en/stable/control-3/control-3.13.html
+CIS 8.1,3.14,Data Protection,Log Sensitive Data Access,https://controls-assessment-specification.readthedocs.io/en/stable/control-3/control-3.14.html
+CIS 8.1,4.1,Secure Configuration of Enterprise Assets and Software,Establish and Maintain a Secure Configuration Process,https://controls-assessment-specification.readthedocs.io/en/stable/control-4/control-4.1.html
+CIS 8.1,4.2,Secure Configuration of Enterprise Assets and Software,Establish and Maintain a Secure Configuration Process for Network Infrastructure,https://controls-assessment-specification.readthedocs.io/en/stable/control-4/control-4.2.html
+CIS 8.1,4.3,Secure Configuration of Enterprise Assets and Software,Configure Automatic Session Locking on Enterprise Assets,https://controls-assessment-specification.readthedocs.io/en/stable/control-4/control-4.3.html
+CIS 8.1,4.4,Secure Configuration of Enterprise Assets and Software,Implement and Manage a Firewall on Servers,https://controls-assessment-specification.readthedocs.io/en/stable/control-4/control-4.4.html
+CIS 8.1,4.5,Secure Configuration of Enterprise Assets and Software,Implement and Manage a Firewall on End-User Devices,https://controls-assessment-specification.readthedocs.io/en/stable/control-4/control-4.5.html
+CIS 8.1,4.6,Secure Configuration of Enterprise Assets and Software,Securely Manage Enterprise Assets and Software,https://controls-assessment-specification.readthedocs.io/en/stable/control-4/control-4.6.html
+CIS 8.1,4.7,Secure Configuration of Enterprise Assets and Software,Manage Default Accounts on Enterprise Assets and Software,https://controls-assessment-specification.readthedocs.io/en/stable/control-4/control-4.7.html
+CIS 8.1,4.8,Secure Configuration of Enterprise Assets and Software,Uninstall or Disable Unnecessary Services on Enterprise Assets and Software,https://controls-assessment-specification.readthedocs.io/en/stable/control-4/control-4.8.html
+CIS 8.1,4.9,Secure Configuration of Enterprise Assets and Software,Configure Trusted DNS Servers on Enterprise Assets,https://controls-assessment-specification.readthedocs.io/en/stable/control-4/control-4.9.html
+CIS 8.1,4.10,Secure Configuration of Enterprise Assets and Software,Enforce Automatic Device Lockout on Portable End-User Devices,https://controls-assessment-specification.readthedocs.io/en/stable/control-4/control-4.10.html
+CIS 8.1,4.11,Secure Configuration of Enterprise Assets and Software,Enforce Remote Wipe Capability on Portable End-User Devices,https://controls-assessment-specification.readthedocs.io/en/stable/control-4/control-4.11.html
+CIS 8.1,4.12,Secure Configuration of Enterprise Assets and Software,Separate Enterprise Workspaces on Mobile End-User Devices,https://controls-assessment-specification.readthedocs.io/en/stable/control-4/control-4.12.html
+CIS 8.1,5.1,Account Management,Establish and Maintain an Inventory of Accounts,https://controls-assessment-specification.readthedocs.io/en/stable/control-5/control-5.1.html
+CIS 8.1,5.2,Account Management,Use Unique Passwords,https://controls-assessment-specification.readthedocs.io/en/stable/control-5/control-5.2.html
+CIS 8.1,5.3,Account Management,Disable Dormant Accounts,https://controls-assessment-specification.readthedocs.io/en/stable/control-5/control-5.3.html
+CIS 8.1,5.4,Account Management,Restrict Administrator Privileges to Dedicated Administrator Accounts,https://controls-assessment-specification.readthedocs.io/en/stable/control-5/control-5.4.html
+CIS 8.1,5.5,Account Management,Establish and Maintain an Inventory of Service Accounts,https://controls-assessment-specification.readthedocs.io/en/stable/control-5/control-5.5.html
+CIS 8.1,5.6,Account Management,Centralize Account Management,https://controls-assessment-specification.readthedocs.io/en/stable/control-5/control-5.6.html
+CIS 8.1,6.1,Access Control Management,Establish an Access Granting Process,https://controls-assessment-specification.readthedocs.io/en/stable/control-6/control-6.1.html
+CIS 8.1,6.2,Access Control Management,Establish an Access Revoking Process,https://controls-assessment-specification.readthedocs.io/en/stable/control-6/control-6.2.html
+CIS 8.1,6.3,Access Control Management,Require MFA for Externally-Exposed Applications,https://controls-assessment-specification.readthedocs.io/en/stable/control-6/control-6.3.html
+CIS 8.1,6.4,Access Control Management,Require MFA for Remote Network Access,https://controls-assessment-specification.readthedocs.io/en/stable/control-6/control-6.4.html
+CIS 8.1,6.5,Access Control Management,Require MFA for Administrative Access,https://controls-assessment-specification.readthedocs.io/en/stable/control-6/control-6.5.html
+CIS 8.1,6.6,Access Control Management,Establish and Maintain an Inventory of Authentication and Authorization Systems,https://controls-assessment-specification.readthedocs.io/en/stable/control-6/control-6.6.html
+CIS 8.1,6.7,Access Control Management,Centralize Access Control,https://controls-assessment-specification.readthedocs.io/en/stable/control-6/control-6.7.html
+CIS 8.1,6.8,Access Control Management,Define and Maintain Role-Based Access Control,https://controls-assessment-specification.readthedocs.io/en/stable/control-6/control-6.8.html
+CIS 8.1,7.1,Continuous Vulnerability Management,Establish and Maintain a Vulnerability Management Process,https://controls-assessment-specification.readthedocs.io/en/stable/control-7/control-7.1.html
+CIS 8.1,7.2,Continuous Vulnerability Management,Establish and Maintain a Remediation Process,https://controls-assessment-specification.readthedocs.io/en/stable/control-7/control-7.2.html
+CIS 8.1,7.3,Continuous Vulnerability Management,Perform Automated Operating System Patch Management,https://controls-assessment-specification.readthedocs.io/en/stable/control-7/control-7.3.html
+CIS 8.1,7.4,Continuous Vulnerability Management,Perform Automated Application Patch Management,https://controls-assessment-specification.readthedocs.io/en/stable/control-7/control-7.4.html
+CIS 8.1,7.5,Continuous Vulnerability Management,Perform Automated Vulnerability Scans of Internal Enterprise Assets,https://controls-assessment-specification.readthedocs.io/en/stable/control-7/control-7.5.html
+CIS 8.1,7.6,Continuous Vulnerability Management,Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets,https://controls-assessment-specification.readthedocs.io/en/stable/control-7/control-7.6.html
+CIS 8.1,7.7,Continuous Vulnerability Management,Remediate Detected Vulnerabilities,https://controls-assessment-specification.readthedocs.io/en/stable/control-7/control-7.7.html
+CIS 8.1,8.1,Audit Log Management,Establish and Maintain an Audit Log Management Process,https://controls-assessment-specification.readthedocs.io/en/stable/control-8/control-8.1.html
+CIS 8.1,8.2,Audit Log Management,Collect Audit Logs,https://controls-assessment-specification.readthedocs.io/en/stable/control-8/control-8.2.html
+CIS 8.1,8.3,Audit Log Management,Ensure Adequate Audit Log Storage,https://controls-assessment-specification.readthedocs.io/en/stable/control-8/control-8.3.html
+CIS 8.1,8.4,Audit Log Management,Standardize Time Synchronization,https://controls-assessment-specification.readthedocs.io/en/stable/control-8/control-8.4.html
+CIS 8.1,8.5,Audit Log Management,Collect Detailed Audit Logs,https://controls-assessment-specification.readthedocs.io/en/stable/control-8/control-8.5.html
+CIS 8.1,8.6,Audit Log Management,Collect DNS Query Audit Logs,https://controls-assessment-specification.readthedocs.io/en/stable/control-8/control-8.6.html
+CIS 8.1,8.7,Audit Log Management,Collect URL Request Audit Logs,https://controls-assessment-specification.readthedocs.io/en/stable/control-8/control-8.7.html
+CIS 8.1,8.8,Audit Log Management,Collect Command-Line Audit Logs,https://controls-assessment-specification.readthedocs.io/en/stable/control-8/control-8.8.html
+CIS 8.1,8.9,Audit Log Management,Centralize Audit Logs,https://controls-assessment-specification.readthedocs.io/en/stable/control-8/control-8.9.html
+CIS 8.1,8.10,Audit Log Management,Retain Audit Logs,https://controls-assessment-specification.readthedocs.io/en/stable/control-8/control-8.10.html
+CIS 8.1,8.11,Audit Log Management,Conduct Audit Log Reviews,https://controls-assessment-specification.readthedocs.io/en/stable/control-8/control-8.11.html
+CIS 8.1,8.12,Audit Log Management,Collect Service Provider Logs,https://controls-assessment-specification.readthedocs.io/en/stable/control-8/control-8.12.html
+CIS 8.1,9.1,Email and Web Browser Protections,Ensure Use of Only Fully Supported Browsers and Email Clients,https://controls-assessment-specification.readthedocs.io/en/stable/control-9/control-9.1.html
+CIS 8.1,9.2,Email and Web Browser Protections,Use DNS Filtering Services,https://controls-assessment-specification.readthedocs.io/en/stable/control-9/control-9.2.html
+CIS 8.1,9.3,Email and Web Browser Protections,Maintain and Enforce Network-Based URL Filters,https://controls-assessment-specification.readthedocs.io/en/stable/control-9/control-9.3.html
+CIS 8.1,9.4,Email and Web Browser Protections,Restrict Unnecessary or Unauthorized Browser and Email Client Extensions,https://controls-assessment-specification.readthedocs.io/en/stable/control-9/control-9.4.html
+CIS 8.1,9.5,Email and Web Browser Protections,Implement DMARC,https://controls-assessment-specification.readthedocs.io/en/stable/control-9/control-9.5.html
+CIS 8.1,9.6,Email and Web Browser Protections,Block Unnecessary File Types,https://controls-assessment-specification.readthedocs.io/en/stable/control-9/control-9.6.html
+CIS 8.1,9.7,Email and Web Browser Protections,Deploy and Maintain Email Server Anti-Malware Protections,https://controls-assessment-specification.readthedocs.io/en/stable/control-9/control-9.7.html
+CIS 8.1,10.1,Malware Defenses,Deploy and Maintain Anti-Malware Software,https://controls-assessment-specification.readthedocs.io/en/stable/control-10/control-10.1.html
+CIS 8.1,10.2,Malware Defenses,Configure Automatic Anti-Malware Signature Updates,https://controls-assessment-specification.readthedocs.io/en/stable/control-10/control-10.2.html
+CIS 8.1,10.3,Malware Defenses,Disable Autorun and Autoplay for Removable Media,https://controls-assessment-specification.readthedocs.io/en/stable/control-10/control-10.3.html
+CIS 8.1,10.4,Malware Defenses,Configure Automatic Anti-Malware Scanning of Removable Media,https://controls-assessment-specification.readthedocs.io/en/stable/control-10/control-10.4.html
+CIS 8.1,10.5,Malware Defenses,Enable Anti-Exploitation Features,https://controls-assessment-specification.readthedocs.io/en/stable/control-10/control-10.5.html
+CIS 8.1,10.6,Malware Defenses,Centrally Manage Anti-Malware Software,https://controls-assessment-specification.readthedocs.io/en/stable/control-10/control-10.6.html
+CIS 8.1,10.7,Malware Defenses,Use Behavior-Based Anti-Malware Software,https://controls-assessment-specification.readthedocs.io/en/stable/control-10/control-10.7.html
+CIS 8.1,11.1,Data Recovery,Establish and Maintain a Data Recovery Process,https://controls-assessment-specification.readthedocs.io/en/stable/control-11/control-11.1.html
+CIS 8.1,11.2,Data Recovery,Perform Automated Backups,https://controls-assessment-specification.readthedocs.io/en/stable/control-11/control-11.2.html
+CIS 8.1,11.3,Data Recovery,Protect Recovery Data,https://controls-assessment-specification.readthedocs.io/en/stable/control-11/control-11.3.html
+CIS 8.1,11.4,Data Recovery,Establish and Maintain an Isolated Instance of Recovery Data,https://controls-assessment-specification.readthedocs.io/en/stable/control-11/control-11.4.html
+CIS 8.1,11.5,Data Recovery,Test Data Recovery,https://controls-assessment-specification.readthedocs.io/en/stable/control-11/control-11.5.html
+CIS 8.1,12.1,Network Infrastructure Management,Ensure Network Infrastructure is Up-to-Date,https://controls-assessment-specification.readthedocs.io/en/stable/control-12/control-12.1.html
+CIS 8.1,12.2,Network Infrastructure Management,Establish and Maintain a Secure Network Architecture,https://controls-assessment-specification.readthedocs.io/en/stable/control-12/control-12.2.html
+CIS 8.1,12.3,Network Infrastructure Management,Securely Manage Network Infrastructure,https://controls-assessment-specification.readthedocs.io/en/stable/control-12/control-12.3.html
+CIS 8.1,12.4,Network Infrastructure Management,Establish and Maintain Architecture Diagram(s),https://controls-assessment-specification.readthedocs.io/en/stable/control-12/control-12.4.html
+CIS 8.1,12.5,Network Infrastructure Management,"Centralize Network Authentication, Authorization, and Auditing (AAA)",https://controls-assessment-specification.readthedocs.io/en/stable/control-12/control-12.5.html
+CIS 8.1,12.6,Network Infrastructure Management,Use of Secure Network Management and Communication Protocols,https://controls-assessment-specification.readthedocs.io/en/stable/control-12/control-12.6.html
+CIS 8.1,12.7,Network Infrastructure Management,Ensure Remote Devices Utilize a VPN and are Connecting to an Enterprise's AAA Infrastructure,https://controls-assessment-specification.readthedocs.io/en/stable/control-12/control-12.7.html
+CIS 8.1,12.8,Network Infrastructure Management,Establish and Maintain Dedicated Computing Resources for All Administrative Work,https://controls-assessment-specification.readthedocs.io/en/stable/control-12/control-12.8.html
+CIS 8.1,13.1,Network Monitoring and Defense,Centralize Security Event Alerting,https://controls-assessment-specification.readthedocs.io/en/stable/control-13/control-13.1.html
+CIS 8.1,13.2,Network Monitoring and Defense,Deploy a Host-Based Intrusion Detection Solution,https://controls-assessment-specification.readthedocs.io/en/stable/control-13/control-13.2.html
+CIS 8.1,13.3,Network Monitoring and Defense,Deploy a Network Intrusion Detection Solution,https://controls-assessment-specification.readthedocs.io/en/stable/control-13/control-13.3.html
+CIS 8.1,13.4,Network Monitoring and Defense,Perform Traffic Filtering Between Network Segments,https://controls-assessment-specification.readthedocs.io/en/stable/control-13/control-13.4.html
+CIS 8.1,13.5,Network Monitoring and Defense,Manage Access Control for Remote Assets,https://controls-assessment-specification.readthedocs.io/en/stable/control-13/control-13.5.html
+CIS 8.1,13.6,Network Monitoring and Defense,Collect Network Traffic Flow Logs,https://controls-assessment-specification.readthedocs.io/en/stable/control-13/control-13.6.html
+CIS 8.1,13.7,Network Monitoring and Defense,Deploy a Host-Based Intrusion Prevention Solution,https://controls-assessment-specification.readthedocs.io/en/stable/control-13/control-13.7.html
+CIS 8.1,13.8,Network Monitoring and Defense,Deploy a Network Intrusion Prevention Solution,https://controls-assessment-specification.readthedocs.io/en/stable/control-13/control-13.8.html
+CIS 8.1,13.9,Network Monitoring and Defense,Deploy Port-Level Access Control,https://controls-assessment-specification.readthedocs.io/en/stable/control-13/control-13.9.html
+CIS 8.1,13.10,Network Monitoring and Defense,Perform Application Layer Filtering,https://controls-assessment-specification.readthedocs.io/en/stable/control-13/control-13.10.html
+CIS 8.1,13.11,Network Monitoring and Defense,Tune Security Event Alerting Thresholds,https://controls-assessment-specification.readthedocs.io/en/stable/control-13/control-13.11.html
+CIS 8.1,14.1,Security Awareness and Skills Training,Establish and Maintain a Security Awareness Program,https://controls-assessment-specification.readthedocs.io/en/stable/control-14/control-14.1.html
+CIS 8.1,14.2,Security Awareness and Skills Training,Train Workforce Members to Recognize Social Engineering Attacks,https://controls-assessment-specification.readthedocs.io/en/stable/control-14/control-14.2.html
+CIS 8.1,14.3,Security Awareness and Skills Training,Train Workforce Members on Authentication Best Practices,https://controls-assessment-specification.readthedocs.io/en/stable/control-14/control-14.3.html
+CIS 8.1,14.4,Security Awareness and Skills Training,Train Workforce on Data Handling Best Practices,https://controls-assessment-specification.readthedocs.io/en/stable/control-14/control-14.4.html
+CIS 8.1,14.5,Security Awareness and Skills Training,Train Workforce Members on Causes of Unintentional Data Exposure,https://controls-assessment-specification.readthedocs.io/en/stable/control-14/control-14.5.html
+CIS 8.1,14.6,Security Awareness and Skills Training,Train Workforce Members on Recognizing and Reporting Security Incidents,https://controls-assessment-specification.readthedocs.io/en/stable/control-14/control-14.6.html
+CIS 8.1,14.7,Security Awareness and Skills Training,Train Workforce on How to Identify and Report if Their Enterprise Assets are Missing Security Updates,https://controls-assessment-specification.readthedocs.io/en/stable/control-14/control-14.7.html
+CIS 8.1,14.8,Security Awareness and Skills Training,Train Workforce on the Dangers of Connecting to and Transmitting Enterprise Data Over Insecure Networks,https://controls-assessment-specification.readthedocs.io/en/stable/control-14/control-14.8.html
+CIS 8.1,14.9,Security Awareness and Skills Training,Conduct Role-Specific Security Awareness and Skills Training,https://controls-assessment-specification.readthedocs.io/en/stable/control-14/control-14.9.html
+CIS 8.1,15.1,Service Provider Management,Establish and Maintain an Inventory of Service Providers,https://controls-assessment-specification.readthedocs.io/en/stable/control-15/control-15.1.html
+CIS 8.1,15.2,Service Provider Management,Establish and Maintain a Service Provider Management Policy,https://controls-assessment-specification.readthedocs.io/en/stable/control-15/control-15.2.html
+CIS 8.1,15.3,Service Provider Management,Classify Service Providers,https://controls-assessment-specification.readthedocs.io/en/stable/control-15/control-15.3.html
+CIS 8.1,15.4,Service Provider Management,Ensure Service Provider Contracts Include Security Requirements,https://controls-assessment-specification.readthedocs.io/en/stable/control-15/control-15.4.html
+CIS 8.1,15.5,Service Provider Management,Assess Service Providers,https://controls-assessment-specification.readthedocs.io/en/stable/control-15/control-15.5.html
+CIS 8.1,15.6,Service Provider Management,Monitor Service Providers,https://controls-assessment-specification.readthedocs.io/en/stable/control-15/control-15.6.html
+CIS 8.1,15.7,Service Provider Management,Securely Decommission Service Providers,https://controls-assessment-specification.readthedocs.io/en/stable/control-15/control-15.7.html
+CIS 8.1,16.1,Application Software Security,Establish and Maintain a Secure Application Development Process,https://controls-assessment-specification.readthedocs.io/en/stable/control-16/control-16.1.html
+CIS 8.1,16.2,Application Software Security,Establish and Maintain a Process to Accept and Address Software Vulnerabilities,https://controls-assessment-specification.readthedocs.io/en/stable/control-16/control-16.2.html
+CIS 8.1,16.3,Application Software Security,Perform Root Cause Analysis on Security Vulnerabilities,https://controls-assessment-specification.readthedocs.io/en/stable/control-16/control-16.3.html
+CIS 8.1,16.4,Application Software Security,Establish and Manage an Inventory of Third-Party Software Components,https://controls-assessment-specification.readthedocs.io/en/stable/control-16/control-16.4.html
+CIS 8.1,16.5,Application Software Security,Use Up-to-Date and Trusted Third-Party Software Components,https://controls-assessment-specification.readthedocs.io/en/stable/control-16/control-16.5.html
+CIS 8.1,16.6,Application Software Security,Establish and Maintain a Severity Rating System and Process for Application Vulnerabilities,https://controls-assessment-specification.readthedocs.io/en/stable/control-16/control-16.6.html
+CIS 8.1,16.7,Application Software Security,Use Standard Hardening Configuration Templates for Application Infrastructure,https://controls-assessment-specification.readthedocs.io/en/stable/control-16/control-16.7.html
+CIS 8.1,16.8,Application Software Security,Separate Production and Non-Production Systems,https://controls-assessment-specification.readthedocs.io/en/stable/control-16/control-16.8.html
+CIS 8.1,16.9,Application Software Security,Train Developers in Application Security Concepts and Secure Coding,https://controls-assessment-specification.readthedocs.io/en/stable/control-16/control-16.9.html
+CIS 8.1,16.10,Application Software Security,Apply Secure Design Principles in Application Architectures,https://controls-assessment-specification.readthedocs.io/en/stable/control-16/control-16.10.html
+CIS 8.1,16.11,Application Software Security,Leverage Vetted Modules or Services for Application Security Components,https://controls-assessment-specification.readthedocs.io/en/stable/control-16/control-16.11.html
+CIS 8.1,16.12,Application Software Security,Implement Code-Level Security Checks,https://controls-assessment-specification.readthedocs.io/en/stable/control-16/control-16.12.html
+CIS 8.1,16.13,Application Software Security,Conduct Application Penetration Testing,https://controls-assessment-specification.readthedocs.io/en/stable/control-16/control-16.13.html
+CIS 8.1,16.14,Application Software Security,Conduct Threat Modeling,https://controls-assessment-specification.readthedocs.io/en/stable/control-16/control-16.14.html
+CIS 8.1,17.1,Incident Response Management,Designate Personnel to Manage Incident Handling,https://controls-assessment-specification.readthedocs.io/en/stable/control-17/control-17.1.html
+CIS 8.1,17.2,Incident Response Management,Establish and Maintain Contact Information for Reporting Security Incidents,https://controls-assessment-specification.readthedocs.io/en/stable/control-17/control-17.2.html
+CIS 8.1,17.3,Incident Response Management,Establish and Maintain an Enterprise Process for Reporting Incidents,https://controls-assessment-specification.readthedocs.io/en/stable/control-17/control-17.3.html
+CIS 8.1,17.4,Incident Response Management,Establish and Maintain an Incident Response Process,https://controls-assessment-specification.readthedocs.io/en/stable/control-17/control-17.4.html
+CIS 8.1,17.5,Incident Response Management,Assign Key Roles and Responsibilities,https://controls-assessment-specification.readthedocs.io/en/stable/control-17/control-17.5.html
+CIS 8.1,17.6,Incident Response Management,Define Mechanisms for Communicating During Incident Response,https://controls-assessment-specification.readthedocs.io/en/stable/control-17/control-17.6.html
+CIS 8.1,17.7,Incident Response Management,Conduct Routine Incident Response Exercises,https://controls-assessment-specification.readthedocs.io/en/stable/control-17/control-17.7.html
+CIS 8.1,17.8,Incident Response Management,Conduct Post-Incident Reviews,https://controls-assessment-specification.readthedocs.io/en/stable/control-17/control-17.8.html
+CIS 8.1,17.9,Incident Response Management,Establish and Maintain Security Incident Thresholds,https://controls-assessment-specification.readthedocs.io/en/stable/control-17/control-17.9.html
+CIS 8.1,18.1,Penetration Testing,Establish and Maintain a Penetration Testing Program,https://controls-assessment-specification.readthedocs.io/en/stable/control-18/control-18.1.html
+CIS 8.1,18.2,Penetration Testing,Perform Periodic External Penetration Tests,https://controls-assessment-specification.readthedocs.io/en/stable/control-18/control-18.2.html
+CIS 8.1,18.3,Penetration Testing,Remediate Penetration Test Findings,https://controls-assessment-specification.readthedocs.io/en/stable/control-18/control-18.3.html
+CIS 8.1,18.4,Penetration Testing,Validate Security Measures,https://controls-assessment-specification.readthedocs.io/en/stable/control-18/control-18.4.html
+CIS 8.1,18.5,Penetration Testing,Perform Periodic Internal Penetration Tests,https://controls-assessment-specification.readthedocs.io/en/stable/control-18/control-18.5.html
+ISO 27001:2022,A.5.1,5 Organizational controls,Policies for information security,
+ISO 27001:2022,A.5.10,5 Organizational controls,Acceptable use of information and other associated assets,
+ISO 27001:2022,A.5.11,5 Organizational controls,Return of assets,
+ISO 27001:2022,A.5.12,5 Organizational controls,Classification of information,
+ISO 27001:2022,A.5.13,5 Organizational controls,Labelling of information,
+ISO 27001:2022,A.5.14,5 Organizational controls,Information transfer,
+ISO 27001:2022,A.5.15,5 Organizational controls,Access control,
+ISO 27001:2022,A.5.16,5 Organizational controls,Identity management,
+ISO 27001:2022,A.5.17,5 Organizational controls,Authentication information,
+ISO 27001:2022,A.5.18,5 Organizational controls,Access rights,
+ISO 27001:2022,A.5.19,5 Organizational controls,Information security in supplier relationships,
+ISO 27001:2022,A.5.2,5 Organizational controls,Information security roles and responsibilities,
+ISO 27001:2022,A.5.20,5 Organizational controls,Addressing information security within supplier agreements,
+ISO 27001:2022,A.5.21,5 Organizational controls,Managing information security in the information and communication technology (ICT) supply chain,
+ISO 27001:2022,A.5.22,5 Organizational controls,"Monitoring, review and change management of supplier services",
+ISO 27001:2022,A.5.23,5 Organizational controls,Information security for use of cloud services,
+ISO 27001:2022,A.5.24,5 Organizational controls,Information security incident management planning and preparation,
+ISO 27001:2022,A.5.25,5 Organizational controls,Assessment and decision on information security events,
+ISO 27001:2022,A.5.26,5 Organizational controls,Response to information security incidents,
+ISO 27001:2022,A.5.27,5 Organizational controls,Learning from information security incidents,
+ISO 27001:2022,A.5.28,5 Organizational controls,Collection of evidence,
+ISO 27001:2022,A.5.29,5 Organizational controls,Information security during disruption,
+ISO 27001:2022,A.5.3,5 Organizational controls,Segregation of duties,
+ISO 27001:2022,A.5.30,5 Organizational controls,ICT readiness for business continuity,
+ISO 27001:2022,A.5.31,5 Organizational controls,"Legal, statutory, regulatory and contractual requirements",
+ISO 27001:2022,A.5.32,5 Organizational controls,Intellectual property rights,
+ISO 27001:2022,A.5.33,5 Organizational controls,Protection of records,
+ISO 27001:2022,A.5.34,5 Organizational controls,Privacy and protection of personal identifiable information (PII),
+ISO 27001:2022,A.5.35,5 Organizational controls,Independent review of information security,
+ISO 27001:2022,A.5.36,5 Organizational controls,"Compliance with policies, rules and standards for information security",
+ISO 27001:2022,A.5.37,5 Organizational controls,Documented operating procedures,
+ISO 27001:2022,A.5.4,5 Organizational controls,Management responsibilities,
+ISO 27001:2022,A.5.5,5 Organizational controls,Contact with authorities,
+ISO 27001:2022,A.5.6,5 Organizational controls,Contact with special interest groups,
+ISO 27001:2022,A.5.7,5 Organizational controls,Threat intelligence,
+ISO 27001:2022,A.5.8,5 Organizational controls,Information security in project management,
+ISO 27001:2022,A.5.9,5 Organizational controls,Inventory of information and other associated assets,
+ISO 27001:2022,A.6.1,6 People controls,Screening,
+ISO 27001:2022,A.6.2,6 People controls,Terms and conditions of employment,
+ISO 27001:2022,A.6.3,6 People controls,"Information security awareness, education and training",
+ISO 27001:2022,A.6.4,6 People controls,Disciplinary process,
+ISO 27001:2022,A.6.5,6 People controls,Responsibilities after termination or change of employment,
+ISO 27001:2022,A.6.6,6 People controls,Confidentiality or non-disclosure agreements,
+ISO 27001:2022,A.6.7,6 People controls,Remote working,
+ISO 27001:2022,A.6.8,6 People controls,Information security event reporting,
+ISO 27001:2022,A.7.1,7 Physical controls,Physical security perimeters,
+ISO 27001:2022,A.7.10,7 Physical controls,Storage media,
+ISO 27001:2022,A.7.11,7 Physical controls,Supporting utilities,
+ISO 27001:2022,A.7.12,7 Physical controls,Cabling security,
+ISO 27001:2022,A.7.13,7 Physical controls,Equipment maintenance,
+ISO 27001:2022,A.7.14,7 Physical controls,Secure disposal or re-use of equipment,
+ISO 27001:2022,A.7.2,7 Physical controls,Physical entry,
+ISO 27001:2022,A.7.3,7 Physical controls,"Securing offices, rooms and facilities",
+ISO 27001:2022,A.7.4,7 Physical controls,Physical security monitoring,
+ISO 27001:2022,A.7.5,7 Physical controls,Protecting against physical and environmental threats,
+ISO 27001:2022,A.7.6,7 Physical controls,Working in secure areas,
+ISO 27001:2022,A.7.7,7 Physical controls,Clear desk and clear screen,
+ISO 27001:2022,A.7.8,7 Physical controls,Equipment siting and protection ,
+ISO 27001:2022,A.7.9,7 Physical controls,Security of assets off-premises,
+ISO 27001:2022,A.8.1,8 Technological controls,User end point devices,
+ISO 27001:2022,A.8.10,8 Technological controls,Information deletion,
+ISO 27001:2022,A.8.11,8 Technological controls,Data masking,
+ISO 27001:2022,A.8.12,8 Technological controls,Data leakage prevention,
+ISO 27001:2022,A.8.13,8 Technological controls,Information backup,
+ISO 27001:2022,A.8.14,8 Technological controls,Redundancy of information processing facilities,
+ISO 27001:2022,A.8.15,8 Technological controls,Logging,
+ISO 27001:2022,A.8.16,8 Technological controls,Monitoring activities,
+ISO 27001:2022,A.8.17,8 Technological controls,Clock synchronization,
+ISO 27001:2022,A.8.18,8 Technological controls,Use of privileged utility programs,
+ISO 27001:2022,A.8.19,8 Technological controls,Installation of software on operational systems,
+ISO 27001:2022,A.8.2,8 Technological controls,Privileged access rights,
+ISO 27001:2022,A.8.20,8 Technological controls,Networks security,
+ISO 27001:2022,A.8.21,8 Technological controls,Security of network services,
+ISO 27001:2022,A.8.22,8 Technological controls,Segregation of networks,
+ISO 27001:2022,A.8.23,8 Technological controls,Web filtering,
+ISO 27001:2022,A.8.24,8 Technological controls,Use of cryptography,
+ISO 27001:2022,A.8.25,8 Technological controls,Secure development life cycle,
+ISO 27001:2022,A.8.26,8 Technological controls,Application security requirements,
+ISO 27001:2022,A.8.27,8 Technological controls,Secure system architecture and engineering principles,
+ISO 27001:2022,A.8.28,8 Technological controls,Secure coding,
+ISO 27001:2022,A.8.29,8 Technological controls,Security testing in development and acceptance,
+ISO 27001:2022,A.8.3,8 Technological controls,Information access restriction,
+ISO 27001:2022,A.8.30,8 Technological controls,Outsourced development,
+ISO 27001:2022,A.8.31,8 Technological controls,"Separation of development, test and production environments",
+ISO 27001:2022,A.8.32,8 Technological controls,Change management,
+ISO 27001:2022,A.8.33,8 Technological controls,Test information,
+ISO 27001:2022,A.8.34,8 Technological controls,Protection of information systems during audit testing,
+ISO 27001:2022,A.8.4,8 Technological controls,Access to source code,
+ISO 27001:2022,A.8.5,8 Technological controls,Secure authentication,
+ISO 27001:2022,A.8.6,8 Technological controls,Capacity management,
+ISO 27001:2022,A.8.7,8 Technological controls,Protection against malware,
+ISO 27001:2022,A.8.8,8 Technological controls,Management of technical vulnerabilities,
+ISO 27001:2022,A.8.9,8 Technological controls,Configuration management,
+NIST CSF v2.0,DE.AE-02,Adverse Event Analysis (DE.AE),DE.AE-02: Potentially adverse events are analyzed to better understand associated activities,
+NIST CSF v2.0,DE.AE-03,Adverse Event Analysis (DE.AE),DE.AE-03: Information is correlated from multiple sources,
+NIST CSF v2.0,DE.AE-04,Adverse Event Analysis (DE.AE),DE.AE-04: The estimated impact and scope of adverse events are understood,
+NIST CSF v2.0,DE.AE-06,Adverse Event Analysis (DE.AE),DE.AE-06: Information on adverse events is provided to authorized staff and tools,
+NIST CSF v2.0,DE.AE-07,Adverse Event Analysis (DE.AE),DE.AE-07: Cyber threat intelligence and other contextual information are integrated into the analysis,
+NIST CSF v2.0,DE.AE-08,Adverse Event Analysis (DE.AE),DE.AE-08: Incidents are declared when adverse events meet the defined incident criteria,
+NIST CSF v2.0,DE.CM-01,Continuous Monitoring (DE.CM),DE.CM-01: Networks and network services are monitored to find potentially adverse events,
+NIST CSF v2.0,DE.CM-02,Continuous Monitoring (DE.CM),DE.CM-02: The physical environment is monitored to find potentially adverse events,
+NIST CSF v2.0,DE.CM-03,Continuous Monitoring (DE.CM),DE.CM-03: Personnel activity and technology usage are monitored to find potentially adverse events,
+NIST CSF v2.0,DE.CM-06,Continuous Monitoring (DE.CM),DE.CM-06: External service provider activities and services are monitored to find potentially adverse events,
+NIST CSF v2.0,DE.CM-09,Continuous Monitoring (DE.CM),"DE.CM-09: Computing hardware and software, runtime environments, and their data are monitored to find potentially adverse events",
+NIST CSF v2.0,GV.OC-01,Organizational Context (GV.OC),GV.OC-01: The organizational mission is understood and informs cybersecurity risk management,
+NIST CSF v2.0,GV.OC-02,Organizational Context (GV.OC),"GV.OC-02: Internal and external stakeholders are understood, and their needs and expectations regarding cybersecurity risk management are understood and considered",
+NIST CSF v2.0,GV.OC-03,Organizational Context (GV.OC),"GV.OC-03: Legal, regulatory, and contractual requirements regarding cybersecurity - including privacy and civil liberties obligations - are understood and managed",
+NIST CSF v2.0,GV.OC-04,Organizational Context (GV.OC),"GV.OC-04: Critical objectives, capabilities, and services that stakeholders depend on or expect from the organization are understood and communicated",
+NIST CSF v2.0,GV.OC-05,Organizational Context (GV.OC),"GV.OC-05: Outcomes, capabilities, and services that the organization depends on are understood and communicated",
+NIST CSF v2.0,GV.OV-01,Oversight (GV.OV),GV.OV-01: Cybersecurity risk management strategy outcomes are reviewed to inform and adjust strategy and direction,
+NIST CSF v2.0,GV.OV-02,Oversight (GV.OV),GV.OV-02: The cybersecurity risk management strategy is reviewed and adjusted to ensure coverage of organizational requirements and risks,
+NIST CSF v2.0,GV.OV-03,Oversight (GV.OV),GV.OV-03: Organizational cybersecurity risk management performance is evaluated and reviewed for adjustments needed,
+NIST CSF v2.0,GV.PO-01,Policy (GV.PO),"GV.PO-01: Policy for managing cybersecurity risks is established based on organizational context, cybersecurity strategy, and priorities and is communicated and enforced",
+NIST CSF v2.0,GV.PO-02,Policy (GV.PO),"GV.PO-02: Policy for managing cybersecurity risks is reviewed, updated, communicated, and enforced to reflect changes in requirements, threats, technology, and organizational mission",
+NIST CSF v2.0,GV.RM-01,Risk Management Strategy (GV.RM),GV.RM-01: Risk management objectives are established and agreed to by organizational stakeholders,
+NIST CSF v2.0,GV.RM-02,Risk Management Strategy (GV.RM),"GV.RM-02: Risk appetite and risk tolerance statements are established, communicated, and maintained",
+NIST CSF v2.0,GV.RM-03,Risk Management Strategy (GV.RM),GV.RM-03: Cybersecurity risk management activities and outcomes are included in enterprise risk management processes,
+NIST CSF v2.0,GV.RM-04,Risk Management Strategy (GV.RM),GV.RM-04: Strategic direction that describes appropriate risk response options is established and communicated,
+NIST CSF v2.0,GV.RM-05,Risk Management Strategy (GV.RM),"GV.RM-05: Lines of communication across the organization are established for cybersecurity risks, including risks from suppliers and other third parties",
+NIST CSF v2.0,GV.RM-06,Risk Management Strategy (GV.RM),"GV.RM-06: A standardized method for calculating, documenting, categorizing, and prioritizing cybersecurity risks is established and communicated",
+NIST CSF v2.0,GV.RM-07,Risk Management Strategy (GV.RM),"GV.RM-07: Strategic opportunities (i.e., positive risks) are characterized and are included in organizational cybersecurity risk discussions",
+NIST CSF v2.0,GV.RR-01,"Roles, Responsibilities, and Authorities (GV.RR)","GV.RR-01: Organizational leadership is responsible and accountable for cybersecurity risk and fosters a culture that is risk-aware, ethical, and continually improving",
+NIST CSF v2.0,GV.RR-02,"Roles, Responsibilities, and Authorities (GV.RR)","GV.RR-02: Roles, responsibilities, and authorities related to cybersecurity risk management are established, communicated, understood, and enforced",
+NIST CSF v2.0,GV.RR-03,"Roles, Responsibilities, and Authorities (GV.RR)","GV.RR-03: Adequate resources are allocated commensurate with the cybersecurity risk strategy, roles, responsibilities, and policies",
+NIST CSF v2.0,GV.RR-04,"Roles, Responsibilities, and Authorities (GV.RR)",GV.RR-04: Cybersecurity is included in human resources practices,
+NIST CSF v2.0,GV.SC-01,Cybersecurity Supply Chain Risk Management (GV.SC),"GV.SC-01: A cybersecurity supply chain risk management program, strategy, objectives, policies, and processes are established and agreed to by organizational stakeholders",
+NIST CSF v2.0,GV.SC-02,Cybersecurity Supply Chain Risk Management (GV.SC),"GV.SC-02: Cybersecurity roles and responsibilities for suppliers, customers, and partners are established, communicated, and coordinated internally and externally",
+NIST CSF v2.0,GV.SC-03,Cybersecurity Supply Chain Risk Management (GV.SC),"GV.SC-03: Cybersecurity supply chain risk management is integrated into cybersecurity and enterprise risk management, risk assessment, and improvement processes",
+NIST CSF v2.0,GV.SC-04,Cybersecurity Supply Chain Risk Management (GV.SC),GV.SC-04: Suppliers are known and prioritized by criticality,
+NIST CSF v2.0,GV.SC-05,Cybersecurity Supply Chain Risk Management (GV.SC),"GV.SC-05: Requirements to address cybersecurity risks in supply chains are established, prioritized, and integrated into contracts and other types of agreements with suppliers and other relevant third parties",
+NIST CSF v2.0,GV.SC-06,Cybersecurity Supply Chain Risk Management (GV.SC),GV.SC-06: Planning and due diligence are performed to reduce risks before entering into formal supplier or other third-party relationships,
+NIST CSF v2.0,GV.SC-07,Cybersecurity Supply Chain Risk Management (GV.SC),"GV.SC-07: The risks posed by a supplier, their products and services, and other third parties are understood, recorded, prioritized, assessed, responded to, and monitored over the course of the relationship",
+NIST CSF v2.0,GV.SC-08,Cybersecurity Supply Chain Risk Management (GV.SC),"GV.SC-08: Relevant suppliers and other third parties are included in incident planning, response, and recovery activities",
+NIST CSF v2.0,GV.SC-09,Cybersecurity Supply Chain Risk Management (GV.SC),"GV.SC-09: Supply chain security practices are integrated into cybersecurity and enterprise risk management programs, and their performance is monitored throughout the technology product and service life cycle",
+NIST CSF v2.0,GV.SC-10,Cybersecurity Supply Chain Risk Management (GV.SC),GV.SC-10: Cybersecurity supply chain risk management plans include provisions for activities that occur after the conclusion of a partnership or service agreement,
+NIST CSF v2.0,ID.AM-01,Asset Management (ID.AM),ID.AM-01: Inventories of hardware managed by the organization are maintained,
+NIST CSF v2.0,ID.AM-02,Asset Management (ID.AM),"ID.AM-02: Inventories of software, services, and systems managed by the organization are maintained",
+NIST CSF v2.0,ID.AM-03,Asset Management (ID.AM),ID.AM-03: Representations of the organization's authorized network communication and internal and external network data flows are maintained,
+NIST CSF v2.0,ID.AM-04,Asset Management (ID.AM),ID.AM-04: Inventories of services provided by suppliers are maintained,
+NIST CSF v2.0,ID.AM-05,Asset Management (ID.AM),"ID.AM-05: Assets are prioritized based on classification, criticality, resources, and impact on the mission",
+NIST CSF v2.0,ID.AM-07,Asset Management (ID.AM),ID.AM-07: Inventories of data and corresponding metadata for designated data types are maintained,
+NIST CSF v2.0,ID.AM-08,Asset Management (ID.AM),"ID.AM-08: Systems, hardware, software, services, and data are managed throughout their life cycles",
+NIST CSF v2.0,ID.IM-01,Improvement (ID.IM),ID.IM-01: Improvements are identified from evaluations,
+NIST CSF v2.0,ID.IM-02,Improvement (ID.IM),"ID.IM-02: Improvements are identified from security tests and exercises, including those done in coordination with suppliers and relevant third parties",
+NIST CSF v2.0,ID.IM-03,Improvement (ID.IM),"ID.IM-03: Improvements are identified from execution of operational processes, procedures, and activities",
+NIST CSF v2.0,ID.IM-04,Improvement (ID.IM),"ID.IM-04: Incident response plans and other cybersecurity plans that affect operations are established, communicated, maintained, and improved",
+NIST CSF v2.0,ID.RA-01,Risk Assessment (ID.RA),"ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded",
+NIST CSF v2.0,ID.RA-02,Risk Assessment (ID.RA),ID.RA-02: Cyber threat intelligence is received from information sharing forums and sources,
+NIST CSF v2.0,ID.RA-03,Risk Assessment (ID.RA),ID.RA-03: Internal and external threats to the organization are identified and recorded,
+NIST CSF v2.0,ID.RA-04,Risk Assessment (ID.RA),ID.RA-04: Potential impacts and likelihoods of threats exploiting vulnerabilities are identified and recorded,
+NIST CSF v2.0,ID.RA-05,Risk Assessment (ID.RA),"ID.RA-05: Threats, vulnerabilities, likelihoods, and impacts are used to understand inherent risk and inform risk response prioritization",
+NIST CSF v2.0,ID.RA-06,Risk Assessment (ID.RA),"ID.RA-06: Risk responses are chosen, prioritized, planned, tracked, and communicated",
+NIST CSF v2.0,ID.RA-07,Risk Assessment (ID.RA),"ID.RA-07: Changes and exceptions are managed, assessed for risk impact, recorded, and tracked",
+NIST CSF v2.0,ID.RA-08,Risk Assessment (ID.RA),"ID.RA-08: Processes for receiving, analyzing, and responding to vulnerability disclosures are established",
+NIST CSF v2.0,ID.RA-09,Risk Assessment (ID.RA),ID.RA-09: The authenticity and integrity of hardware and software are assessed prior to acquisition and use,
+NIST CSF v2.0,ID.RA-10,Risk Assessment (ID.RA),ID.RA-10: Critical suppliers are assessed prior to acquisition,
+NIST CSF v2.0,PR.AA-01,"Identity Management, Authentication, and Access Control (PR.AA)","PR.AA-01: Identities and credentials for authorized users, services, and hardware are managed by the organization",
+NIST CSF v2.0,PR.AA-02,"Identity Management, Authentication, and Access Control (PR.AA)",PR.AA-02: Identities are proofed and bound to credentials based on the context of interactions,
+NIST CSF v2.0,PR.AA-03,"Identity Management, Authentication, and Access Control (PR.AA)","PR.AA-03: Users, services, and hardware are authenticated",
+NIST CSF v2.0,PR.AA-04,"Identity Management, Authentication, and Access Control (PR.AA)","PR.AA-04: Identity assertions are protected, conveyed, and verified",
+NIST CSF v2.0,PR.AA-05,"Identity Management, Authentication, and Access Control (PR.AA)","PR.AA-05: Access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed, and incorporate the principles of least privilege and separation of duties",
+NIST CSF v2.0,PR.AA-06,"Identity Management, Authentication, and Access Control (PR.AA)","PR.AA-06: Physical access to assets is managed, monitored, and enforced commensurate with risk",
+NIST CSF v2.0,PR.AT-01,Awareness and Training (PR.AT),PR.AT-01: Personnel are provided with awareness and training so that they possess the knowledge and skills to perform general tasks with cybersecurity risks in mind,
+NIST CSF v2.0,PR.AT-02,Awareness and Training (PR.AT),PR.AT-02: Individuals in specialized roles are provided with awareness and training so that they possess the knowledge and skills to perform relevant tasks with cybersecurity risks in mind,
+NIST CSF v2.0,PR.DS-01,Data Security (PR.DS),"PR.DS-01: The confidentiality, integrity, and availability of data-at-rest are protected",
+NIST CSF v2.0,PR.DS-02,Data Security (PR.DS),"PR.DS-02: The confidentiality, integrity, and availability of data-in-transit are protected",
+NIST CSF v2.0,PR.DS-10,Data Security (PR.DS),"PR.DS-10: The confidentiality, integrity, and availability of data-in-use are protected",
+NIST CSF v2.0,PR.DS-11,Data Security (PR.DS),"PR.DS-11: Backups of data are created, protected, maintained, and tested",
+NIST CSF v2.0,PR.IR-01,Technology Infrastructure Resilience (PR.IR),PR.IR-01: Networks and environments are protected from unauthorized logical access and usage,
+NIST CSF v2.0,PR.IR-02,Technology Infrastructure Resilience (PR.IR),PR.IR-02: The organization's technology assets are protected from environmental threats,
+NIST CSF v2.0,PR.IR-03,Technology Infrastructure Resilience (PR.IR),PR.IR-03: Mechanisms are implemented to achieve resilience requirements in normal and adverse situations,
+NIST CSF v2.0,PR.IR-04,Technology Infrastructure Resilience (PR.IR),PR.IR-04: Adequate resource capacity to ensure availability is maintained,
+NIST CSF v2.0,PR.PS-01,Platform Security (PR.PS),PR.PS-01: Configuration management practices are established and applied,
+NIST CSF v2.0,PR.PS-02,Platform Security (PR.PS),"PR.PS-02: Software is maintained, replaced, and removed commensurate with risk",
+NIST CSF v2.0,PR.PS-03,Platform Security (PR.PS),"PR.PS-03: Hardware is maintained, replaced, and removed commensurate with risk",
+NIST CSF v2.0,PR.PS-04,Platform Security (PR.PS),PR.PS-04: Log records are generated and made available for continuous monitoring,
+NIST CSF v2.0,PR.PS-05,Platform Security (PR.PS),PR.PS-05: Installation and execution of unauthorized software are prevented,
+NIST CSF v2.0,PR.PS-06,Platform Security (PR.PS),"PR.PS-06: Secure software development practices are integrated, and their performance is monitored throughout the software development life cycle",
+NIST CSF v2.0,RC.CO-03,Incident Recovery Communication (RC.CO),RC.CO-03: Recovery activities and progress in restoring operational capabilities are communicated to designated internal and external stakeholders,
+NIST CSF v2.0,RC.CO-04,Incident Recovery Communication (RC.CO),RC.CO-04: Public updates on incident recovery are shared using approved methods and messaging,
+NIST CSF v2.0,RC.RP-01,Incident Recovery Plan Execution (RC.RP),RC.RP-01: The recovery portion of the incident response plan is executed once initiated from the incident response process,
+NIST CSF v2.0,RC.RP-02,Incident Recovery Plan Execution (RC.RP),"RC.RP-02: Recovery actions are selected, scoped, prioritized, and performed",
+NIST CSF v2.0,RC.RP-03,Incident Recovery Plan Execution (RC.RP),RC.RP-03: The integrity of backups and other restoration assets is verified before using them for restoration,
+NIST CSF v2.0,RC.RP-04,Incident Recovery Plan Execution (RC.RP),RC.RP-04: Critical mission functions and cybersecurity risk management are considered to establish post-incident operational norms,
+NIST CSF v2.0,RC.RP-05,Incident Recovery Plan Execution (RC.RP),"RC.RP-05: The integrity of restored assets is verified, systems and services are restored, and normal operating status is confirmed",
+NIST CSF v2.0,RC.RP-06,Incident Recovery Plan Execution (RC.RP),"RC.RP-06: The end of incident recovery is declared based on criteria, and incident-related documentation is completed",
+NIST CSF v2.0,RS.AN-03,Incident Analysis (RS.AN),RS.AN-03: Analysis is performed to establish what has taken place during an incident and the root cause of the incident,
+NIST CSF v2.0,RS.AN-06,Incident Analysis (RS.AN),"RS.AN-06: Actions performed during an investigation are recorded, and the records' integrity and provenance are preserved",
+NIST CSF v2.0,RS.AN-07,Incident Analysis (RS.AN),"RS.AN-07: Incident data and metadata are collected, and their integrity and provenance are preserved",
+NIST CSF v2.0,RS.AN-08,Incident Analysis (RS.AN),RS.AN-08: An incident's magnitude is estimated and validated,
+NIST CSF v2.0,RS.CO-02,Incident Response Reporting and Communication (RS.CO),RS.CO-02: Internal and external stakeholders are notified of incidents,
+NIST CSF v2.0,RS.CO-03,Incident Response Reporting and Communication (RS.CO),RS.CO-03: Information is shared with designated internal and external stakeholders,
+NIST CSF v2.0,RS.MA-01,Incident Management (RS.MA),RS.MA-01: The incident response plan is executed in coordination with relevant third parties once an incident is declared,
+NIST CSF v2.0,RS.MA-02,Incident Management (RS.MA),RS.MA-02: Incident reports are triaged and validated,
+NIST CSF v2.0,RS.MA-03,Incident Management (RS.MA),RS.MA-03: Incidents are categorized and prioritized,
+NIST CSF v2.0,RS.MA-04,Incident Management (RS.MA),RS.MA-04: Incidents are escalated or elevated as needed,
+NIST CSF v2.0,RS.MA-05,Incident Management (RS.MA),RS.MA-05: The criteria for initiating incident recovery are applied,
+NIST CSF v2.0,RS.MI-01,Incident Mitigation (RS.MI),RS.MI-01: Incidents are contained,
+NIST CSF v2.0,RS.MI-02,Incident Mitigation (RS.MI),RS.MI-02: Incidents are eradicated,

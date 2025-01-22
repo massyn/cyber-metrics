@@ -1,0 +1,19 @@
+category: Development
+description: The percentage of code repositories with Static Application Security
+  Testing (SAST) and Dynamic Application Security Testing (DAST) scanning enabled,
+  ensuring early detection of vulnerabilities during development and reducing the
+  risk of security breaches before code is deployed.
+metric_id: sd_repository_coverage
+references:
+  CIS 8.1:
+  - '16.12'
+  ISO 27001:2022:
+  - A.8.25
+  NIST CSF v2.0:
+  - PR.PS-06
+slo:
+- 0.9
+- 0.95
+title: Repositories with SAST / DAST scanning enabled
+type: control
+weight: 0.5

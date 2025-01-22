@@ -1,0 +1,21 @@
+category: Identity
+description: The percentage of user accounts secured with multi-factor authentication,
+  a critical metric that quantifies the effectiveness of identity protection by reducing
+  the risk of unauthorized access and safeguarding sensitive assets, making it vital
+  for minimizing the impact of credential-based attacks.
+metric_id: im_authentication_mfa
+references:
+  CIS 8.1:
+  - '6.3'
+  - '6.4'
+  - '6.5'
+  ISO 27001:2022:
+  - A.5.17
+  NIST CSF v2.0:
+  - PR.AA-03
+slo:
+- 0.9
+- 0.95
+title: Identities with MFA
+type: risk
+weight: 0.5

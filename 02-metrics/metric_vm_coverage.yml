@@ -1,0 +1,33 @@
+metric_id: vm_coverage
+title: "Systems with an up-to-date agent deployed"
+type: control
+description: |
+  The percentage of systems with up-to-date vulnerability management agents deployed, providing critical visibility into security gaps and enabling swift action to protect the organization from exploitable weaknesses.
+category: "Vulnerability Management"
+slo: [ 0.80, 0.95 ]
+weight: 0.4
+references:
+  "ISO 27001:2022": 
+    - A.8.8
+  "CIS 8.1":
+    - 7.5
+    - 7.6
+  "NIST CSF v2.0":
+    - ID.RA-01
+# query: |
+#     SELECT
+#         host.hostname AS resource,
+#         'host' as resource_type,
+#         CASE 
+#             WHEN cve.aid IS NULL THEN 1
+#             ELSE 0
+#         END AS compliance,
+#         '' AS detail
+#     FROM 
+#       {{ ref('crowdstrike_hosts') }} AS host
+#     LEFT JOIN 
+#       {{ ref('crowdstrike_vulnerabilities') }} AS cve
+#     ON 
+#       host.device_id = cve.aid  
+#       AND cve.severity IN ('HIGH', 'CRITICAL')
+#       AND cve.status IN ('open', 'reopen')

@@ -1,0 +1,19 @@
+category: Network
+description: The "Insecure Ports" metric tracks external endpoints with open ports
+  that are improperly configured or vulnerable, highlighting potential entry points
+  for cyberattacks, which is critical for reducing the organization's exposure to
+  exploitation and ensuring the security of its network infrastructure.
+metric_id: ne_insecure_ports
+references:
+  CIS 8.1:
+  - '12.2'
+  ISO 27001:2022:
+  - A.8.20
+  NIST CSF v2.0:
+  - PR.DS-02
+slo:
+- 0.9
+- 0.95
+title: External endpoints with insecure ports exposed
+type: risk
+weight: 0.5

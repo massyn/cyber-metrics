@@ -1,0 +1,19 @@
+category: Vulnerability
+description: The percentage of systems that have resolved exploitable, patchable vulnerabilities
+  within the agreed Service Level Objective (SLO), providing critical insight into
+  the organization's ability to minimize exposure to known threats and reduce the
+  attack surface effectively.
+metric_id: vm_performance_patchable
+references:
+  CIS 8.1:
+  - '7.7'
+  ISO 27001:2022:
+  - A.8.8
+  NIST CSF v2.0:
+  - ID.RA-01
+slo:
+- 0.9
+- 0.95
+title: Systems without exploitable patchable vulnerabilities remediated within SLO
+type: performance
+weight: 0.5

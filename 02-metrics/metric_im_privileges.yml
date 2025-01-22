@@ -1,0 +1,19 @@
+category: Identity
+description: The percentage of user accounts configured without administrative rights,
+  which is critical for reducing the attack surface, limiting the potential impact
+  of compromised credentials, and aligning with least-privilege security principles
+  to protect organizational systems and data.
+metric_id: im_privileges
+references:
+  CIS 8.1:
+  - '5.4'
+  ISO 27001:2022:
+  - A.8.2
+  NIST CSF v2.0:
+  - PR.AA-05
+slo:
+- 0.9
+- 0.95
+title: Accounts without Admin privileges
+type: risk
+weight: 0.5

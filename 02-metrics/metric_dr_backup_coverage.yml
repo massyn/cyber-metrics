@@ -1,0 +1,19 @@
+category: Data Protection
+description: The percentage of systems with backups configured in accordance with
+  their Service Level Objectives (SLO), ensuring critical data can be restored in
+  the event of a failure, which is essential for maintaining business continuity and
+  mitigating the impact of data loss.
+metric_id: dr_backup_coverage
+references:
+  CIS 8.1:
+  - '11.2'
+  ISO 27001:2022:
+  - A.8.13
+  NIST CSF v2.0:
+  - PR.DS-11
+slo:
+- 0.9
+- 0.95
+title: Systems with backups configured per their SLO
+type: control
+weight: 0.5

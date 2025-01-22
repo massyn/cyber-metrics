@@ -1,0 +1,19 @@
+category: Development
+description: The percentage of code repositories in the development pipeline that
+  have resolved critical security vulnerabilities within the established service level
+  objective (SLO), ensuring that potential threats are mitigated in a timely manner
+  to reduce exposure to security risks and maintain compliance with security standards.
+metric_id: sd_vulnerabilities_performance
+references:
+  CIS 8.1:
+  - '16.12'
+  ISO 27001:2022:
+  - A.8.25
+  NIST CSF v2.0:
+  - PR.PS-06
+slo:
+- 0.9
+- 0.95
+title: Repositories without exploitable vulnerabilities remediated within SLO
+type: performance
+weight: 0.5
