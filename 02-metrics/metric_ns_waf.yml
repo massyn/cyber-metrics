@@ -1,0 +1,23 @@
+---
+metric_id: ns_waf
+title: External endpoints protected by a WAF
+category: Network Security
+type: control
+description: The metric measures the proportion of external-facing endpoints
+  shielded by a Web Application Firewall (WAF), highlighting an organization's
+  ability to prevent unauthorized access, mitigate threats like SQL injection
+  and cross-site scripting, and safeguard critical systems from cyberattacks,
+  making it a key indicator of external-facing application security.
+slo:
+  - 0.9
+  - 0.95
+weight: 0.5
+enabled: true
+references:
+  CIS 8.1:
+    - '13.3'
+  ISO 27001:2022:
+    - A.8.20
+  NIST CSF v2.0:
+    - PR.IR-01
+query: null

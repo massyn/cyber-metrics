@@ -23,35 +23,33 @@ The following frameworks are used in the mapping of metrics
 |**Category**|**Title**|**Type**|**Query**|
 |--|--|--|--|
 |**Data Protection**|||||
-||[Systems with their volumes encrypted](#systems-with-their-volumes-encrypted)|![risk](https://img.shields.io/badge/RISK-c00000)|![No](https://img.shields.io/badge/NO-00F)|
-||[Systems with backups configured per their SLO](#systems-with-backups-configured-per-their-slo)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
-||[Systems that has had a successful backup per their SLO](#systems-that-has-had-a-successful-backup-per-their-slo)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![No](https://img.shields.io/badge/NO-00F)|
-|**Identity**|||||
-||[Identities with MFA](#identities-with-mfa)|![risk](https://img.shields.io/badge/RISK-c00000)|![No](https://img.shields.io/badge/NO-00F)|
-||[Accounts without Admin privileges](#accounts-without-admin-privileges)|![risk](https://img.shields.io/badge/RISK-c00000)|![No](https://img.shields.io/badge/NO-00F)|
+||[Systems with their volumes encrypted](#systems-with-their-volumes-encrypted)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+|**Disaster Recovery**|||||
+||[Systems with backups configured per their SLO](#systems-with-backups-configured-per-their-slo)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Systems that has had a successful backup per their SLO](#systems-that-has-had-a-successful-backup-per-their-slo)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
 |**Identity Management**|||||
+||[Identities with MFA](#identities-with-mfa)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Identity - Credentials - Regular Password Rotation](#identity---credentials---regular-password-rotation)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Identity - Inactive Identities](#identity---inactive-identities)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
-|**Malware**|||||
-||[Systems with an up-to-date agent deployed](#systems-with-an-up-to-date-agent-deployed)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
-|**Network**|||||
-||[External endpoints with insecure ports exposed](#external-endpoints-with-insecure-ports-exposed)|![risk](https://img.shields.io/badge/RISK-c00000)|![No](https://img.shields.io/badge/NO-00F)|
-||[External endpoints protected by a WAF](#external-endpoints-protected-by-a-waf)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
-|**Development**|||||
-||[Repositories with SAST / DAST scanning enabled](#repositories-with-sast-/-dast-scanning-enabled)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
-||[Repositories without exploitable vulnerabilities remediated within SLO](#repositories-without-exploitable-vulnerabilities-remediated-within-slo)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![No](https://img.shields.io/badge/NO-00F)|
+||[Accounts without Admin privileges](#accounts-without-admin-privileges)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+|**Malware Protection**|||||
+||[Systems with an up-to-date agent deployed](#systems-with-an-up-to-date-agent-deployed)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
+|**Network Security**|||||
+||[External endpoints with insecure ports exposed](#external-endpoints-with-insecure-ports-exposed)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[External endpoints protected by a WAF](#external-endpoints-protected-by-a-waf)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
 |**Software Development**|||||
+||[Repositories with SAST / DAST scanning enabled](#repositories-with-sast-/-dast-scanning-enabled)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Repositories without exploitable vulnerabilities](#repositories-without-exploitable-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Repositories without exploitable vulnerabilities remediated within SLO](#repositories-without-exploitable-vulnerabilities-remediated-within-slo)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
 |**User Security**|||||
 ||[Users completed awareness training in the last 12 months](#users-completed-awareness-training-in-the-last-12-months)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
 |**Vulnerability Management**|||||
-||[Systems with an up-to-date agent deployed](#systems-with-an-up-to-date-agent-deployed)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
+||[Systems with an up-to-date agent deployed](#systems-with-an-up-to-date-agent-deployed)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Systems without Critical and High vulnerabilities](#systems-without-critical-and-high-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Critical vulnerabilities patched within SLO](#critical-vulnerabilities-patched-within-slo)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Systems without exploitable vulnerabilities](#systems-without-exploitable-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
-|**Vulnerability**|||||
-||[Systems without exploitable patchable vulnerabilities remediated within SLO](#systems-without-exploitable-patchable-vulnerabilities-remediated-within-slo)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![No](https://img.shields.io/badge/NO-00F)|
-||[Systems without exploitable patchable vulnerabilities](#systems-without-exploitable-patchable-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![No](https://img.shields.io/badge/NO-00F)|
+||[Systems without exploitable patchable vulnerabilities remediated within SLO](#systems-without-exploitable-patchable-vulnerabilities-remediated-within-slo)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Systems without patchable vulnerabilities](#systems-without-patchable-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 
 
 ## List of metrics
@@ -93,7 +91,7 @@ The percentage of systems with backups configured in accordance with their Servi
 | Attribute | Value |
 |-----------|-------|
 |**Metric id**|`dr_backup_coverage`|
-|**Category**|Data Protection|
+|**Category**|Disaster Recovery|
 |**SLO**|90.00% - 95.00%|
 |**Weight**|0.5|
 |**Type**|![control](https://img.shields.io/badge/CONTROL-0000F0)
@@ -120,7 +118,7 @@ The percentage of systems that successfully complete backups within their define
 | Attribute | Value |
 |-----------|-------|
 |**Metric id**|`dr_backup_performance`|
-|**Category**|Data Protection|
+|**Category**|Disaster Recovery|
 |**SLO**|90.00% - 95.00%|
 |**Weight**|0.5|
 |**Type**|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)
@@ -147,7 +145,7 @@ The percentage of user accounts secured with multi-factor authentication, a crit
 | Attribute | Value |
 |-----------|-------|
 |**Metric id**|`im_authentication_mfa`|
-|**Category**|Identity|
+|**Category**|Identity Management|
 |**SLO**|90.00% - 95.00%|
 |**Weight**|0.5|
 |**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
@@ -169,7 +167,10 @@ The percentage of user accounts secured with multi-factor authentication, a crit
 
 #### Description
 
-Regular password rotation ensures that credentials are periodically updated, reducing the risk of unauthorized access from compromised or stale passwords, which is critical to maintaining the security of your organization's systems and data.
+Regular password rotation ensures that credentials are periodically updated,
+reducing the risk of unauthorized access from compromised or stale
+passwords, which is critical to maintaining the security of your
+organization's systems and data.
 
 
 #### Meta Data
@@ -196,7 +197,11 @@ Regular password rotation ensures that credentials are periodically updated, red
 
 #### Description
 
-Dormant Identities tracks the number of unused or inactive accounts within the organization, providing critical insight into potential security risks as dormant accounts are prime targets for unauthorized access and exploitation, making their identification and timely deactivation essential for reducing the attack surface and maintaining robust access controls.
+Dormant Identities tracks the number of unused or inactive accounts within
+the organization, providing critical insight into potential security risks
+as dormant accounts are prime targets for unauthorized access and
+exploitation, making their identification and timely deactivation essential
+for reducing the attack surface and maintaining robust access controls.
 
 
 #### Meta Data
@@ -231,7 +236,7 @@ The percentage of user accounts configured without administrative rights, which 
 | Attribute | Value |
 |-----------|-------|
 |**Metric id**|`im_privileges`|
-|**Category**|Identity|
+|**Category**|Identity Management|
 |**SLO**|90.00% - 95.00%|
 |**Weight**|0.5|
 |**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
@@ -251,14 +256,14 @@ The percentage of user accounts configured without administrative rights, which 
 
 #### Description
 
-The percentage of systems with an up-to-date malware detection agent deployed, ensuring the organization’s defenses are robust against the latest threats, and is critical for minimizing vulnerability to malware attacks.
+The percentage of systems with an up-to-date malware detection agent deployed, ensuring the organization\u2019s defenses are robust against the latest threats, and is critical for minimizing vulnerability to malware attacks.
 
 #### Meta Data
 
 | Attribute | Value |
 |-----------|-------|
 |**Metric id**|`mp_coverage`|
-|**Category**|Malware|
+|**Category**|Malware Protection|
 |**SLO**|90.00% - 95.00%|
 |**Weight**|0.5|
 |**Type**|![control](https://img.shields.io/badge/CONTROL-0000F0)
@@ -284,8 +289,8 @@ The "Insecure Ports" metric tracks external endpoints with open ports that are i
 
 | Attribute | Value |
 |-----------|-------|
-|**Metric id**|`ne_insecure_ports`|
-|**Category**|Network|
+|**Metric id**|`ns_insecure_ports`|
+|**Category**|Network Security|
 |**SLO**|90.00% - 95.00%|
 |**Weight**|0.5|
 |**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
@@ -305,14 +310,14 @@ The "Insecure Ports" metric tracks external endpoints with open ports that are i
 
 #### Description
 
-The "Network Application Firewall: External Endpoints Protected by a WAF" metric measures the proportion of external-facing endpoints shielded by a Web Application Firewall (WAF), highlighting an organization's ability to prevent unauthorized access, mitigate threats like SQL injection and cross-site scripting, and safeguard critical systems from cyberattacks, making it a key indicator of external-facing application security.
+The metric measures the proportion of external-facing endpoints shielded by a Web Application Firewall (WAF), highlighting an organization's ability to prevent unauthorized access, mitigate threats like SQL injection and cross-site scripting, and safeguard critical systems from cyberattacks, making it a key indicator of external-facing application security.
 
 #### Meta Data
 
 | Attribute | Value |
 |-----------|-------|
-|**Metric id**|`ne_waf`|
-|**Category**|Network|
+|**Metric id**|`ns_waf`|
+|**Category**|Network Security|
 |**SLO**|90.00% - 95.00%|
 |**Weight**|0.5|
 |**Type**|![control](https://img.shields.io/badge/CONTROL-0000F0)
@@ -339,7 +344,7 @@ The percentage of code repositories with Static Application Security Testing (SA
 | Attribute | Value |
 |-----------|-------|
 |**Metric id**|`sd_repository_coverage`|
-|**Category**|Development|
+|**Category**|Software Development|
 |**SLO**|90.00% - 95.00%|
 |**Weight**|0.5|
 |**Type**|![control](https://img.shields.io/badge/CONTROL-0000F0)
@@ -393,7 +398,7 @@ The percentage of code repositories in the development pipeline that have resolv
 | Attribute | Value |
 |-----------|-------|
 |**Metric id**|`sd_vulnerabilities_performance`|
-|**Category**|Development|
+|**Category**|Software Development|
 |**SLO**|90.00% - 95.00%|
 |**Weight**|0.5|
 |**Type**|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)
@@ -414,7 +419,6 @@ The percentage of code repositories in the development pipeline that have resolv
 #### Description
 
 The percentage of users who have completed security awareness training in the last 12 months, ensuring that employees are equipped with the latest knowledge to identify and mitigate cyber threats, which is critical for reducing organizational vulnerabilities and enhancing overall security posture.
-
 
 #### Meta Data
 
@@ -449,7 +453,6 @@ The percentage of users who have completed security awareness training in the la
 
 The percentage of systems with up-to-date vulnerability management agents deployed, providing critical visibility into security gaps and enabling swift action to protect the organization from exploitable weaknesses.
 
-
 #### Meta Data
 
 | Attribute | Value |
@@ -477,7 +480,6 @@ The percentage of systems with up-to-date vulnerability management agents deploy
 #### Description
 
 Ensure that all systems do not have any urgent vulnerabilities that can impact the risk.
-
 
 #### Meta Data
 
@@ -507,7 +509,6 @@ Ensure that all systems do not have any urgent vulnerabilities that can impact t
 
 Ensure that all systems do not have any urgent vulnerabilities that can impact the risk.
 
-
 #### Meta Data
 
 | Attribute | Value |
@@ -534,7 +535,8 @@ Ensure that all systems do not have any urgent vulnerabilities that can impact t
 
 #### Description
 
-Ensure that all systems do not have any explotable vulnerabilities that can be patched.
+Ensure that all systems do not have any explotable vulnerabilities that
+can be patched.
 
 
 #### Meta Data
@@ -570,7 +572,7 @@ The percentage of systems that have resolved exploitable, patchable vulnerabilit
 | Attribute | Value |
 |-----------|-------|
 |**Metric id**|`vm_performance_patchable`|
-|**Category**|Vulnerability|
+|**Category**|Vulnerability Management|
 |**SLO**|90.00% - 95.00%|
 |**Weight**|0.5|
 |**Type**|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)
@@ -586,18 +588,18 @@ The percentage of systems that have resolved exploitable, patchable vulnerabilit
 
 
 
-### Systems without exploitable patchable vulnerabilities
+### Systems without patchable vulnerabilities
 
 #### Description
 
-The percentage of systems within the organization that are free of known exploitable vulnerabilities with available patches, highlighting the organization's ability to reduce risk through timely patch management and ensuring a secure operational environment.
+The percentage of systems within the organization that are free of known vulnerabilities with available patches, highlighting the organization's ability to reduce risk through timely patch management and ensuring a secure operational environment.  This metric shows all vulnerabilities that can be patched.
 
 #### Meta Data
 
 | Attribute | Value |
 |-----------|-------|
 |**Metric id**|`vm_risk_patchable`|
-|**Category**|Vulnerability|
+|**Category**|Vulnerability Management|
 |**SLO**|90.00% - 95.00%|
 |**Weight**|0.5|
 |**Type**|![risk](https://img.shields.io/badge/RISK-c00000)

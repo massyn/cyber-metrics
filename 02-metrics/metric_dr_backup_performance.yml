@@ -1,19 +1,23 @@
-category: Data Protection
-description: The percentage of systems that successfully complete backups within their
-  defined Service Level Objectives (SLO), ensuring data integrity and availability,
-  which is critical for minimizing downtime, protecting against data loss, and maintaining
-  business continuity in the event of an incident.
+---
 metric_id: dr_backup_performance
+title: Systems that has had a successful backup per their SLO
+category: Disaster Recovery
+type: performance
+description: The percentage of systems that successfully complete backups
+  within their defined Service Level Objectives (SLO), ensuring data integrity
+  and availability, which is critical for minimizing downtime, protecting
+  against data loss, and maintaining business continuity in the event of an
+  incident.
+slo:
+  - 0.9
+  - 0.95
+weight: 0.5
+enabled: true
 references:
   CIS 8.1:
-  - '11.2'
+    - '11.2'
   ISO 27001:2022:
-  - A.8.13
+    - A.8.13
   NIST CSF v2.0:
-  - PR.DS-11
-slo:
-- 0.9
-- 0.95
-title: Systems that has had a successful backup per their SLO
-type: performance
-weight: 0.5
+    - PR.DS-11
+query: null

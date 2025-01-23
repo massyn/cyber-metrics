@@ -1,10 +1,19 @@
+---
 metric_id: sd_vulnerabilities
 title: "Repositories without exploitable vulnerabilities"
+category: Software Development
 type: risk
-description: "The percentage of code repositories free from known security flaws, ensuring that development efforts prioritize secure coding practices, reduce the risk of breaches, and maintain the integrity of the software development lifecycle. This metric is important as it directly impacts the organization's ability to deliver secure products and protect against potential cyber threats."
-category: "Software Development"
-slo: [ 0.98, 0.99 ]
+description: The percentage of code repositories free from known security
+  flaws, ensuring that development efforts prioritize secure coding practices,
+  reduce the risk of breaches, and maintain the integrity of the software
+  development lifecycle. This metric is important as it directly impacts the
+  organization's ability to deliver secure products and protect against
+  potential cyber threats.
+slo:
+  - 0.98
+  - 0.99
 weight: 0.8
+enabled: true
 references:
   "ISO 27001:2022":
     - A.8.25
@@ -16,16 +25,16 @@ query: |
   SELECT
       projects.attributes.name AS resource,
       'snyk' as resource_type,
-      CASE 
+      CASE
           WHEN issues.relationships.scan_item.data.id IS NOT NULL THEN 1
           ELSE 0
       END AS compliance,
       projects.attributes.target_file AS detail
-  FROM 
+  FROM
       {{ ref('snyk_projects') }} AS projects
-  LEFT JOIN 
+  LEFT JOIN
       {{ ref('snyk_issues') }} AS issues
-  ON 
+  ON
       projects.id = issues.relationships.scan_item.data.id
       AND issues.attributes.status = 'open'
       AND issues.attributes.effective_severity_level IN ('critical', 'high')

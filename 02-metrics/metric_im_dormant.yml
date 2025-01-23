@@ -1,13 +1,21 @@
+---
 metric_id: im_dormant
-title: "Identity - Inactive Identities"
+title: Identity - Inactive Identities
+category: Identity Management
 type: control
 description: |
-  Dormant Identities tracks the number of unused or inactive accounts within the organization, providing critical insight into potential security risks as dormant accounts are prime targets for unauthorized access and exploitation, making their identification and timely deactivation essential for reducing the attack surface and maintaining robust access controls.
-category: "Identity Management"
-slo: [ 0.98, 0.99 ]
+  Dormant Identities tracks the number of unused or inactive accounts within
+  the organization, providing critical insight into potential security risks
+  as dormant accounts are prime targets for unauthorized access and
+  exploitation, making their identification and timely deactivation essential
+  for reducing the attack surface and maintaining robust access controls.
+slo:
+  - 0.98
+  - 0.99
 weight: 0.8
+enabled: true
 references:
-  "ISO 27001:2022": 
+  "ISO 27001:2022":
     - A.5.16
   "CIS 8.1":
     - 5.3

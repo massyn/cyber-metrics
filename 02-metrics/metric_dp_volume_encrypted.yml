@@ -1,19 +1,22 @@
-category: Data Protection
-description: The percentage of systems with their volumes fully encrypted, ensuring
-  that sensitive data is protected from unauthorized access in the event of a device
-  loss or breach, which is crucial for safeguarding company assets and complying with
-  data protection regulations.
+---
 metric_id: dp_volume_encrypted
+title: Systems with their volumes encrypted
+category: Data Protection
+type: risk
+description: The percentage of systems with their volumes fully encrypted,
+  ensuring that sensitive data is protected from unauthorized access in the
+  event of a device loss or breach, which is crucial for safeguarding company
+  assets and complying with data protection regulations.
+slo:
+  - 0.9
+  - 0.95
+weight: 0.5
+enabled: true
 references:
   CIS 8.1:
-  - '3.11'
+    - '3.11'
   ISO 27001:2022:
-  - A.8.24
+    - A.8.24
   NIST CSF v2.0:
-  - PR.DS-01
-slo:
-- 0.9
-- 0.95
-title: Systems with their volumes encrypted
-type: risk
-weight: 0.5
+    - PR.DS-01
+query: null

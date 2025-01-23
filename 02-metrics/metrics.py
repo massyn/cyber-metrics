@@ -37,11 +37,14 @@ class Metric:
         self.data_tables[table_name] = f"{self.data_path}/{table_name}/*.json"
         return f"read_json_auto('{self.data_tables[table_name]}')"
         
-    def metric_run(self,yaml_config):
+    def metric_run(self,yaml_config,query):
+        if yaml_config.get('enabled',True) == False or query == None:
+            self.lib.log("INFO","metric_run",f"Metric {yaml_config['metric_id']} is disabled")
+            return pd.DataFrame()
         self.data_tables = {}
         env = Environment(loader=FileSystemLoader('.'))
         env.globals['ref'] = self.resolve_ref
-        template = env.from_string(yaml_config['query']).render()
+        template = env.from_string(query).render()
 
         # == check if the tables defined in the SQL query actually exist
         success = True
@@ -136,10 +139,12 @@ class Metric:
         df['datestamp'] = pd.to_datetime(df['datestamp']).dt.date
 
         # == Merge the resource dimensions - TODO
-        df['business_unit'] = 'undefined'
-        df['team'] = 'undefined'
-        df['location'] = 'undefined'
-
+        # == if we got the dimension from the query, we don't need to do anything
+        # == it is when we did not get it from the query, we need to apply it here
+        for dim in ['business_unit','team','location']:
+            if dim not in df.columns:
+                df[dim] = 'undefined'   ## TODO
+        
         return df
 
 def main(**KW):
@@ -157,12 +162,21 @@ def main(**KW):
             M.lib.log("INFO","main","-----------------------------------------------------------------------")
             if KW['metric'] == None or KW['metric'] == metric_file or KW['metric'] == metric['metric_id']:
                 M.lib.log("INFO","main",f"Metric : {metric_file}")
-                if 'query' in metric:
-                    df = M.metric_run(metric)
-                    if df.empty:
-                        M.lib.log("ERROR","main",f"There was an error generating the metric {metric_file}.  It will not be counted.",True)
+                if 'query' in metric and metric['query'] != None:
+                    # if the query is a list, split the query into individual queries, and pass it to metric_run, else run it as usual
+                    if isinstance(metric['query'],list):
+                        for query in metric['query']:
+                            df = M.metric_run(metric,query)
+                            if df.empty:
+                                M.lib.log("ERROR","main",f"There was an error generating the metric {metric_file}.  It will not be counted.",True)
+                            else:
+                                detail_df = pd.concat([detail_df, df], ignore_index=True)
                     else:
-                        detail_df = pd.concat([detail_df, df], ignore_index=True)
+                        df = M.metric_run(metric,metric['query'])
+                        if df.empty:
+                            M.lib.log("ERROR","main",f"There was an error generating the metric {metric_file}.  It will not be counted.",True)
+                        else:
+                            detail_df = pd.concat([detail_df, df], ignore_index=True)
                 else:
                     M.lib.log("WARNING","main",f"No query found in {metric_file}.yml.  It will not be counted.")
 
@@ -182,7 +196,7 @@ def main(**KW):
     except Exception as e:
         M.lib.log("ERROR","main",f"Failed to save the detail data to {KW['parquet']}: {e}",True)
 
-    M.lib.log("SUCCESS","main","All done",True)
+    M.lib.log("SUCCESS","main","Metric generation completedAll done",True)
 
 if __name__=='__main__':
     parser = argparse.ArgumentParser(description='Cyber Dashboard - Metric Generation')

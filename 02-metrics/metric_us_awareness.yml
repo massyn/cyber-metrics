@@ -1,13 +1,20 @@
+---
 metric_id: us_awareness
 title: Users completed awareness training in the last 12 months
-type: control
-description: |
-  The percentage of users who have completed security awareness training in the last 12 months, ensuring that employees are equipped with the latest knowledge to identify and mitigate cyber threats, which is critical for reducing organizational vulnerabilities and enhancing overall security posture.
 category: User Security
-slo: [ 0.80, 0.90 ]
+type: control
+description: The percentage of users who have completed security awareness
+  training in the last 12 months, ensuring that employees are equipped with
+  the latest knowledge to identify and mitigate cyber threats, which is
+  critical for reducing organizational vulnerabilities and enhancing overall
+  security posture.
+slo:
+  - 0.80
+  - 0.90
 weight: 0.4
+enabled: true
 references:
-  "ISO 27001:2022": 
+  "ISO 27001:2022":
     - A.6.3
   "CIS 8.1":
     - 14.2
@@ -23,17 +30,18 @@ query: |
   SELECT
     users.profile.login AS resource,
     'user' AS resource_type,
-    CASE 
+    CASE
       WHEN training.user.email IS NOT NULL THEN 1
       ELSE 0
     END AS compliance,
     users.profile.login AS detail
-    FROM 
+    FROM
       {{ ref('okta_users') }} AS users
-    LEFT JOIN 
+    LEFT JOIN
       {{ ref('knowbe4_enrollments') }} AS training
-    ON 
+    ON
       users.profile.login = training.user.email and
-      datediff('day',cast(training.completion_date as date),current_date()) <= 365
-    WHERE 
+      datediff('day',cast(training.completion_date as date),current_date())
+        <= 365
+    WHERE
       users.status = 'ACTIVE';
