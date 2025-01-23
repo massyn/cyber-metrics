@@ -39,7 +39,7 @@ The following frameworks are used in the mapping of metrics
 |--|--|--|--|
 {% for a in unique_categories %}|**{{ a }}**|||||
 {% for x in data if x['category'] == a -%}
-||{{ anchor(x['title']) }}|{{ icon(x['type']) }}|{{ "![yes](https://img.shields.io/badge/YES-00F0)" if 'query' in x else "![No](https://img.shields.io/badge/NO-00F)" }}|
+||{{ anchor(x['title']) }}|{{ icon(x['type']) }}|{{ "![yes](https://img.shields.io/badge/YES-00F0)" if x.get('query') is not none else "![No](https://img.shields.io/badge/NO-00F)" }}|
 {% endfor -%}
 {% endfor %}
 

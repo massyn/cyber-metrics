@@ -23,32 +23,32 @@ The following frameworks are used in the mapping of metrics
 |**Category**|**Title**|**Type**|**Query**|
 |--|--|--|--|
 |**Data Protection**|||||
-||[Systems with their volumes encrypted](#systems-with-their-volumes-encrypted)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Systems with their volumes encrypted](#systems-with-their-volumes-encrypted)|![risk](https://img.shields.io/badge/RISK-c00000)|![No](https://img.shields.io/badge/NO-00F)|
 |**Disaster Recovery**|||||
-||[Systems with backups configured per their SLO](#systems-with-backups-configured-per-their-slo)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
-||[Systems that has had a successful backup per their SLO](#systems-that-has-had-a-successful-backup-per-their-slo)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Systems with backups configured per their SLO](#systems-with-backups-configured-per-their-slo)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
+||[Systems that has had a successful backup per their SLO](#systems-that-has-had-a-successful-backup-per-their-slo)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![No](https://img.shields.io/badge/NO-00F)|
 |**Identity Management**|||||
-||[Identities with MFA](#identities-with-mfa)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Identities with MFA](#identities-with-mfa)|![risk](https://img.shields.io/badge/RISK-c00000)|![No](https://img.shields.io/badge/NO-00F)|
 ||[Identity - Credentials - Regular Password Rotation](#identity---credentials---regular-password-rotation)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Identity - Inactive Identities](#identity---inactive-identities)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
-||[Accounts without Admin privileges](#accounts-without-admin-privileges)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Accounts without Admin privileges](#accounts-without-admin-privileges)|![risk](https://img.shields.io/badge/RISK-c00000)|![No](https://img.shields.io/badge/NO-00F)|
 |**Malware Protection**|||||
-||[Systems with an up-to-date agent deployed](#systems-with-an-up-to-date-agent-deployed)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Systems with an up-to-date agent deployed](#systems-with-an-up-to-date-agent-deployed)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
 |**Network Security**|||||
-||[External endpoints with insecure ports exposed](#external-endpoints-with-insecure-ports-exposed)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
-||[External endpoints protected by a WAF](#external-endpoints-protected-by-a-waf)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[External endpoints with insecure ports exposed](#external-endpoints-with-insecure-ports-exposed)|![risk](https://img.shields.io/badge/RISK-c00000)|![No](https://img.shields.io/badge/NO-00F)|
+||[External endpoints protected by a WAF](#external-endpoints-protected-by-a-waf)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
 |**Software Development**|||||
-||[Repositories with SAST / DAST scanning enabled](#repositories-with-sast-/-dast-scanning-enabled)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Repositories with SAST / DAST scanning enabled](#repositories-with-sast-/-dast-scanning-enabled)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
 ||[Repositories without exploitable vulnerabilities](#repositories-without-exploitable-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
-||[Repositories without exploitable vulnerabilities remediated within SLO](#repositories-without-exploitable-vulnerabilities-remediated-within-slo)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Repositories without exploitable vulnerabilities remediated within SLO](#repositories-without-exploitable-vulnerabilities-remediated-within-slo)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![No](https://img.shields.io/badge/NO-00F)|
 |**User Security**|||||
 ||[Users completed awareness training in the last 12 months](#users-completed-awareness-training-in-the-last-12-months)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
 |**Vulnerability Management**|||||
-||[Systems with an up-to-date agent deployed](#systems-with-an-up-to-date-agent-deployed)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Systems with an up-to-date agent deployed](#systems-with-an-up-to-date-agent-deployed)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
 ||[Systems without Critical and High vulnerabilities](#systems-without-critical-and-high-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Critical vulnerabilities patched within SLO](#critical-vulnerabilities-patched-within-slo)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Systems without exploitable vulnerabilities](#systems-without-exploitable-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
-||[Systems without exploitable patchable vulnerabilities remediated within SLO](#systems-without-exploitable-patchable-vulnerabilities-remediated-within-slo)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Systems without exploitable patchable vulnerabilities remediated within SLO](#systems-without-exploitable-patchable-vulnerabilities-remediated-within-slo)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![No](https://img.shields.io/badge/NO-00F)|
 ||[Systems without patchable vulnerabilities](#systems-without-patchable-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 
 
