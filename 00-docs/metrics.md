@@ -603,7 +603,7 @@ The percentage of systems that have vulnerabilities classified as critical or hi
 
 | Attribute | Value |
 |-----------|-------|
-|**Metric id**|`vm_explot_patchable`|
+|**Metric id**|`vm_posture_critical`|
 |**Category**|Vulnerability Management|
 |**SLO**|80.00% - 95.00%|
 |**Weight**|0.8|
@@ -631,7 +631,7 @@ The percentage of systems that have resolved exploitable vulnerabilities, provid
 
 | Attribute | Value |
 |-----------|-------|
-|**Metric id**|`vm_explot_patchable`|
+|**Metric id**|`vm_posture_exploitable`|
 |**Category**|Vulnerability Management|
 |**SLO**|80.00% - 95.00%|
 |**Weight**|0.8|
@@ -659,7 +659,7 @@ The percentage of systems that have resolved exploitable, patchable vulnerabilit
 
 | Attribute | Value |
 |-----------|-------|
-|**Metric id**|`vm_explot_patchable`|
+|**Metric id**|`vm_posture_exploitable_patchable`|
 |**Category**|Vulnerability Management|
 |**SLO**|80.00% - 95.00%|
 |**Weight**|0.8|
@@ -687,7 +687,7 @@ The percentage of systems that have resolved exploitable, patchable vulnerabilit
 
 | Attribute | Value |
 |-----------|-------|
-|**Metric id**|`vm_explot_patchable`|
+|**Metric id**|`vm_posture_exploitable_patchable_critical`|
 |**Category**|Vulnerability Management|
 |**SLO**|80.00% - 95.00%|
 |**Weight**|0.8|
@@ -715,7 +715,7 @@ The percentage of systems that have patchable vulnerabilities providing critical
 
 | Attribute | Value |
 |-----------|-------|
-|**Metric id**|`vm_explot_patchable`|
+|**Metric id**|`vm_posture_patchable`|
 |**Category**|Vulnerability Management|
 |**SLO**|80.00% - 95.00%|
 |**Weight**|0.8|
