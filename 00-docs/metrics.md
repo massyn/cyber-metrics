@@ -49,6 +49,11 @@ The following frameworks are used in the mapping of metrics
 ||[Critical vulnerabilities patched within SLO](#critical-vulnerabilities-patched-within-slo)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Systems without exploitable vulnerabilities](#systems-without-exploitable-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Systems without exploitable patchable vulnerabilities remediated within SLO](#systems-without-exploitable-patchable-vulnerabilities-remediated-within-slo)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![No](https://img.shields.io/badge/NO-00F)|
+||[Systems without vulnerabilities - exploitable and patchable critical and high](#systems-without-vulnerabilities---exploitable-and-patchable-critical-and-high)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Systems without vulnerabilities - exploitable and patchable critical and high](#systems-without-vulnerabilities---exploitable-and-patchable-critical-and-high)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Systems without vulnerabilities - exploitable and patchable critical and high](#systems-without-vulnerabilities---exploitable-and-patchable-critical-and-high)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Systems without vulnerabilities - exploitable and patchable critical and high](#systems-without-vulnerabilities---exploitable-and-patchable-critical-and-high)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Systems without vulnerabilities - exploitable and patchable critical and high](#systems-without-vulnerabilities---exploitable-and-patchable-critical-and-high)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Systems without patchable vulnerabilities](#systems-without-patchable-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 
 
@@ -583,6 +588,146 @@ The percentage of systems that have resolved exploitable, patchable vulnerabilit
 |--|--|--|--|
 |ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
 |CIS 8.1|7.7|Continuous Vulnerability Management|Remediate Detected Vulnerabilities|
+|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
+
+
+
+
+### Systems without vulnerabilities - exploitable and patchable critical and high
+
+#### Description
+
+The percentage of systems that have vulnerabilities classified as critical or high priority, providing critical insight into the organization's ability to minimize exposure to known threats and effectively reduce the attack surface.
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`vm_explot_patchable`|
+|**Category**|Vulnerability Management|
+|**SLO**|80.00% - 95.00%|
+|**Weight**|0.8|
+|**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
+|CIS 8.1|7.5|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Internal Enterprise Assets|
+|CIS 8.1|7.6|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets|
+|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
+
+
+
+
+### Systems without vulnerabilities - exploitable and patchable critical and high
+
+#### Description
+
+The percentage of systems that have resolved exploitable vulnerabilities, providing critical insight into the organization's ability to minimize exposure to known threats and effectively reduce the attack surface.
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`vm_explot_patchable`|
+|**Category**|Vulnerability Management|
+|**SLO**|80.00% - 95.00%|
+|**Weight**|0.8|
+|**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
+|CIS 8.1|7.5|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Internal Enterprise Assets|
+|CIS 8.1|7.6|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets|
+|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
+
+
+
+
+### Systems without vulnerabilities - exploitable and patchable critical and high
+
+#### Description
+
+The percentage of systems that have resolved exploitable, patchable vulnerabilities, providing critical insight into the organization's ability to minimize exposure to known threats and effectively reduce the attack surface.
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`vm_explot_patchable`|
+|**Category**|Vulnerability Management|
+|**SLO**|80.00% - 95.00%|
+|**Weight**|0.8|
+|**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
+|CIS 8.1|7.5|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Internal Enterprise Assets|
+|CIS 8.1|7.6|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets|
+|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
+
+
+
+
+### Systems without vulnerabilities - exploitable and patchable critical and high
+
+#### Description
+
+The percentage of systems that have resolved exploitable, patchable vulnerabilities classified as critical or high priority, providing critical insight into the organization's ability to minimize exposure to known threats and effectively reduce the attack surface.
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`vm_explot_patchable`|
+|**Category**|Vulnerability Management|
+|**SLO**|80.00% - 95.00%|
+|**Weight**|0.8|
+|**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
+|CIS 8.1|7.5|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Internal Enterprise Assets|
+|CIS 8.1|7.6|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets|
+|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
+
+
+
+
+### Systems without vulnerabilities - exploitable and patchable critical and high
+
+#### Description
+
+The percentage of systems that have patchable vulnerabilities providing critical insight into the organization's ability to minimize exposure to known threats and effectively reduce the attack surface.
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`vm_explot_patchable`|
+|**Category**|Vulnerability Management|
+|**SLO**|80.00% - 95.00%|
+|**Weight**|0.8|
+|**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
+|CIS 8.1|7.5|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Internal Enterprise Assets|
+|CIS 8.1|7.6|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets|
 |NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
 
 
