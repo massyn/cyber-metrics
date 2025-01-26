@@ -24,7 +24,7 @@ query: |
       host.hostname AS resource,
       'host' as resource_type,
       CASE
-        WHEN count(cve.*) IS NULL THEN 1
+        WHEN count(cve.aid) = 0 THEN 1
         ELSE 0
       END AS compliance,
       CAST(count(cve.*) as text) AS detail

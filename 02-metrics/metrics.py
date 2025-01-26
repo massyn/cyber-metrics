@@ -35,7 +35,11 @@ class Metric:
 
     def resolve_ref(self, table_name):
         self.data_tables[table_name] = f"{self.data_path}/{table_name}/*.json"
-        return f"read_json_auto('{self.data_tables[table_name]}')"
+        col = ''
+        if table_name == 'crowdstrike_hosts':
+            col = ",columns={'last_seen': 'VARCHAR','device_id' : 'VARCHAR','hostname' : 'VARCHAR'}"
+
+        return f"read_json('{self.data_tables[table_name]}'{col})"
         
     def metric_run(self,yaml_config,query):
         if yaml_config.get('enabled',True) == False or query == None:
@@ -151,6 +155,9 @@ def main(**KW):
     load_dotenv()
     M = Metric(data_path = KW['data_path'])
 
+    # should we send an alert?
+    alert = not (KW.get('dryrun') or KW.get('metric'))
+
     detail_df = pd.DataFrame()
 
     for filename in os.listdir(KW['metric_path']):
@@ -159,8 +166,8 @@ def main(**KW):
             with open(f"{KW['metric_path']}/{metric_file}.yml",'rt') as y:
                 metric = yaml.safe_load(y)
             
-            M.lib.log("INFO","main","-----------------------------------------------------------------------")
             if KW['metric'] == None or KW['metric'] == metric_file or KW['metric'] == metric['metric_id']:
+                M.lib.log("INFO","main","-----------------------------------------------------------------------")
                 M.lib.log("INFO","main",f"Metric : {metric_file}")
                 if 'query' in metric and metric['query'] != None:
                     # if the query is a list, split the query into individual queries, and pass it to metric_run, else run it as usual
@@ -168,13 +175,13 @@ def main(**KW):
                         for query in metric['query']:
                             df = M.metric_run(metric,query)
                             if df.empty:
-                                M.lib.log("ERROR","main",f"There was an error generating the metric {metric_file}.  It will not be counted.",True)
+                                M.lib.log("ERROR","main",f"There was an error generating the metric {metric_file}.  It will not be counted.",alert)
                             else:
                                 detail_df = pd.concat([detail_df, df], ignore_index=True)
                     else:
                         df = M.metric_run(metric,metric['query'])
                         if df.empty:
-                            M.lib.log("ERROR","main",f"There was an error generating the metric {metric_file}.  It will not be counted.",True)
+                            M.lib.log("ERROR","main",f"There was an error generating the metric {metric_file}.  It will not be counted.",alert)
                         else:
                             detail_df = pd.concat([detail_df, df], ignore_index=True)
                 else:
@@ -194,9 +201,9 @@ def main(**KW):
         detail_df.to_parquet(f"{KW['parquet']}")
         M.lib.log("SUCCESS","main",f"Detail data saved to {KW['parquet']}")
     except Exception as e:
-        M.lib.log("ERROR","main",f"Failed to save the detail data to {KW['parquet']}: {e}",True)
+        M.lib.log("ERROR","main",f"Failed to save the detail data to {KW['parquet']}: {e}",alert)
 
-    M.lib.log("SUCCESS","main","Metric generation completedAll done",True)
+    M.lib.log("SUCCESS","main","Metric generation completed",alert)
 
 if __name__=='__main__':
     parser = argparse.ArgumentParser(description='Cyber Dashboard - Metric Generation')
