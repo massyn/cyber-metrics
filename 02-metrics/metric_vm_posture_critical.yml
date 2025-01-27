@@ -3,10 +3,10 @@ metric_id: vm_posture_critical
 title: Systems without vulnerabilities - exploitable and patchable critical and high
 category: Vulnerability Management
 type: risk
-description: The percentage of systems that have vulnerabilities classified as
-  critical or high priority, providing critical insight into the
-  organization's ability to minimize exposure to known threats and effectively
-  reduce the attack surface.
+description: The percentage of systems that were active in the last 30 days
+  that have vulnerabilities classified as critical or high priority, providing
+  critical insight into the organisation's ability to minimize exposure to
+  known threats and effectively reduce the attack surface.
 slo:
   - 0.80
   - 0.95
@@ -20,7 +20,8 @@ references:
     - 7.6
   "NIST CSF v2.0":
     - ID.RA-01
-query: |
+query: 
+  - |
     SELECT
       host.hostname AS resource,
       'host' as resource_type,
@@ -37,5 +38,28 @@ query: |
       host.device_id = cve.aid
       AND cve.status IN ('open', 'reopen')
       AND cve.severity IN ('HIGH', 'CRITICAL')
+    WHERE
+      CURRENT_DATE - CAST(STRPTIME(host.last_seen, '%Y-%m-%dT%H:%M:%SZ') AS DATE) < 30
     GROUP BY
       host.hostname
+  - |
+    SELECT
+      asset.hostname AS resource,
+      'host' AS resource_type,
+      CASE
+        WHEN count(cve.plugin.id) = 0 THEN 1
+        ELSE 0
+      END AS compliance,
+      CAST(count(cve.plugin) AS text) AS detail
+    FROM
+      {{ ref('tenable_assets') }} AS asset
+    LEFT JOIN
+      {{ ref('tenable_vulnerabilities') }} AS cve
+    ON
+      asset.uuid = cve.asset.uuid
+      AND cve.state IN ('OPEN', 'REOPENED')
+      AND cve.severity IN ('high', 'critical')
+    WHERE
+      CURRENT_DATE - CAST(asset.last_seen AS DATE) < 30
+    GROUP BY
+      asset.hostname

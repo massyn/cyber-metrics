@@ -186,6 +186,9 @@ def main(**KW):
                             detail_df = pd.concat([detail_df, df], ignore_index=True)
                 else:
                     M.lib.log("WARNING","main",f"No query found in {metric_file}.yml.  It will not be counted.")
+    if detail_df.empty:
+        M.lib.log("ERROR","main","The detail dataframe is empty - are you sure the metrics ran ok?",alert)
+        exit(1)
 
     # == This is just cosmetic, to show the resulting scores on the screen, so developers can see the results of their work
     summary = detail_df.groupby('metric_id')['compliance'].agg(['sum', 'count']).reset_index()

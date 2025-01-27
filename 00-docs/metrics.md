@@ -45,16 +45,16 @@ The following frameworks are used in the mapping of metrics
 ||[Users completed awareness training in the last 12 months](#users-completed-awareness-training-in-the-last-12-months)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
 |**Vulnerability Management**|||||
 ||[Systems with an up-to-date agent deployed](#systems-with-an-up-to-date-agent-deployed)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
-||[Systems without Critical and High vulnerabilities](#systems-without-critical-and-high-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
-||[Critical vulnerabilities patched within SLO](#critical-vulnerabilities-patched-within-slo)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
-||[Systems without exploitable vulnerabilities](#systems-without-exploitable-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
-||[Systems without exploitable patchable vulnerabilities remediated within SLO](#systems-without-exploitable-patchable-vulnerabilities-remediated-within-slo)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![No](https://img.shields.io/badge/NO-00F)|
+||[Vulnerabilities not remediated within SLO - critical and high](#vulnerabilities-not-remediated-within-slo---critical-and-high)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Vulnerabilities not remediated within SLO - exploitable](#vulnerabilities-not-remediated-within-slo---exploitable)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Vulnerabilities not remediated within SLO - exploitable patchable](#vulnerabilities-not-remediated-within-slo---exploitable-patchable)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Vulnerabilities not remediated within SLO - exploitable patchable critical and high](#vulnerabilities-not-remediated-within-slo---exploitable-patchable-critical-and-high)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Vulnerabilities not remediated within SLO - patchable](#vulnerabilities-not-remediated-within-slo---patchable)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Systems without vulnerabilities - exploitable and patchable critical and high](#systems-without-vulnerabilities---exploitable-and-patchable-critical-and-high)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Systems without vulnerabilities - exploitable and patchable critical and high](#systems-without-vulnerabilities---exploitable-and-patchable-critical-and-high)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Systems without vulnerabilities - exploitable and patchable critical and high](#systems-without-vulnerabilities---exploitable-and-patchable-critical-and-high)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Systems without vulnerabilities - exploitable and patchable critical and high](#systems-without-vulnerabilities---exploitable-and-patchable-critical-and-high)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Systems without vulnerabilities - exploitable and patchable critical and high](#systems-without-vulnerabilities---exploitable-and-patchable-critical-and-high)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
-||[Systems without patchable vulnerabilities](#systems-without-patchable-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 
 
 ## List of metrics
@@ -480,48 +480,20 @@ The percentage of systems with up-to-date vulnerability management agents deploy
 
 
 
-### Systems without Critical and High vulnerabilities
+### Vulnerabilities not remediated within SLO - critical and high
 
 #### Description
 
-Ensure that all systems do not have any urgent vulnerabilities that can impact the risk.
+The percentage of systems that were active in the last 30 days that have resolved critical and high vulnerabilities within the agreed Service Level Objective (SLO), providing critical insight into the organisation's ability to minimize exposure to known threats and reduce the attack surface effectively.
 
 #### Meta Data
 
 | Attribute | Value |
 |-----------|-------|
-|**Metric id**|`vm_critical`|
+|**Metric id**|`vm_performance_critical`|
 |**Category**|Vulnerability Management|
-|**SLO**|80.00% - 95.00%|
-|**Weight**|0.2|
-|**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
-
-#### References
-
-|**Framework**|**Ref**|**Domain**|**Control**|
-|--|--|--|--|
-|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
-|CIS 8.1|7.5|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Internal Enterprise Assets|
-|CIS 8.1|7.6|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets|
-|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
-
-
-
-
-### Critical vulnerabilities patched within SLO
-
-#### Description
-
-Ensure that all systems do not have any urgent vulnerabilities that can impact the risk.
-
-#### Meta Data
-
-| Attribute | Value |
-|-----------|-------|
-|**Metric id**|`vm_critical_patching`|
-|**Category**|Vulnerability Management|
-|**SLO**|80.00% - 95.00%|
-|**Weight**|0.2|
+|**SLO**|90.00% - 95.00%|
+|**Weight**|0|
 |**Type**|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)
 
 #### References
@@ -529,48 +501,98 @@ Ensure that all systems do not have any urgent vulnerabilities that can impact t
 |**Framework**|**Ref**|**Domain**|**Control**|
 |--|--|--|--|
 |ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
-|CIS 8.1|7.5|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Internal Enterprise Assets|
-|CIS 8.1|7.6|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets|
+|CIS 8.1|7.7|Continuous Vulnerability Management|Remediate Detected Vulnerabilities|
 |NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
 
 
 
 
-### Systems without exploitable vulnerabilities
+### Vulnerabilities not remediated within SLO - exploitable
 
 #### Description
 
-Ensure that all systems do not have any explotable vulnerabilities that
-can be patched.
-
+The percentage of systems that were active in the last 30 days that have resolved exploitable vulnerabilities within the agreed Service Level Objective (SLO), providing critical insight into the organisation's ability to minimize exposure to known threats and reduce the attack surface effectively.
 
 #### Meta Data
 
 | Attribute | Value |
 |-----------|-------|
-|**Metric id**|`vm_explot_patchable`|
+|**Metric id**|`vm_performance_exploitable`|
 |**Category**|Vulnerability Management|
-|**SLO**|80.00% - 95.00%|
-|**Weight**|0.8|
-|**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
+|**SLO**|90.00% - 95.00%|
+|**Weight**|0|
+|**Type**|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)
 
 #### References
 
 |**Framework**|**Ref**|**Domain**|**Control**|
 |--|--|--|--|
 |ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
-|CIS 8.1|7.5|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Internal Enterprise Assets|
-|CIS 8.1|7.6|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets|
+|CIS 8.1|7.7|Continuous Vulnerability Management|Remediate Detected Vulnerabilities|
 |NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
 
 
 
 
-### Systems without exploitable patchable vulnerabilities remediated within SLO
+### Vulnerabilities not remediated within SLO - exploitable patchable
 
 #### Description
 
-The percentage of systems that have resolved exploitable, patchable vulnerabilities within the agreed Service Level Objective (SLO), providing critical insight into the organization's ability to minimize exposure to known threats and reduce the attack surface effectively.
+The percentage of systems that were active in the last 30 days that have resolved exploitable, patchable vulnerabilities within the agreed Service Level Objective (SLO), providing critical insight into the organisation's ability to minimize exposure to known threats and reduce the attack surface effectively.
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`vm_performance_exploitable_patchable`|
+|**Category**|Vulnerability Management|
+|**SLO**|90.00% - 95.00%|
+|**Weight**|0|
+|**Type**|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
+|CIS 8.1|7.7|Continuous Vulnerability Management|Remediate Detected Vulnerabilities|
+|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
+
+
+
+
+### Vulnerabilities not remediated within SLO - exploitable patchable critical and high
+
+#### Description
+
+The percentage of systems that were active in the last 30 days that have resolved exploitable, patchable, critical and high vulnerabilities within the agreed Service Level Objective (SLO), providing critical insight into the organisation's ability to minimize exposure to known threats and reduce the attack surface effectively.
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`vm_performance_exploitable_patchable_critical`|
+|**Category**|Vulnerability Management|
+|**SLO**|90.00% - 95.00%|
+|**Weight**|0|
+|**Type**|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
+|CIS 8.1|7.7|Continuous Vulnerability Management|Remediate Detected Vulnerabilities|
+|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
+
+
+
+
+### Vulnerabilities not remediated within SLO - patchable
+
+#### Description
+
+The percentage of systems that were active in the last 30 days that have resolved patchable vulnerabilities within the agreed Service Level Objective (SLO), providing critical insight into the organisation's ability to minimize exposure to known threats and reduce the attack surface effectively.
 
 #### Meta Data
 
@@ -579,7 +601,7 @@ The percentage of systems that have resolved exploitable, patchable vulnerabilit
 |**Metric id**|`vm_performance_patchable`|
 |**Category**|Vulnerability Management|
 |**SLO**|90.00% - 95.00%|
-|**Weight**|0.5|
+|**Weight**|0|
 |**Type**|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)
 
 #### References
@@ -597,7 +619,7 @@ The percentage of systems that have resolved exploitable, patchable vulnerabilit
 
 #### Description
 
-The percentage of systems that have vulnerabilities classified as critical or high priority, providing critical insight into the organization's ability to minimize exposure to known threats and effectively reduce the attack surface.
+The percentage of systems that were active in the last 30 days that have vulnerabilities classified as critical or high priority, providing critical insight into the organisation's ability to minimize exposure to known threats and effectively reduce the attack surface.
 
 #### Meta Data
 
@@ -606,7 +628,7 @@ The percentage of systems that have vulnerabilities classified as critical or hi
 |**Metric id**|`vm_posture_critical`|
 |**Category**|Vulnerability Management|
 |**SLO**|80.00% - 95.00%|
-|**Weight**|0.8|
+|**Weight**|0.2|
 |**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
 
 #### References
@@ -625,7 +647,7 @@ The percentage of systems that have vulnerabilities classified as critical or hi
 
 #### Description
 
-The percentage of systems that have resolved exploitable vulnerabilities, providing critical insight into the organization's ability to minimize exposure to known threats and effectively reduce the attack surface.
+The percentage of systems that have been active in the last 30 days and that have resolved exploitable vulnerabilities, providing critical insight into the organisation's ability to minimize exposure to known threats and effectively reduce the attack surface.
 
 #### Meta Data
 
@@ -634,7 +656,7 @@ The percentage of systems that have resolved exploitable vulnerabilities, provid
 |**Metric id**|`vm_posture_exploitable`|
 |**Category**|Vulnerability Management|
 |**SLO**|80.00% - 95.00%|
-|**Weight**|0.8|
+|**Weight**|0.2|
 |**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
 
 #### References
@@ -653,7 +675,7 @@ The percentage of systems that have resolved exploitable vulnerabilities, provid
 
 #### Description
 
-The percentage of systems that have resolved exploitable, patchable vulnerabilities, providing critical insight into the organization's ability to minimize exposure to known threats and effectively reduce the attack surface.
+The percentage of systems that were active in the last 30 days that have resolved exploitable, patchable vulnerabilities, providing critical insight into the organisation's ability to minimize exposure to known threats and effectively reduce the attack surface.
 
 #### Meta Data
 
@@ -681,7 +703,7 @@ The percentage of systems that have resolved exploitable, patchable vulnerabilit
 
 #### Description
 
-The percentage of systems that have resolved exploitable, patchable vulnerabilities classified as critical or high priority, providing critical insight into the organization's ability to minimize exposure to known threats and effectively reduce the attack surface.
+The percentage of systems that were active in the last 30 days taht have resolved exploitable, patchable vulnerabilities classified as critical or high priority, providing critical insight into the organisation's ability to minimize exposure to known threats and effectively reduce the attack surface.
 
 #### Meta Data
 
@@ -709,7 +731,7 @@ The percentage of systems that have resolved exploitable, patchable vulnerabilit
 
 #### Description
 
-The percentage of systems that have patchable vulnerabilities providing critical insight into the organization's ability to minimize exposure to known threats and effectively reduce the attack surface.
+The percentage of systems that have been active in the last 30 days and that have patchable vulnerabilities providing critical insight into the organisation's ability to minimize exposure to known threats and effectively reduce the attack surface.
 
 #### Meta Data
 
@@ -728,34 +750,6 @@ The percentage of systems that have patchable vulnerabilities providing critical
 |ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
 |CIS 8.1|7.5|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Internal Enterprise Assets|
 |CIS 8.1|7.6|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets|
-|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
-
-
-
-
-### Systems without patchable vulnerabilities
-
-#### Description
-
-The percentage of systems within the organization that are free of known vulnerabilities with available patches, highlighting the organization's ability to reduce risk through timely patch management and ensuring a secure operational environment.  This metric shows all vulnerabilities that can be patched.
-
-#### Meta Data
-
-| Attribute | Value |
-|-----------|-------|
-|**Metric id**|`vm_risk_patchable`|
-|**Category**|Vulnerability Management|
-|**SLO**|90.00% - 95.00%|
-|**Weight**|0.5|
-|**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
-
-#### References
-
-|**Framework**|**Ref**|**Domain**|**Control**|
-|--|--|--|--|
-|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
-|CIS 8.1|7.3|Continuous Vulnerability Management|Perform Automated Operating System Patch Management|
-|CIS 8.1|7.4|Continuous Vulnerability Management|Perform Automated Application Patch Management|
 |NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
 
 

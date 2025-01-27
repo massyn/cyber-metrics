@@ -1,13 +1,13 @@
 ---
-metric_id: vm_performance_exploitable_patchable_critical
-title: Vulnerabilities not remediated within SLO - exploitable patchable critical and high
+metric_id: vm_performance_patchable
+title: Vulnerabilities not remediated within SLO - patchable
 category: Vulnerability Management
 type: performance
 description: The percentage of systems that were active in the last 30 days
-  that have resolved exploitable, patchable, critical and high vulnerabilities
-  within the agreed Service Level Objective (SLO), providing critical insight
-  into the organisation's ability to minimize exposure to known threats and
-  reduce the attack surface effectively.
+  that have resolved patchable vulnerabilities within the agreed
+  Service Level Objective (SLO), providing critical insight into the
+  organisation's ability to minimize exposure to known threats and reduce the
+  attack surface effectively.
 slo:
   - 0.9
   - 0.95
@@ -40,9 +40,7 @@ query:
       AND cve.status IN ('open', 'reopen')
     WHERE
       CURRENT_DATE - CAST(STRPTIME(host.last_seen, '%Y-%m-%dT%H:%M:%SZ') AS DATE) < 30 AND
-      coalesce(cve.cve.remediation_level = 'O', false) is true AND
-      coalesce(cve.cve.exploit_status > 0, false) is true	AND
-      cve.severity IN ('HIGH', 'CRITICAL')
+      coalesce(cve.cve.remediation_level = 'O', false) is true
   - |
     SELECT
       cve.asset.hostname as resource,
@@ -58,6 +56,4 @@ query:
       {{ ref('tenable_vulnerabilities') }} AS cve
     WHERE
       CURRENT_DATE - CAST(cve.last_found AS DATE) < 30 AND
-      cve.plugin.exploit_available is true AND
-      cve.plugin.has_patch AND
-      cve.severity in ('high','critical')
+      cve.plugin.has_patch
