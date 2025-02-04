@@ -6,6 +6,9 @@ type: risk
 description: |
   Ensure that systems are not running end-of-life, unsuported or unpatchable
   software.
+how: |
+  Using the list of installed software on all systems, compare that with an
+  online database like https://endoflife.date/.
 slo:
   - 0.9
   - 0.95

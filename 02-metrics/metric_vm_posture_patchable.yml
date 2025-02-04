@@ -3,10 +3,15 @@ metric_id: vm_posture_patchable
 title: Systems without vulnerabilities - exploitable and patchable critical and high
 category: Vulnerability Management
 type: risk
-description: The percentage of systems that have been active in the last 30
+description: |
+  The percentage of systems that have been active in the last 30
   days and that have patchable vulnerabilities providing critical insight
   into the organisation's ability to minimize exposure to known threats and
   effectively reduce the attack surface.
+how: |
+  Find all active hosts per your vulnerability management system.  Join the
+  hosts with the vulnerability database, and filter the vulnerabilities
+  on the criteria as defined in the metric definition.
 slo:
   - 0.80
   - 0.95

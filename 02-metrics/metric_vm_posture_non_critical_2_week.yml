@@ -3,10 +3,15 @@ metric_id: vm_posture_non_critical_month
 title: Systems without vulnerabilities - non critical patched in 2 weeks
 category: Vulnerability Management
 type: risk
-description: The percentage of systems that have been active in the last 30
+description: |
+  The percentage of systems that have been active in the last 30
   days and that have resolved non critical vulnerabilities published in the 2 weeks,
   providing critical insight into the organisation's ability to minimize
   exposure to known threats and effectively reduce the attack surface.
+how: |
+  Find all active hosts per your vulnerability management system.  Join the
+  hosts with the vulnerability database, and filter the vulnerabilities
+  on the criteria as defined in the metric definition.
 slo:
   - 0.90
   - 0.95

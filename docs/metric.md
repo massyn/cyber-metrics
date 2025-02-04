@@ -11,7 +11,15 @@
 {%- endmacro -%}
 # {{ data['title'] }}
 
+## Description
+
 {{ data['description'] }}
+
+{% if data['how'] %}
+## How we measure it
+
+{{ data['how'] }}
+{% endif %}
 
 ## Meta Data
 
