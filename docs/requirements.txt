@@ -1,1 +1,9 @@
 mkdocs
+mkdocs-video
+mkdocs-mermaid2-plugin
+mkdocs-cluster
+mkdocs-bootstrap4
+mkdocs-bootswatch
+mkdocs-rss-plugin
+mkdocs-blog-plugin
+mkdocs-material

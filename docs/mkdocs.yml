@@ -1,1 +1,40 @@
 site_name: Cyber Metric Library
+site_description: Cyber Metric Library
+site_url: https://cyber-metric.pages.dev
+#copyright: TODO
+
+nav:
+  - Home: index.md
+  - About: about.md
+theme:
+  icon:
+    logo: fontawesome/solid/cloud
+
+  features:
+    - navigation.footer
+    - navigation.indexes
+  name: material
+plugins:
+  - search
+  - mermaid2
+  - mkdocs-video
+markdown_extensions:
+  - toc:
+      title: On this page
+      permalink: true
+  - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - meta
+  - def_list
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:mermaid2.fence_mermaid_custom
+  - pymdownx.caret

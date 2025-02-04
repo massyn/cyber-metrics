@@ -16,8 +16,8 @@ jobs:
         run: |
           pip install -r docs/requirements.txt
 
-      # - name: Add a date
-      #   run: echo "Updated on $(date)" >> docs/about.md
+      - name: Generate markdown pages
+        run: cd docs && python generate.py
 
       - name: Build the site
         run: cd docs && mkdocs build -f mkdocs.yml -d ../dist -c --no-directory-urls
