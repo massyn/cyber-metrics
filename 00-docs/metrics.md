@@ -19,6 +19,7 @@ The following frameworks are used in the mapping of metrics
 * [ISO 27001:2022](https://www.iso.org/standard/27001)
 * [CIS 8.1](https://www.cisecurity.org/controls/v8-1)
 * [NIST CSF v.2.0](https://csf.tools/reference/nist-cybersecurity-framework/v2-0/)
+* [Essential 8](https://www.cyber.gov.au/resources-business-and-government/essential-cyber-security/essential-eight)
 
 |**Category**|**Title**|**Type**|**Query**|
 |--|--|--|--|
@@ -45,6 +46,8 @@ The following frameworks are used in the mapping of metrics
 ||[Users completed awareness training in the last 12 months](#users-completed-awareness-training-in-the-last-12-months)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
 |**Vulnerability Management**|||||
 ||[Systems with an up-to-date agent deployed](#systems-with-an-up-to-date-agent-deployed)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
+||[Systems with an up-to-date vulnerability database deployed](#systems-with-an-up-to-date-vulnerability-database-deployed)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
+||[End-of-life - Systems running vendor-supported software](#end-of-life---systems-running-vendor-supported-software)|![risk](https://img.shields.io/badge/RISK-c00000)|![No](https://img.shields.io/badge/NO-00F)|
 ||[Vulnerabilities not remediated within SLO - critical and high](#vulnerabilities-not-remediated-within-slo---critical-and-high)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Vulnerabilities not remediated within SLO - exploitable](#vulnerabilities-not-remediated-within-slo---exploitable)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Vulnerabilities not remediated within SLO - exploitable patchable](#vulnerabilities-not-remediated-within-slo---exploitable-patchable)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
@@ -52,8 +55,11 @@ The following frameworks are used in the mapping of metrics
 ||[Vulnerabilities not remediated within SLO - patchable](#vulnerabilities-not-remediated-within-slo---patchable)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Systems without vulnerabilities - exploitable and patchable critical and high](#systems-without-vulnerabilities---exploitable-and-patchable-critical-and-high)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Systems without vulnerabilities - exploitable and patchable critical and high](#systems-without-vulnerabilities---exploitable-and-patchable-critical-and-high)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Systems without vulnerabilities in 48 hours - exploitable or critical and high](#systems-without-vulnerabilities-in-48-hours---exploitable-or-critical-and-high)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Systems without vulnerabilities - exploitable and patchable critical and high](#systems-without-vulnerabilities---exploitable-and-patchable-critical-and-high)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Systems without vulnerabilities - exploitable and patchable critical and high](#systems-without-vulnerabilities---exploitable-and-patchable-critical-and-high)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Systems without vulnerabilities - non critical patched in 2 weeks](#systems-without-vulnerabilities---non-critical-patched-in-2-weeks)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Systems without vulnerabilities - non critical patched in a month](#systems-without-vulnerabilities---non-critical-patched-in-a-month)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Systems without vulnerabilities - exploitable and patchable critical and high](#systems-without-vulnerabilities---exploitable-and-patchable-critical-and-high)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 
 
@@ -78,8 +84,8 @@ The percentage of systems with their volumes fully encrypted, ensuring that sens
 
 |**Framework**|**Ref**|**Domain**|**Control**|
 |--|--|--|--|
-|ISO 27001:2022|A.8.24|8 Technological controls|Use of cryptography|
 |CIS 8.1|3.11|Data Protection|Encrypt Sensitive Data at Rest|
+|ISO 27001:2022|A.8.24|8 Technological controls|Use of cryptography|
 |NIST CSF v2.0|PR.DS-01|Data Security (PR.DS)|PR.DS-01: The confidentiality, integrity, and availability of data-at-rest are protected|
 
 
@@ -105,8 +111,8 @@ The percentage of systems with backups configured in accordance with their Servi
 
 |**Framework**|**Ref**|**Domain**|**Control**|
 |--|--|--|--|
-|ISO 27001:2022|A.8.13|8 Technological controls|Information backup|
 |CIS 8.1|11.2|Data Recovery|Perform Automated Backups|
+|ISO 27001:2022|A.8.13|8 Technological controls|Information backup|
 |NIST CSF v2.0|PR.DS-11|Data Security (PR.DS)|PR.DS-11: Backups of data are created, protected, maintained, and tested|
 
 
@@ -132,8 +138,8 @@ The percentage of systems that successfully complete backups within their define
 
 |**Framework**|**Ref**|**Domain**|**Control**|
 |--|--|--|--|
-|ISO 27001:2022|A.8.13|8 Technological controls|Information backup|
 |CIS 8.1|11.2|Data Recovery|Perform Automated Backups|
+|ISO 27001:2022|A.8.13|8 Technological controls|Information backup|
 |NIST CSF v2.0|PR.DS-11|Data Security (PR.DS)|PR.DS-11: Backups of data are created, protected, maintained, and tested|
 
 
@@ -159,10 +165,10 @@ The percentage of user accounts secured with multi-factor authentication, a crit
 
 |**Framework**|**Ref**|**Domain**|**Control**|
 |--|--|--|--|
-|ISO 27001:2022|A.5.17|5 Organizational controls|Authentication information|
 |CIS 8.1|6.3|Access Control Management|Require MFA for Externally-Exposed Applications|
 |CIS 8.1|6.4|Access Control Management|Require MFA for Remote Network Access|
 |CIS 8.1|6.5|Access Control Management|Require MFA for Administrative Access|
+|ISO 27001:2022|A.5.17|5 Organizational controls|Authentication information|
 |NIST CSF v2.0|PR.AA-03|Identity Management, Authentication, and Access Control (PR.AA)|PR.AA-03: Users, services, and hardware are authenticated|
 
 
@@ -250,8 +256,8 @@ The percentage of user accounts configured without administrative rights, which 
 
 |**Framework**|**Ref**|**Domain**|**Control**|
 |--|--|--|--|
-|ISO 27001:2022|A.8.2|8 Technological controls|Privileged access rights|
 |CIS 8.1|5.4|Account Management|Restrict Administrator Privileges to Dedicated Administrator Accounts|
+|ISO 27001:2022|A.8.2|8 Technological controls|Privileged access rights|
 |NIST CSF v2.0|PR.AA-05|Identity Management, Authentication, and Access Control (PR.AA)|PR.AA-05: Access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed, and incorporate the principles of least privilege and separation of duties|
 
 
@@ -277,8 +283,8 @@ The percentage of systems with an up-to-date malware detection agent deployed, e
 
 |**Framework**|**Ref**|**Domain**|**Control**|
 |--|--|--|--|
-|ISO 27001:2022|A.8.7|8 Technological controls|Protection against malware|
 |CIS 8.1|10.1|Malware Defenses|Deploy and Maintain Anti-Malware Software|
+|ISO 27001:2022|A.8.7|8 Technological controls|Protection against malware|
 |NIST CSF v2.0|PR.PS-05|Platform Security (PR.PS)|PR.PS-05: Installation and execution of unauthorized software are prevented|
 
 
@@ -304,8 +310,8 @@ The "Insecure Ports" metric tracks external endpoints with open ports that are i
 
 |**Framework**|**Ref**|**Domain**|**Control**|
 |--|--|--|--|
-|ISO 27001:2022|A.8.20|8 Technological controls|Networks security|
 |CIS 8.1|12.2|Network Infrastructure Management|Establish and Maintain a Secure Network Architecture|
+|ISO 27001:2022|A.8.20|8 Technological controls|Networks security|
 |NIST CSF v2.0|PR.DS-02|Data Security (PR.DS)|PR.DS-02: The confidentiality, integrity, and availability of data-in-transit are protected|
 
 
@@ -331,8 +337,8 @@ The metric measures the proportion of external-facing endpoints shielded by a We
 
 |**Framework**|**Ref**|**Domain**|**Control**|
 |--|--|--|--|
-|ISO 27001:2022|A.8.20|8 Technological controls|Networks security|
 |CIS 8.1|13.3|Network Monitoring and Defense|Deploy a Network Intrusion Detection Solution|
+|ISO 27001:2022|A.8.20|8 Technological controls|Networks security|
 |NIST CSF v2.0|PR.IR-01|Technology Infrastructure Resilience (PR.IR)|PR.IR-01: Networks and environments are protected from unauthorized logical access and usage|
 
 
@@ -358,8 +364,8 @@ The percentage of code repositories with Static Application Security Testing (SA
 
 |**Framework**|**Ref**|**Domain**|**Control**|
 |--|--|--|--|
-|ISO 27001:2022|A.8.25|8 Technological controls|Secure development life cycle|
 |CIS 8.1|16.12|Application Software Security|Implement Code-Level Security Checks|
+|ISO 27001:2022|A.8.25|8 Technological controls|Secure development life cycle|
 |NIST CSF v2.0|PR.PS-06|Platform Security (PR.PS)|PR.PS-06: Secure software development practices are integrated, and their performance is monitored throughout the software development life cycle|
 
 
@@ -412,8 +418,8 @@ The percentage of code repositories in the development pipeline that have resolv
 
 |**Framework**|**Ref**|**Domain**|**Control**|
 |--|--|--|--|
-|ISO 27001:2022|A.8.25|8 Technological controls|Secure development life cycle|
 |CIS 8.1|16.12|Application Software Security|Implement Code-Level Security Checks|
+|ISO 27001:2022|A.8.25|8 Technological controls|Secure development life cycle|
 |NIST CSF v2.0|PR.PS-06|Platform Security (PR.PS)|PR.PS-06: Secure software development practices are integrated, and their performance is monitored throughout the software development life cycle|
 
 
@@ -456,7 +462,10 @@ The percentage of users who have completed security awareness training in the la
 
 #### Description
 
-The percentage of systems with up-to-date vulnerability management agents deployed, providing critical visibility into security gaps and enabling swift action to protect the organization from exploitable weaknesses.
+The percentage of systems with up-to-date vulnerability management agents
+deployed, providing critical visibility into security gaps and enabling swift
+action to protect the organization from exploitable weaknesses.
+
 
 #### Meta Data
 
@@ -476,6 +485,98 @@ The percentage of systems with up-to-date vulnerability management agents deploy
 |CIS 8.1|7.5|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Internal Enterprise Assets|
 |CIS 8.1|7.6|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets|
 |NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
+|Essential8-ML1|ISM-1698|Patch applications|A vulnerability scanner is used at least daily to identify missing patches or updates for vulnerabilities in online services.|
+|Essential8-ML2|ISM-1698|Patch applications|A vulnerability scanner is used at least daily to identify missing patches or updates for vulnerabilities in online services.|
+|Essential8-ML3|ISM-1698|Patch applications|A vulnerability scanner is used at least daily to identify missing patches or updates for vulnerabilities in online services.|
+|Essential8-ML1|ISM-1699|Patch applications|A vulnerability scanner is used at least weekly to identify missing patches or updates for vulnerabilities in office productivity suites, web browsers and their extensions, email clients, PDF software, and security products.|
+|Essential8-ML2|ISM-1699|Patch applications|A vulnerability scanner is used at least weekly to identify missing patches or updates for vulnerabilities in office productivity suites, web browsers and their extensions, email clients, PDF software, and security products.|
+|Essential8-ML3|ISM-1699|Patch applications|A vulnerability scanner is used at least weekly to identify missing patches or updates for vulnerabilities in office productivity suites, web browsers and their extensions, email clients, PDF software, and security products.|
+|Essential8-ML1|ISM-1701|Patch operating systems|A vulnerability scanner is used at least daily to identify missing patches or updates for vulnerabilities in operating systems of internet-facing servers and internet-facing network devices.|
+|Essential8-ML2|ISM-1701|Patch operating systems|A vulnerability scanner is used at least daily to identify missing patches or updates for vulnerabilities in operating systems of internet-facing servers and internet-facing network devices.|
+|Essential8-ML3|ISM-1701|Patch operating systems|A vulnerability scanner is used at least daily to identify missing patches or updates for vulnerabilities in operating systems of internet-facing servers and internet-facing network devices.|
+|Essential8-ML1|ISM-1702|Patch operating systems|A vulnerability scanner is used at least fortnightly to identify missing patches or updates for vulnerabilities in operating systems of workstations, non-internet-facing servers and non-internet-facing network devices.|
+|Essential8-ML2|ISM-1702|Patch operating systems|A vulnerability scanner is used at least fortnightly to identify missing patches or updates for vulnerabilities in operating systems of workstations, non-internet-facing servers and non-internet-facing network devices.|
+|Essential8-ML3|ISM-1702|Patch operating systems|A vulnerability scanner is used at least fortnightly to identify missing patches or updates for vulnerabilities in operating systems of workstations, non-internet-facing servers and non-internet-facing network devices.|
+|Essential8-ML3|ISM-1703|Patch operating systems|A vulnerability scanner is used at least fortnightly to identify missing patches or updates for vulnerabilities in drivers.|
+|Essential8-ML3|ISM-1900|Patch operating systems|A vulnerability scanner is used at least fortnightly to identify missing patches or updates for vulnerabilities in firmware.|
+
+
+
+
+### Systems with an up-to-date vulnerability database deployed
+
+#### Description
+
+The percentage of systems with up-to-date vulnerability management agents
+deployed with an up-to-date database, providing critical visibility into
+security gaps and enabling swift action to protect the organization from
+exploitable weaknesses.
+
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`vm_coverage`|
+|**Category**|Vulnerability Management|
+|**SLO**|80.00% - 95.00%|
+|**Weight**|0.4|
+|**Type**|![control](https://img.shields.io/badge/CONTROL-0000F0)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
+|CIS 8.1|7.5|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Internal Enterprise Assets|
+|CIS 8.1|7.6|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets|
+|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
+|Essential8-ML1|ISM-1808|Patch applications|A vulnerability scanner with an up-to-date vulnerability database is used for vulnerability scanning activities.|
+|Essential8-ML2|ISM-1808|Patch applications|A vulnerability scanner with an up-to-date vulnerability database is used for vulnerability scanning activities.|
+|Essential8-ML3|ISM-1808|Patch applications|A vulnerability scanner with an up-to-date vulnerability database is used for vulnerability scanning activities.|
+|Essential8-ML1|ISM-1808|Patch operating systems|A vulnerability scanner with an up-to-date vulnerability database is used for vulnerability scanning activities.|
+|Essential8-ML2|ISM-1808|Patch operating systems|A vulnerability scanner with an up-to-date vulnerability database is used for vulnerability scanning activities.|
+|Essential8-ML3|ISM-1808|Patch operating systems|A vulnerability scanner with an up-to-date vulnerability database is used for vulnerability scanning activities.|
+
+
+
+
+### End-of-life - Systems running vendor-supported software
+
+#### Description
+
+Ensure that systems are not running end-of-life, unsuported or unpatchable
+software.
+
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`vm_eol_software`|
+|**Category**|Vulnerability Management|
+|**SLO**|90.00% - 95.00%|
+|**Weight**|0.8|
+|**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
+|CIS 8.1|2.2|Inventory and Control of Software Assets|Ensure Authorized Software is Currently Supported|
+|NIST CSF v2.0|ID.AM-08|Asset Management (ID.AM)|ID.AM-08: Systems, hardware, software, services, and data are managed throughout their life cycles|
+|Essential8-ML3|ISM-0304|Patch applications|Applications other than office productivity suites, web browsers and their extensions, email clients, PDF software, Adobe Flash Player, and security products that are no longer supported by vendors are removed.|
+|Essential8-ML1|ISM-1704|Patch applications|Office productivity suites, web browsers and their extensions, email clients, PDF software, Adobe Flash Player, and security products that are no longer supported by vendors are removed.|
+|Essential8-ML2|ISM-1704|Patch applications|Office productivity suites, web browsers and their extensions, email clients, PDF software, Adobe Flash Player, and security products that are no longer supported by vendors are removed.|
+|Essential8-ML3|ISM-1704|Patch applications|Office productivity suites, web browsers and their extensions, email clients, PDF software, Adobe Flash Player, and security products that are no longer supported by vendors are removed.|
+|Essential8-ML1|ISM-1905|Patch applications|Online services that are no longer supported by vendors are removed.|
+|Essential8-ML2|ISM-1905|Patch applications|Online services that are no longer supported by vendors are removed.|
+|Essential8-ML3|ISM-1905|Patch applications|Online services that are no longer supported by vendors are removed.|
+|Essential8-ML3|ISM-1407|Patch operating systems|The latest release, or the previous release, of operating systems are used.|
+|Essential8-ML1|ISM-1501|Patch operating systems|Operating systems that are no longer supported by vendors are replaced.|
+|Essential8-ML2|ISM-1501|Patch operating systems|Operating systems that are no longer supported by vendors are replaced.|
+|Essential8-ML3|ISM-1501|Patch operating systems|Operating systems that are no longer supported by vendors are replaced.|
 
 
 
@@ -500,8 +601,8 @@ The percentage of systems that were active in the last 30 days that have resolve
 
 |**Framework**|**Ref**|**Domain**|**Control**|
 |--|--|--|--|
-|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
 |CIS 8.1|7.7|Continuous Vulnerability Management|Remediate Detected Vulnerabilities|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
 |NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
 
 
@@ -527,8 +628,8 @@ The percentage of systems that were active in the last 30 days that have resolve
 
 |**Framework**|**Ref**|**Domain**|**Control**|
 |--|--|--|--|
-|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
 |CIS 8.1|7.7|Continuous Vulnerability Management|Remediate Detected Vulnerabilities|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
 |NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
 
 
@@ -554,8 +655,8 @@ The percentage of systems that were active in the last 30 days that have resolve
 
 |**Framework**|**Ref**|**Domain**|**Control**|
 |--|--|--|--|
-|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
 |CIS 8.1|7.7|Continuous Vulnerability Management|Remediate Detected Vulnerabilities|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
 |NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
 
 
@@ -581,8 +682,8 @@ The percentage of systems that were active in the last 30 days that have resolve
 
 |**Framework**|**Ref**|**Domain**|**Control**|
 |--|--|--|--|
-|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
 |CIS 8.1|7.7|Continuous Vulnerability Management|Remediate Detected Vulnerabilities|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
 |NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
 
 
@@ -608,8 +709,8 @@ The percentage of systems that were active in the last 30 days that have resolve
 
 |**Framework**|**Ref**|**Domain**|**Control**|
 |--|--|--|--|
-|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
 |CIS 8.1|7.7|Continuous Vulnerability Management|Remediate Detected Vulnerabilities|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
 |NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
 
 
@@ -671,6 +772,44 @@ The percentage of systems that have been active in the last 30 days and that hav
 
 
 
+### Systems without vulnerabilities in 48 hours - exploitable or critical and high
+
+#### Description
+
+The percentage of systems that have been active in the last 30 days and that have resolved exploitable or critical and high vulnerabilities published in the last 48 hours, providing critical insight into the organisation's ability to minimize exposure to known threats and effectively reduce the attack surface.
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`vm_posture_exploitable_critical_48_hours`|
+|**Category**|Vulnerability Management|
+|**SLO**|90.00% - 95.00%|
+|**Weight**|0.8|
+|**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
+|CIS 8.1|7.5|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Internal Enterprise Assets|
+|CIS 8.1|7.6|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets|
+|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
+|Essential8-ML3|ISM-1692|Patch applications|Patches, updates or other vendor mitigations for vulnerabilities in office productivity suites, web browsers and their extensions, email clients, PDF software, and security products are applied within 48 hours of release when vulnerabilities are assessed as critical by vendors or when working exploits exist.|
+|Essential8-ML1|ISM-1876|Patch applications|Patches, updates or other vendor mitigations for vulnerabilities in online services are applied within 48 hours of release when vulnerabilities are assessed as critical by vendors or when working exploits exist.|
+|Essential8-ML2|ISM-1876|Patch applications|Patches, updates or other vendor mitigations for vulnerabilities in online services are applied within 48 hours of release when vulnerabilities are assessed as critical by vendors or when working exploits exist.|
+|Essential8-ML3|ISM-1876|Patch applications|Patches, updates or other vendor mitigations for vulnerabilities in online services are applied within 48 hours of release when vulnerabilities are assessed as critical by vendors or when working exploits exist.|
+|Essential8-ML3|ISM-1696|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in operating systems of workstations, non-internet-facing servers and non-internet-facing network devices are applied within 48 hours of release when vulnerabilities are assessed as critical by vendors or when working exploits exist.|
+|Essential8-ML1|ISM-1877|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in operating systems of internet-facing servers and internet-facing network devices are applied within 48 hours of release when vulnerabilities are assessed as critical by vendors or when working exploits exist.|
+|Essential8-ML2|ISM-1877|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in operating systems of internet-facing servers and internet-facing network devices are applied within 48 hours of release when vulnerabilities are assessed as critical by vendors or when working exploits exist.|
+|Essential8-ML3|ISM-1877|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in operating systems of internet-facing servers and internet-facing network devices are applied within 48 hours of release when vulnerabilities are assessed as critical by vendors or when working exploits exist.|
+|Essential8-ML3|ISM-1879|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in drivers are applied within 48 hours of release when vulnerabilities are assessed as critical by vendors or when working exploits exist.|
+|Essential8-ML3|ISM-1903|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in firmware are applied within 48 hours of release when vulnerabilities are assessed as critical by vendors or when working exploits exist.|
+
+
+
+
 ### Systems without vulnerabilities - exploitable and patchable critical and high
 
 #### Description
@@ -723,6 +862,80 @@ The percentage of systems that were active in the last 30 days taht have resolve
 |CIS 8.1|7.5|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Internal Enterprise Assets|
 |CIS 8.1|7.6|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets|
 |NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
+
+
+
+
+### Systems without vulnerabilities - non critical patched in 2 weeks
+
+#### Description
+
+The percentage of systems that have been active in the last 30 days and that have resolved non critical vulnerabilities published in the 2 weeks, providing critical insight into the organisation's ability to minimize exposure to known threats and effectively reduce the attack surface.
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`vm_posture_non_critical_month`|
+|**Category**|Vulnerability Management|
+|**SLO**|90.00% - 95.00%|
+|**Weight**|0.8|
+|**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
+|CIS 8.1|7.5|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Internal Enterprise Assets|
+|CIS 8.1|7.6|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets|
+|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
+|Essential8-ML1|ISM-1690|Patch applications|Patches, updates or other vendor mitigations for vulnerabilities in online services are applied within two weeks of release when vulnerabilities are assessed as non-critical by vendors and no working exploits exist.|
+|Essential8-ML2|ISM-1690|Patch applications|Patches, updates or other vendor mitigations for vulnerabilities in online services are applied within two weeks of release when vulnerabilities are assessed as non-critical by vendors and no working exploits exist.|
+|Essential8-ML3|ISM-1690|Patch applications|Patches, updates or other vendor mitigations for vulnerabilities in online services are applied within two weeks of release when vulnerabilities are assessed as non-critical by vendors and no working exploits exist.|
+|Essential8-ML1|ISM-1691|Patch applications|Patches, updates or other vendor mitigations for vulnerabilities in office productivity suites, web browsers and their extensions, email clients, PDF software, and security products are applied within two weeks of release.|
+|Essential8-ML2|ISM-1691|Patch applications|Patches, updates or other vendor mitigations for vulnerabilities in office productivity suites, web browsers and their extensions, email clients, PDF software, and security products are applied within two weeks of release.|
+|Essential8-ML2|ISM-1700|Patch applications|A vulnerability scanner is used at least fortnightly to identify missing patches or updates for vulnerabilities in applications other than office productivity suites, web browsers and their extensions, email clients, PDF software, and security products.|
+|Essential8-ML3|ISM-1700|Patch applications|A vulnerability scanner is used at least fortnightly to identify missing patches or updates for vulnerabilities in applications other than office productivity suites, web browsers and their extensions, email clients, PDF software, and security products.|
+|Essential8-ML3|ISM-1901|Patch applications|Patches, updates or other vendor mitigations for vulnerabilities in office productivity suites, web browsers and their extensions, email clients, PDF software, and security products are applied within two weeks of release when vulnerabilities are assessed as non-critical by vendors and no working exploits exist.|
+|Essential8-ML1|ISM-1694|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in operating systems of internet-facing servers and internet-facing network devices are applied within two weeks of release when vulnerabilities are assessed as non-critical by vendors and no working exploits exist.|
+|Essential8-ML2|ISM-1694|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in operating systems of internet-facing servers and internet-facing network devices are applied within two weeks of release when vulnerabilities are assessed as non-critical by vendors and no working exploits exist.|
+|Essential8-ML3|ISM-1694|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in operating systems of internet-facing servers and internet-facing network devices are applied within two weeks of release when vulnerabilities are assessed as non-critical by vendors and no working exploits exist.|
+
+
+
+
+### Systems without vulnerabilities - non critical patched in a month
+
+#### Description
+
+The percentage of systems that have been active in the last 30 days and that have resolved non critical vulnerabilities published in the last month, providing critical insight into the organisation's ability to minimize exposure to known threats and effectively reduce the attack surface.
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`vm_posture_non_critical_month`|
+|**Category**|Vulnerability Management|
+|**SLO**|90.00% - 95.00%|
+|**Weight**|0.8|
+|**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
+|CIS 8.1|7.5|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Internal Enterprise Assets|
+|CIS 8.1|7.6|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets|
+|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
+|Essential8-ML2|ISM-1693|Patch applications|Patches, updates or other vendor mitigations for vulnerabilities in applications other than office productivity suites, web browsers and their extensions, email clients, PDF software, and security products are applied within one month of release.|
+|Essential8-ML3|ISM-1693|Patch applications|Patches, updates or other vendor mitigations for vulnerabilities in applications other than office productivity suites, web browsers and their extensions, email clients, PDF software, and security products are applied within one month of release.|
+|Essential8-ML1|ISM-1695|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in operating systems of workstations, non-internet-facing servers and non-internet-facing network devices are applied within one month of release.|
+|Essential8-ML2|ISM-1695|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in operating systems of workstations, non-internet-facing servers and non-internet-facing network devices are applied within one month of release.|
+|Essential8-ML3|ISM-1697|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in drivers are applied within one month of release when vulnerabilities are assessed as non-critical by vendors and no working exploits exist.|
+|Essential8-ML3|ISM-1902|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in operating systems of workstations, non-internet-facing servers and non-internet-facing network devices are applied within one month of release when vulnerabilities are assessed as non-critical by vendors and no working exploits exist.|
+|Essential8-ML3|ISM-1904|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in firmware are applied within one month of release when vulnerabilities are assessed as non-critical by vendors and no working exploits exist.|
 
 
 

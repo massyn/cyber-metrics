@@ -34,6 +34,7 @@ The following frameworks are used in the mapping of metrics
 * [ISO 27001:2022](https://www.iso.org/standard/27001)
 * [CIS 8.1](https://www.cisecurity.org/controls/v8-1)
 * [NIST CSF v.2.0](https://csf.tools/reference/nist-cybersecurity-framework/v2-0/)
+* [Essential 8](https://www.cyber.gov.au/resources-business-and-government/essential-cyber-security/essential-eight)
 
 |**Category**|**Title**|**Type**|**Query**|
 |--|--|--|--|

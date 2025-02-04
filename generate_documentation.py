@@ -78,23 +78,21 @@ def render_jinja(data,template,output):
 col = collector_data('01-collectors')
 met = metrics_data('02-metrics')
 fw = readCSV('99-templates/framework.csv')
-framework = {}
-for f in fw:
-    if not f['framework'] in framework:
-        framework[f['framework']] = {}
-    if not f['ref'] in framework[f['framework']]:
-        framework[f['framework']][f['ref']] = f
 
 for m in met:
     if not 'framework' in m:
         m['framework'] = []
 
-    for F in ['ISO 27001:2022','CIS 8.1','NIST CSF v2.0']:
-        for mf in m.get('references',{}).get(F,[]):
-            if str(mf) not in framework[F]:
-                print(f"Metric {m['metric_id']} has a missing {F} reference ({mf})")
-            else:
-                m['framework'].append(framework[F][str(mf)])
+    for F in m.get('references',{}):
+        for r in m['references'][F]:
+            # -- find this one in the framework
+            found = False
+            for w in fw:
+                if w['framework'].startswith(F) and str(w['ref']) == str(r):
+                    found = True
+                    m['framework'].append(w)
+            if not found:
+                print(f"Could not find {F} - {r} in {m['metric_id']} ")
 
 render_jinja(col,'collectors.md','00-docs/collectors.md')
 render_jinja(met,'metrics.md','00-docs/metrics.md')

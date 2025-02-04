@@ -1,0 +1,21 @@
+---
+metric_id: am_known_assets
+title: Assets known to Asset Management
+category: Asset Management
+type: control
+description: Using our scanning tools, we identify systems that may exist in the environment that may not have been recorded in the asset management system.
+slo:
+  - 0.9
+  - 0.95
+weight: 0.5
+enabled: True
+references:
+  "ISO 27001:2022":
+    - A.5.9
+  "CIS 8.1":
+    - 1.1
+  "NIST CSF v2.0":
+    - ID.AM-01
+  "Essential8":
+    - ISM-1807
+query: null

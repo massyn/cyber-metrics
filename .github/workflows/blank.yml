@@ -1,0 +1,49 @@
+name: Publish
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+jobs:
+  mkdocs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check me out
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          pip install -r docs/requirements.txt
+
+      # - name: Add a date
+      #   run: echo "Updated on $(date)" >> docs/about.md
+
+      - name: Build the site
+        run: cd docs && mkdocs build -f mkdocs.yml -d ../dist -c --no-directory-urls
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: ./dist
+
+  cloudflare:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+      
+      - name: Publish to Cloudflare
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: 'metric-library'
+          directory: '.'
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+  
+  

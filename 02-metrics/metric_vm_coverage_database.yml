@@ -1,12 +1,13 @@
 ---
 metric_id: vm_coverage
-title: Systems with an up-to-date agent deployed
+title: Systems with an up-to-date vulnerability database deployed
 category: Vulnerability Management
 type: control
 description: |
   The percentage of systems with up-to-date vulnerability management agents
-  deployed, providing critical visibility into security gaps and enabling swift
-  action to protect the organization from exploitable weaknesses.
+  deployed with an up-to-date database, providing critical visibility into
+  security gaps and enabling swift action to protect the organization from
+  exploitable weaknesses.
 slo:
   - 0.8
   - 0.95
@@ -21,10 +22,5 @@ references:
   "NIST CSF v2.0":
     - ID.RA-01
   "Essential8":
-    - ISM-1698
-    - ISM-1699
-    - ISM-1701
-    - ISM-1702
-    - ISM-1703
-    - ISM-1900
+    - ISM-1808
 query: null

@@ -1,0 +1,74 @@
+---
+metric_id: vm_posture_non_critical_month
+title: Systems without vulnerabilities - non critical patched in 2 weeks
+category: Vulnerability Management
+type: risk
+description: The percentage of systems that have been active in the last 30
+  days and that have resolved non critical vulnerabilities published in the 2 weeks,
+  providing critical insight into the organisation's ability to minimize
+  exposure to known threats and effectively reduce the attack surface.
+slo:
+  - 0.90
+  - 0.95
+weight: 0.8
+enabled: true
+references:
+  "ISO 27001:2022":
+    - A.8.8
+  "CIS 8.1":
+    - 7.5
+    - 7.6
+  "NIST CSF v2.0":
+    - ID.RA-01
+  "Essential8":
+    - ISM-1690
+    - ISM-1691
+    - ISM-1700
+    - ISM-1901
+    - ISM-1694
+query:
+  - |
+    SELECT
+      host.hostname AS resource,
+      'host' as resource_type,
+      CASE
+        WHEN count(cve.aid) = 0 THEN 1
+        ELSE 0
+      END AS compliance,
+      CAST(count(cve.*) as text) AS detail
+    FROM
+      {{ ref('crowdstrike_hosts') }} AS host
+    LEFT JOIN
+      {{ ref('crowdstrike_vulnerabilities') }} AS cve
+    ON
+      host.device_id = cve.aid
+      AND cve.status IN ('open', 'reopen')
+      AND cve.severity NOT IN ('HIGH', 'CRITICAL')
+    WHERE
+      CURRENT_DATE - CAST(STRPTIME(host.last_seen, '%Y-%m-%dT%H:%M:%SZ') AS DATE) < 30 and
+      CURRENT_DATE - CAST(cve.published_date AS DATE) >= 14
+    GROUP BY
+      host.hostname
+  - |
+    SELECT
+      asset.hostname AS resource,
+      'host' AS resource_type,
+      CASE
+        WHEN count(cve.plugin.id) = 0 THEN 1
+        ELSE 0
+      END AS compliance,
+      CAST(count(cve.plugin) AS text) AS detail
+    FROM
+      {{ ref('tenable_assets') }} AS asset
+    LEFT JOIN
+      {{ ref('tenable_vulnerabilities') }} AS cve
+    ON
+      asset.uuid = cve.asset.uuid
+      AND cve.state IN ('OPEN', 'REOPENED')
+      AND cve.severity IN ('high', 'critical')
+      
+    WHERE
+      CURRENT_DATE - CAST(asset.last_seen AS DATE) < 30 AND
+      CURRENT_DATE - CAST(cve.last_found AS DATE) >= 14
+    GROUP BY
+      asset.hostname

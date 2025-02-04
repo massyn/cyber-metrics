@@ -1,0 +1,27 @@
+---
+metric_id: vm_eol_software
+title: End-of-life - Systems running vendor-supported software
+category: Vulnerability Management
+type: risk
+description: |
+  Ensure that systems are not running end-of-life, unsuported or unpatchable
+  software.
+slo:
+  - 0.9
+  - 0.95
+weight: 0.8
+enabled: true
+references:
+  "ISO 27001:2022":
+    - A.8.8
+  "CIS 8.1":
+    - 2.2
+  "NIST CSF v2.0":
+    - ID.AM-08
+  "Essential8":
+    - ISM-0304
+    - ISM-1704
+    - ISM-1905
+    - ISM-1407
+    - ISM-1501
+query: null
