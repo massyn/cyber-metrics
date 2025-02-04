@@ -1,7 +1,13 @@
 import yaml
 import os
 from jinja2 import Environment, FileSystemLoader
+import csv
 
+def readCSV(file):
+    with open(file, 'rt',encoding='utf-8') as q:
+        lines = q.read().split("\n")
+        return list(csv.DictReader(lines))
+    
 def render_jinja(data,template,output):
     template_dir = '.'
     env = Environment(loader=FileSystemLoader(template_dir)).get_template(template)
@@ -35,7 +41,18 @@ def main():
 
     render_jinja(data,"index.md","docs/index.md")
     
+    fw = readCSV('../99-templates/framework.csv')
+
     for metric in m:
+        if not 'framework' in metric:
+            metric['framework'] = []
+
+        for F in metric.get('references',{}):
+            for r in metric['references'][F]:
+                # -- find this one in the framework
+                for w in fw:
+                    if w['framework'].startswith(F) and str(w['ref']) == str(r):
+                        metric['framework'].append(w)
         render_jinja(metric,"metric.md",f"docs/{metric['metric_id']}.md")
 
 main()
