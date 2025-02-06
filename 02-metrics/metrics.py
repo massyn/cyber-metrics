@@ -158,7 +158,7 @@ def main(**KW):
     # should we send an alert?
     alert = not (KW.get('dryrun') or KW.get('metric'))
 
-    detail_df = pd.DataFrame()
+    df_detail = pd.DataFrame()
 
     for filename in os.listdir(KW['metric_path']):
         if filename.startswith('metric_') and filename.endswith('.yml'):
@@ -169,29 +169,26 @@ def main(**KW):
             if KW['metric'] == None or KW['metric'] == metric_file or KW['metric'] == metric['metric_id']:
                 M.lib.log("INFO","main","-----------------------------------------------------------------------")
                 M.lib.log("INFO","main",f"Metric : {metric_file}")
+                df_metric = pd.DataFrame()
                 if 'query' in metric and metric['query'] != None:
-                    # if the query is a list, split the query into individual queries, and pass it to metric_run, else run it as usual
-                    if isinstance(metric['query'],list):
-                        for query in metric['query']:
-                            df = M.metric_run(metric,query)
-                            if df.empty:
-                                M.lib.log("ERROR","main",f"There was an error generating the metric {metric_file}.  It will not be counted.",alert)
-                            else:
-                                detail_df = pd.concat([detail_df, df], ignore_index=True)
-                    else:
-                        df = M.metric_run(metric,metric['query'])
+                    for i,query in enumerate(metric['query']):
+                        df = M.metric_run(metric,query)
                         if df.empty:
-                            M.lib.log("ERROR","main",f"There was an error generating the metric {metric_file}.  It will not be counted.",alert)
+                            M.lib.log("WARNING","main",f"The metric {metric_file} query ({i}) returned an empty dataset.")
                         else:
-                            detail_df = pd.concat([detail_df, df], ignore_index=True)
+                            df_metric = pd.concat([df_metric, df], ignore_index=True)
+                
+                    if df_metric.empty:
+                            M.lib.log("ERROR","main",f"The metric {metric_file} had no data returned.  It will not be counted.",True)
+                    df_detail = pd.concat([df_detail, df_metric], ignore_index=True)
                 else:
                     M.lib.log("WARNING","main",f"No query found in {metric_file}.yml.  It will not be counted.")
-    if detail_df.empty:
+    if df_detail.empty:
         M.lib.log("ERROR","main","The detail dataframe is empty - are you sure the metrics ran ok?",alert)
         exit(1)
 
     # == This is just cosmetic, to show the resulting scores on the screen, so developers can see the results of their work
-    summary = detail_df.groupby('metric_id')['compliance'].agg(['sum', 'count']).reset_index()
+    summary = df_detail.groupby('metric_id')['compliance'].agg(['sum', 'count']).reset_index()
     summary.columns = ['metric_id', 'totalok', 'total']
     summary['score'] = round(summary['totalok'] / summary['total'] * 100,2)
     print("")
@@ -201,7 +198,7 @@ def main(**KW):
     # == save the data file to be used by the publish process
     M.lib.log("INFO","main","Saving the detail data to parquet")
     try:
-        detail_df.to_parquet(f"{KW['parquet']}")
+        df_detail.to_parquet(f"{KW['parquet']}")
         M.lib.log("SUCCESS","main",f"Detail data saved to {KW['parquet']}")
     except Exception as e:
         M.lib.log("ERROR","main",f"Failed to save the detail data to {KW['parquet']}: {e}",alert)

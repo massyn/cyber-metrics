@@ -26,22 +26,23 @@ references:
     - 14.8
   "NIST CSF v2.0":
     - PR.AT-01
-query: |
-  SELECT
-    users.profile.login AS resource,
-    'user' AS resource_type,
-    CASE
-      WHEN training.user.email IS NOT NULL THEN 1
-      ELSE 0
-    END AS compliance,
-    users.profile.login AS detail
-    FROM
-      {{ ref('okta_users') }} AS users
-    LEFT JOIN
-      {{ ref('knowbe4_enrollments') }} AS training
-    ON
-      users.profile.login = training.user.email and
-      datediff('day',cast(training.completion_date as date),current_date())
-        <= 365
-    WHERE
-      users.status = 'ACTIVE';
+query:
+  - |
+    SELECT
+      users.profile.login AS resource,
+      'user' AS resource_type,
+      CASE
+        WHEN training.user.email IS NOT NULL THEN 1
+        ELSE 0
+      END AS compliance,
+      users.profile.login AS detail
+      FROM
+        {{ ref('okta_users') }} AS users
+      LEFT JOIN
+        {{ ref('knowbe4_enrollments') }} AS training
+      ON
+        users.profile.login = training.user.email and
+        datediff('day',cast(training.completion_date as date),current_date())
+          <= 365
+      WHERE
+        users.status = 'ACTIVE';

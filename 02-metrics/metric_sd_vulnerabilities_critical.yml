@@ -21,20 +21,21 @@ references:
     - 16.12
   "NIST CSF v2.0":
     - PR.PS-06
-query: |
-  SELECT
-      projects.attributes.name AS resource,
-      'snyk' as resource_type,
-      CASE
-          WHEN issues.relationships.scan_item.data.id IS NOT NULL THEN 1
-          ELSE 0
-      END AS compliance,
-      projects.attributes.target_file AS detail
-  FROM
-      {{ ref('snyk_projects') }} AS projects
-  LEFT JOIN
-      {{ ref('snyk_issues') }} AS issues
-  ON
-      projects.id = issues.relationships.scan_item.data.id
-      AND issues.attributes.status = 'open'
-      AND issues.attributes.effective_severity_level IN ('critical', 'high')
+query:
+  - |
+    SELECT
+        projects.attributes.name AS resource,
+        'snyk' as resource_type,
+        CASE
+            WHEN issues.relationships.scan_item.data.id IS NOT NULL THEN 1
+            ELSE 0
+        END AS compliance,
+        projects.attributes.target_file AS detail
+    FROM
+        {{ ref('snyk_projects') }} AS projects
+    LEFT JOIN
+        {{ ref('snyk_issues') }} AS issues
+    ON
+        projects.id = issues.relationships.scan_item.data.id
+        AND issues.attributes.status = 'open'
+        AND issues.attributes.effective_severity_level IN ('critical', 'high')
