@@ -5,6 +5,8 @@
 |**[Crowdstrike Falcon](https://www.falconpy.io/)**|`hosts`<br>`vulnerabilities`<br>`zero_trust_assessment`<br>|||
 |||`FALCON_CLIENT_ID`|`None`|
 |||`FALCON_SECRET`|`None`|
+|**[Domains](https://)**|`domains`<br>|||
+|||`DOMAINS`|`None`|
 |**[Knowbe4](https://www.knowbe4.com/)**|`enrollments`<br>|||
 |||`KNOWBE4_TOKEN`|`None`|
 |||`KNOWBE4_ENDPOINT`|`https://us.api.knowbe4.com/v1/training/enrollments`|

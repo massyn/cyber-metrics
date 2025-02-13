@@ -1,0 +1,41 @@
+---
+metric_id: ns_domains_with_spf
+title: Network Security - DNS Domains with SPF configured
+category: Network Security
+type: risk
+description: |
+  The percentage of DNS domains with email configured that has an SPF record
+  created in the DNS zone.
+how: |
+  Query all DNS domains.  For every domain that has an MX record, check if the
+  SPF record has been created.
+slo:
+  - 0.95
+  - 0.99
+weight: 0.5
+enabled: true
+references:
+  "ISO 27001:2022":
+    - A.8.8
+  "CIS 8.1":
+    - 7.5
+    - 7.6
+  "NIST CSF v2.0":
+    - ID.RA-01
+query: 
+  - |
+    SELECT
+      domain AS resource,
+      'domain' as resource_type,
+      CASE
+        when mx == [] then 1
+        when cast(txt as string) like '%v=spf1%' then 1
+        else 0
+      end as compliance,
+      CASE
+        when mx == [] then 'No MX record found - assumed no email'
+        when cast(txt as string) like '%v=spf1%' then 'SPF record found'
+        else 'MX record found, but no SPF record'
+      end as detail
+    FROM
+      {{ ref('domains') }}

@@ -6,6 +6,7 @@ import json
 import boto3
 from botocore.exceptions import ClientError
 import uuid
+import sys
 
 class Library:
     def __init__(self):
@@ -26,6 +27,7 @@ class Library:
     def log(self,sev,mod,txt,alert = False):
         ts = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d %H:%H:%S')
         print(f"{ts} [{sev:^9}] {mod:^16} : {txt}")
+        sys.stdout.flush()
 
         if alert and os.environ.get('SLACK_WEBHOOK','') != '':
             severity_icons = {

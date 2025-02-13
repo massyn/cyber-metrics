@@ -23,6 +23,8 @@ The following frameworks are used in the mapping of metrics
 
 |**Category**|**Title**|**Type**|**Query**|
 |--|--|--|--|
+|**Asset Management**|||||
+||[Assets known to Asset Management](#assets-known-to-asset-management)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
 |**Data Protection**|||||
 ||[Systems with their volumes encrypted](#systems-with-their-volumes-encrypted)|![risk](https://img.shields.io/badge/RISK-c00000)|![No](https://img.shields.io/badge/NO-00F)|
 |**Disaster Recovery**|||||
@@ -36,6 +38,7 @@ The following frameworks are used in the mapping of metrics
 |**Malware Protection**|||||
 ||[Systems with an up-to-date agent deployed](#systems-with-an-up-to-date-agent-deployed)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
 |**Network Security**|||||
+||[Network Security - DNS Domains with SPF configured](#network-security---dns-domains-with-spf-configured)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[External endpoints with insecure ports exposed](#external-endpoints-with-insecure-ports-exposed)|![risk](https://img.shields.io/badge/RISK-c00000)|![No](https://img.shields.io/badge/NO-00F)|
 ||[External endpoints protected by a WAF](#external-endpoints-protected-by-a-waf)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
 |**Software Development**|||||
@@ -64,6 +67,39 @@ The following frameworks are used in the mapping of metrics
 
 
 ## List of metrics
+### Assets known to Asset Management
+
+#### Description
+
+Using our scanning tools, we identify systems that may exist in the environment that may not have been recorded in the asset management system.
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`am_known_assets`|
+|**Category**|Asset Management|
+|**SLO**|90.00% - 95.00%|
+|**Weight**|0.5|
+|**Type**|![control](https://img.shields.io/badge/CONTROL-0000F0)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|ISO 27001:2022|A.5.9|5 Organizational controls|Inventory of information and other associated assets|
+|CIS 8.1|1.1|Inventory and Control of Enterprise Assets|Establish and Maintain Detailed Enterprise Asset Inventory|
+|NIST CSF v2.0|ID.AM-01|Asset Management (ID.AM)|ID.AM-01: Inventories of hardware managed by the organization are maintained|
+|Essential8-ML1|ISM-1807|Patch applications|An automated method of asset discovery is used at least fortnightly to support the detection of assets for subsequent vulnerability scanning activities.|
+|Essential8-ML2|ISM-1807|Patch applications|An automated method of asset discovery is used at least fortnightly to support the detection of assets for subsequent vulnerability scanning activities.|
+|Essential8-ML3|ISM-1807|Patch applications|An automated method of asset discovery is used at least fortnightly to support the detection of assets for subsequent vulnerability scanning activities.|
+|Essential8-ML1|ISM-1807|Patch operating systems|An automated method of asset discovery is used at least fortnightly to support the detection of assets for subsequent vulnerability scanning activities.|
+|Essential8-ML2|ISM-1807|Patch operating systems|An automated method of asset discovery is used at least fortnightly to support the detection of assets for subsequent vulnerability scanning activities.|
+|Essential8-ML3|ISM-1807|Patch operating systems|An automated method of asset discovery is used at least fortnightly to support the detection of assets for subsequent vulnerability scanning activities.|
+
+
+
+
 ### Systems with their volumes encrypted
 
 #### Description
@@ -286,6 +322,36 @@ The percentage of systems with an up-to-date malware detection agent deployed, e
 |CIS 8.1|10.1|Malware Defenses|Deploy and Maintain Anti-Malware Software|
 |ISO 27001:2022|A.8.7|8 Technological controls|Protection against malware|
 |NIST CSF v2.0|PR.PS-05|Platform Security (PR.PS)|PR.PS-05: Installation and execution of unauthorized software are prevented|
+
+
+
+
+### Network Security - DNS Domains with SPF configured
+
+#### Description
+
+The percentage of DNS domains with email configured that has an SPF record
+created in the DNS zone.
+
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`ns_domains_with_spf`|
+|**Category**|Network Security|
+|**SLO**|95.00% - 99.00%|
+|**Weight**|0.5|
+|**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
+|CIS 8.1|7.5|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Internal Enterprise Assets|
+|CIS 8.1|7.6|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets|
+|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
 
 
 
@@ -585,7 +651,12 @@ software.
 
 #### Description
 
-The percentage of systems that were active in the last 30 days that have resolved critical and high vulnerabilities within the agreed Service Level Objective (SLO), providing critical insight into the organisation's ability to minimize exposure to known threats and reduce the attack surface effectively.
+The percentage of systems that were active in the last 30 days
+that have resolved critical and high vulnerabilities within the agreed
+Service Level Objective (SLO), providing critical insight into the
+organisation's ability to minimize exposure to known threats and reduce
+the attack surface effectively.
+
 
 #### Meta Data
 
@@ -612,7 +683,12 @@ The percentage of systems that were active in the last 30 days that have resolve
 
 #### Description
 
-The percentage of systems that were active in the last 30 days that have resolved exploitable vulnerabilities within the agreed Service Level Objective (SLO), providing critical insight into the organisation's ability to minimize exposure to known threats and reduce the attack surface effectively.
+The percentage of systems that were active in the last 30 days
+that have resolved exploitable vulnerabilities within the agreed
+Service Level Objective (SLO), providing critical insight into the
+organisation's ability to minimize exposure to known threats and reduce the
+attack surface effectively.
+
 
 #### Meta Data
 
@@ -639,7 +715,12 @@ The percentage of systems that were active in the last 30 days that have resolve
 
 #### Description
 
-The percentage of systems that were active in the last 30 days that have resolved exploitable, patchable vulnerabilities within the agreed Service Level Objective (SLO), providing critical insight into the organisation's ability to minimize exposure to known threats and reduce the attack surface effectively.
+The percentage of systems that were active in the last 30 days
+that have resolved exploitable, patchable vulnerabilities within the agreed
+Service Level Objective (SLO), providing critical insight into the
+organisation's ability to minimize exposure to known threats and reduce the
+attack surface effectively.
+
 
 #### Meta Data
 
@@ -666,7 +747,12 @@ The percentage of systems that were active in the last 30 days that have resolve
 
 #### Description
 
-The percentage of systems that were active in the last 30 days that have resolved exploitable, patchable, critical and high vulnerabilities within the agreed Service Level Objective (SLO), providing critical insight into the organisation's ability to minimize exposure to known threats and reduce the attack surface effectively.
+The percentage of systems that were active in the last 30 days
+that have resolved exploitable, patchable, critical and high vulnerabilities
+within the agreed Service Level Objective (SLO), providing critical insight
+into the organisation's ability to minimize exposure to known threats and
+reduce the attack surface effectively.
+
 
 #### Meta Data
 
@@ -693,7 +779,12 @@ The percentage of systems that were active in the last 30 days that have resolve
 
 #### Description
 
-The percentage of systems that were active in the last 30 days that have resolved patchable vulnerabilities within the agreed Service Level Objective (SLO), providing critical insight into the organisation's ability to minimize exposure to known threats and reduce the attack surface effectively.
+The percentage of systems that were active in the last 30 days
+that have resolved patchable vulnerabilities within the agreed
+Service Level Objective (SLO), providing critical insight into the
+organisation's ability to minimize exposure to known threats and reduce the
+attack surface effectively.
+
 
 #### Meta Data
 
@@ -720,7 +811,11 @@ The percentage of systems that were active in the last 30 days that have resolve
 
 #### Description
 
-The percentage of systems that were active in the last 30 days that have vulnerabilities classified as critical or high priority, providing critical insight into the organisation's ability to minimize exposure to known threats and effectively reduce the attack surface.
+The percentage of systems that were active in the last 30 days
+that have vulnerabilities classified as critical or high priority, providing
+critical insight into the organisation's ability to minimize exposure to
+known threats and effectively reduce the attack surface.
+
 
 #### Meta Data
 
@@ -748,7 +843,11 @@ The percentage of systems that were active in the last 30 days that have vulnera
 
 #### Description
 
-The percentage of systems that have been active in the last 30 days and that have resolved exploitable vulnerabilities, providing critical insight into the organisation's ability to minimize exposure to known threats and effectively reduce the attack surface.
+The percentage of systems that have been active in the last 30
+days and that have resolved exploitable vulnerabilities, providing
+critical insight into the organisation's ability to minimize exposure to
+known threats and effectively reduce the attack surface.
+
 
 #### Meta Data
 
@@ -776,7 +875,11 @@ The percentage of systems that have been active in the last 30 days and that hav
 
 #### Description
 
-The percentage of systems that have been active in the last 30 days and that have resolved exploitable or critical and high vulnerabilities published in the last 48 hours, providing critical insight into the organisation's ability to minimize exposure to known threats and effectively reduce the attack surface.
+The percentage of systems that have been active in the last 30
+days and that have resolved exploitable or critical and high vulnerabilities published in the last 48 hours,
+providing critical insight into the organisation's ability to minimize
+exposure to known threats and effectively reduce the attack surface.
+
 
 #### Meta Data
 
@@ -814,7 +917,11 @@ The percentage of systems that have been active in the last 30 days and that hav
 
 #### Description
 
-The percentage of systems that were active in the last 30 days that have resolved exploitable, patchable vulnerabilities, providing critical insight into the organisation's ability to minimize exposure to known threats and effectively reduce the attack surface.
+The percentage of systems that were active in the last 30 days
+that have resolved exploitable, patchable vulnerabilities, providing
+critical insight into the organisation's ability to minimize exposure to
+known threats and effectively reduce the attack surface.
+
 
 #### Meta Data
 
@@ -842,7 +949,12 @@ The percentage of systems that were active in the last 30 days that have resolve
 
 #### Description
 
-The percentage of systems that were active in the last 30 days taht have resolved exploitable, patchable vulnerabilities classified as critical or high priority, providing critical insight into the organisation's ability to minimize exposure to known threats and effectively reduce the attack surface.
+The percentage of systems that were active in the last 30 days
+taht have resolved exploitable, patchable vulnerabilities classified as
+critical or high priority, providing critical insight into the
+organisation's ability to minimize exposure to known threats and
+effectively reduce the attack surface.
+
 
 #### Meta Data
 
@@ -870,7 +982,11 @@ The percentage of systems that were active in the last 30 days taht have resolve
 
 #### Description
 
-The percentage of systems that have been active in the last 30 days and that have resolved non critical vulnerabilities published in the 2 weeks, providing critical insight into the organisation's ability to minimize exposure to known threats and effectively reduce the attack surface.
+The percentage of systems that have been active in the last 30
+days and that have resolved non critical vulnerabilities published in the 2 weeks,
+providing critical insight into the organisation's ability to minimize
+exposure to known threats and effectively reduce the attack surface.
+
 
 #### Meta Data
 
@@ -909,7 +1025,11 @@ The percentage of systems that have been active in the last 30 days and that hav
 
 #### Description
 
-The percentage of systems that have been active in the last 30 days and that have resolved non critical vulnerabilities published in the last month, providing critical insight into the organisation's ability to minimize exposure to known threats and effectively reduce the attack surface.
+The percentage of systems that have been active in the last 30
+days and that have resolved non critical vulnerabilities published in the last month,
+providing critical insight into the organisation's ability to minimize
+exposure to known threats and effectively reduce the attack surface.
+
 
 #### Meta Data
 
@@ -944,7 +1064,11 @@ The percentage of systems that have been active in the last 30 days and that hav
 
 #### Description
 
-The percentage of systems that have been active in the last 30 days and that have patchable vulnerabilities providing critical insight into the organisation's ability to minimize exposure to known threats and effectively reduce the attack surface.
+The percentage of systems that have been active in the last 30
+days and that have patchable vulnerabilities providing critical insight
+into the organisation's ability to minimize exposure to known threats and
+effectively reduce the attack surface.
+
 
 #### Meta Data
 

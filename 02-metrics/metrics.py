@@ -22,15 +22,10 @@ class Metric:
         else:
             self.lib.log("ERROR","init","No data path specified")
             exit(1)
-
-        self.privacy = KW.get('privacy',True)
-        if self.privacy == True:
-            self.lib.log("WARNING","init","Privacy mode is enabled.  Resource and Detail will be redacted.  If you need to see that info, run with -privacy_off")
         
         self.datestamp = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d')
         self.lib.log("INFO","init",f"Datestamp = {self.datestamp}")
         self.history = []
-        self.privacy = True
         self.data_tables = {}
 
     def resolve_ref(self, table_name):
@@ -73,11 +68,6 @@ class Metric:
             print(template)
             return pd.DataFrame()
         
-        # == if privacy is enabled, we hide resource and detail
-        if self.privacy:
-            df['resource'] = 'redacted - privacy enabled'
-            df['detail'] = 'redacted - privacy enabled'
-
         # == check if the mandatory columns are there
         success = True
         for col in [ 'resource','resource_type','compliance','detail']:
@@ -179,7 +169,11 @@ def main(**KW):
                             df_metric = pd.concat([df_metric, df], ignore_index=True)
                 
                     if df_metric.empty:
-                            M.lib.log("ERROR","main",f"The metric {metric_file} had no data returned.  It will not be counted.",True)
+                        M.lib.log("ERROR","main",f"The metric {metric_file} had no data returned.  It will not be counted.",True)
+                    else:
+                        if KW['metric'] != None:
+                            print(df_metric)
+
                     df_detail = pd.concat([df_detail, df_metric], ignore_index=True)
                 else:
                     M.lib.log("WARNING","main",f"No query found in {metric_file}.yml.  It will not be counted.")
@@ -211,7 +205,6 @@ if __name__=='__main__':
     parser.add_argument('-metric',help='Run a dry-run test against a single metric')
     parser.add_argument('-path',help='The path where the metric yaml files are stored',default='.')
     parser.add_argument('-data',help='The path where the collector saves its files',default=os.environ.get('STORE_FILE','../data/source'))
-    parser.add_argument('-privacy_off', help='Disables privacy mode', action='store_true', default=False)
     parser.add_argument('-parquet',help='The path where the metrics saves the resulting parquet file',default='../data/detail.parquet')
 
     args = parser.parse_args()
@@ -221,6 +214,5 @@ if __name__=='__main__':
         data_path       = args.data,
         dryrun          = args.dryrun,
         metric          = args.metric,
-        privacy         = not args.privacy_off,
         parquet         = args.parquet
     )

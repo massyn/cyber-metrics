@@ -20,7 +20,7 @@ def validate_metric(x):
             print(f" !! ERROR !! - Metric '{x['metric_id']}' missing '{y}'")
             return False
     
-    if x.get('category') not in ['Vulnerability Management','User Security','Software Development','Identity Management','Network Security','Disaster Recovery','Data Protection','Malware Protection']:
+    if x.get('category') not in ['Vulnerability Management','User Security','Software Development','Identity Management','Network Security','Disaster Recovery','Data Protection','Malware Protection','Asset Management']:
         print(f" !! ERROR !! - Metric '{x['metric_id']}' has a mismatched category '{x['category']}'")
         return False
     
