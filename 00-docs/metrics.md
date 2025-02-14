@@ -41,8 +41,8 @@ The following frameworks are used in the mapping of metrics
 ||[Network Security - DNS Domains Expiring Within the Next Month](#network-security---dns-domains-expiring-within-the-next-month)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Network Security - DNS Domains with SPF configured](#network-security---dns-domains-with-spf-configured)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Network Security - DNS Domains with DMARC Configured](#network-security---dns-domains-with-dmarc-configured)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
-||[External endpoints with insecure ports exposed](#external-endpoints-with-insecure-ports-exposed)|![risk](https://img.shields.io/badge/RISK-c00000)|![No](https://img.shields.io/badge/NO-00F)|
-||[External endpoints protected by a WAF](#external-endpoints-protected-by-a-waf)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
+||[Network Security - External endpoints with insecure ports exposed](#network-security---external-endpoints-with-insecure-ports-exposed)|![risk](https://img.shields.io/badge/RISK-c00000)|![No](https://img.shields.io/badge/NO-00F)|
+||[Network Security - External endpoints protected by a WAF](#network-security---external-endpoints-protected-by-a-waf)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
 |**Software Development**|||||
 ||[Repositories with SAST / DAST scanning enabled](#repositories-with-sast-/-dast-scanning-enabled)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
 ||[Repositories without exploitable vulnerabilities](#repositories-without-exploitable-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
@@ -417,7 +417,7 @@ created in the DNS zone.
 
 
 
-### External endpoints with insecure ports exposed
+### Network Security - External endpoints with insecure ports exposed
 
 #### Description
 
@@ -444,7 +444,7 @@ The "Insecure Ports" metric tracks external endpoints with open ports that are i
 
 
 
-### External endpoints protected by a WAF
+### Network Security - External endpoints protected by a WAF
 
 #### Description
 

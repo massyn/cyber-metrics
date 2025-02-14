@@ -1,6 +1,6 @@
 ---
 metric_id: ns_waf
-title: External endpoints protected by a WAF
+title: Network Security - External endpoints protected by a WAF
 category: Network Security
 type: control
 description: The metric measures the proportion of external-facing endpoints

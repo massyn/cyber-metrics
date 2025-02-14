@@ -1,6 +1,6 @@
 ---
 metric_id: ns_insecure_ports
-title: External endpoints with insecure ports exposed
+title: Network Security - External endpoints with insecure ports exposed
 category: Network Security
 type: risk
 description: The "Insecure Ports" metric tracks external endpoints with open
