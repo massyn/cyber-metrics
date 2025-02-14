@@ -1,0 +1,36 @@
+---
+metric_id: ns_domains_expiring
+title: Network Security - DNS Domains Expiring Within the Next Month
+category: Network Security
+type: risk
+description: |
+  The percentage of DNS domains that are set to expire within the next month, which could lead to service disruptions if not renewed in time.
+how: |
+  Query all DNS domains and check their expiration date. Identify domains whose expiration date falls within the next 30 days.
+slo:
+  - 0.99
+  - 1.00
+weight: 0.2
+enabled: true
+references:
+  "ISO 27001:2022":
+    - A.8.20
+  "CIS 8.1":
+    - 9.3
+  "NIST CSF v2.0":
+    - ID.AM-04
+query: 
+  - |
+    SELECT
+      domain AS resource,
+      'domain' as resource_type,
+      CASE
+        WHEN expiration_date <= CURRENT_DATE + INTERVAL 30 DAY THEN 0
+        ELSE 1
+      END as compliance,
+      CASE
+        WHEN expiration_date <= CURRENT_DATE + INTERVAL 30 DAY THEN 'Domain expiring within 30 days'
+        ELSE 'Domain expiration is beyond 30 days'
+      END as detail
+    FROM
+      {{ ref('domains') }}

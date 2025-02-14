@@ -11,4 +11,4 @@ Each of the metrics is maintained as a `yaml` file in [Github](https://github.co
 The goal is not to be an exhaustive list of cyber security metrics - that will come with time.  It is however impossible to achieve full compliance from your regulators or auditors by simply following this guide.  It will however provide you a solid foundation to implement security metrics to achieve the majority of your compliance requirements.
 
 !!! warning
-    Validate all metrics against your compliance frameworks.
+    Please validate all metrics against your compliance frameworks.  We cannot provide any guarentee that the list is complete.

@@ -38,7 +38,9 @@ The following frameworks are used in the mapping of metrics
 |**Malware Protection**|||||
 ||[Systems with an up-to-date agent deployed](#systems-with-an-up-to-date-agent-deployed)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
 |**Network Security**|||||
+||[Network Security - DNS Domains Expiring Within the Next Month](#network-security---dns-domains-expiring-within-the-next-month)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Network Security - DNS Domains with SPF configured](#network-security---dns-domains-with-spf-configured)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Network Security - DNS Domains with DMARC Configured](#network-security---dns-domains-with-dmarc-configured)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[External endpoints with insecure ports exposed](#external-endpoints-with-insecure-ports-exposed)|![risk](https://img.shields.io/badge/RISK-c00000)|![No](https://img.shields.io/badge/NO-00F)|
 ||[External endpoints protected by a WAF](#external-endpoints-protected-by-a-waf)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
 |**Software Development**|||||
@@ -326,6 +328,34 @@ The percentage of systems with an up-to-date malware detection agent deployed, e
 
 
 
+### Network Security - DNS Domains Expiring Within the Next Month
+
+#### Description
+
+The percentage of DNS domains that are set to expire within the next month, which could lead to service disruptions if not renewed in time.
+
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`ns_domains_expiring`|
+|**Category**|Network Security|
+|**SLO**|99.00% - 100.00%|
+|**Weight**|0.2|
+|**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|ISO 27001:2022|A.8.20|8 Technological controls|Networks security|
+|CIS 8.1|9.3|Email and Web Browser Protections|Maintain and Enforce Network-Based URL Filters|
+|NIST CSF v2.0|ID.AM-04|Asset Management (ID.AM)|ID.AM-04: Inventories of services provided by suppliers are maintained|
+
+
+
+
 ### Network Security - DNS Domains with SPF configured
 
 #### Description
@@ -348,10 +378,41 @@ created in the DNS zone.
 
 |**Framework**|**Ref**|**Domain**|**Control**|
 |--|--|--|--|
-|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
-|CIS 8.1|7.5|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Internal Enterprise Assets|
-|CIS 8.1|7.6|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets|
-|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
+|ISO 27001:2022|A.8.20|8 Technological controls|Networks security|
+|CIS 8.1|9.2|Email and Web Browser Protections|Use DNS Filtering Services|
+|CIS 8.1|9.3|Email and Web Browser Protections|Maintain and Enforce Network-Based URL Filters|
+|CIS 8.1|12.6|Network Infrastructure Management|Use of Secure Network Management and Communication Protocols|
+|NIST CSF v2.0|PR.DS-01|Data Security (PR.DS)|PR.DS-01: The confidentiality, integrity, and availability of data-at-rest are protected|
+
+
+
+
+### Network Security - DNS Domains with DMARC Configured
+
+#### Description
+
+The percentage of DNS domains with email configured that have a DMARC record
+created in the DNS zone.
+
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`ns_domains_with_dmarc`|
+|**Category**|Network Security|
+|**SLO**|90.00% - 95.00%|
+|**Weight**|0.6|
+|**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|ISO 27001:2022|A.8.20|8 Technological controls|Networks security|
+|CIS 8.1|9.4|Email and Web Browser Protections|Restrict Unnecessary or Unauthorized Browser and Email Client Extensions|
+|CIS 8.1|12.6|Network Infrastructure Management|Use of Secure Network Management and Communication Protocols|
+|NIST CSF v2.0|PR.DS-02|Data Security (PR.DS)|PR.DS-02: The confidentiality, integrity, and availability of data-in-transit are protected|
 
 
 
