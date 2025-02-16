@@ -8,7 +8,8 @@ slo:
   - 0.9
   - 0.95
 weight: 0.5
-enabled: True
+enabled: true
+indicator: false
 references:
   "ISO 27001:2022":
     - A.5.9

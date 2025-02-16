@@ -80,53 +80,13 @@ class Metric:
         # == add the meta data
         success = True
 
-        if 'metric_id' in yaml_config:
-            df['metric_id'] = yaml_config['metric_id']
-        else:
-            self.lib.log("ERROR","metric_run","metric_id is missing in meta data")
-            success = False
-        
-        if 'title' in yaml_config:
-            df['title'] = yaml_config['title']
-        else:
-            self.lib.log("ERROR","metric_run","title is missing in meta data")
-            success = False
-        
-        if 'category' in yaml_config:
-            df['category'] = yaml_config['category']
-        else:
-            self.lib.log("ERROR","metric_run","category is missing in meta data")
-            success = False
-
-        if 'weight' in yaml_config:
-            if float(yaml_config['weight']) >= 0 and float(yaml_config['weight']) <= 1:
-                df['weight'] = yaml_config['weight']
+        for f in ['metric_id','title','category','indicator','weight','type','description','how']:
+            if f in yaml_config:
+                df[f] = yaml_config[f]
             else:
-                self.lib.log("ERROR","metric_run","weight is not a percentage between 0 and 1")
+                self.lib.log("ERROR",f"metric_run",f"{f} is missing in meta data")
                 success = False
-        else:
-            self.lib.log("ERROR","metric_run","weight is missing in meta data")
-            success = False
-
-        if 'slo' in yaml_config:
-            if isinstance(yaml_config['slo'],list) and len(yaml_config['slo']) == 2:
-                if float(yaml_config['slo'][0]) >= 0 and float(yaml_config['slo'][0]) <= 1:
-                    df['slo_min'] = yaml_config['slo'][0]
-                else:
-                    self.lib.log("ERROR","metric_run","slo[0] needs to be a percentage between 0 and 1")
-                    success = False
-                if float(yaml_config['slo'][1]) >= 0 and float(yaml_config['slo'][1]) <= 1:
-                    df['slo'] = yaml_config['slo'][1]
-                else:
-                    self.lib.log("ERROR","metric_run","slo[0] needs to be a percentage between 0 and 1")
-                    success = False
-            else:
-                self.lib.log("ERROR","metric_run","slo is not a list with two values")
-                success = False
-        else:
-            self.lib.log("ERROR","metric_run","slo is missing in meta data")
-            success = False
-
+        
         if not success:
             return pd.DataFrame()
         df['datestamp'] = self.datestamp

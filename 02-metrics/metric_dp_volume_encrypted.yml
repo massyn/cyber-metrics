@@ -12,6 +12,7 @@ slo:
   - 0.95
 weight: 0.5
 enabled: true
+indicator: false
 references:
   CIS 8.1:
     - '3.11'
