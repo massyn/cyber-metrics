@@ -9,7 +9,7 @@ pandas
 Jinja2
 okta
 duckdb
-boto3
+boto3==1.36.23
 tabulate
 sqlalchemy
 zipp==3.19.1
