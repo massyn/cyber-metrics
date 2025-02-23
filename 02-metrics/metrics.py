@@ -129,7 +129,7 @@ def main(**KW):
                             df_metric = pd.concat([df_metric, df], ignore_index=True)
                 
                     if df_metric.empty:
-                        M.lib.log("ERROR","main",f"The metric {metric_file} had no data returned.  It will not be counted.",True)
+                        M.lib.log("ERROR","main",f"The metric {metric_file} had no data returned.  It will not be counted.")
                     else:
                         if KW['metric'] != None:
                             print(df_metric)
