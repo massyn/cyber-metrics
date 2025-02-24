@@ -1,13 +1,20 @@
 ---
 metric_id: sd_vulnerabilities_performance
-title: Repositories without exploitable vulnerabilities remediated within SLO
+title: SDLC - Repositories without exploitable vulnerabilities remediated within SLO
 category: Software Development
 type: performance
-description: The percentage of code repositories in the development pipeline
+description: |
+  The percentage of code repositories in the development pipeline
   that have resolved critical security vulnerabilities within the established
   service level objective (SLO), ensuring that potential threats are mitigated
   in a timely manner to reduce exposure to security risks and maintain
   compliance with security standards.
+how: |
+  Query the code repository management system to identify all repositories
+  with exploitable vulnerabilities. Calculate the percentage of repositories
+  without exploitable vulnerabilities against the total number of repositories
+  that have resolved critical security vulnerabilities within the established
+  service level objective (SLO).
 slo:
   - 0.9
   - 0.95

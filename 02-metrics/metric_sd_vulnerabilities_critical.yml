@@ -1,14 +1,19 @@
 ---
 metric_id: sd_vulnerabilities
-title: "Repositories without exploitable vulnerabilities"
+title: SDLC - Repositories without exploitable vulnerabilities
 category: Software Development
 type: risk
-description: The percentage of code repositories free from known security
+description: |
+  The percentage of code repositories free from known security
   flaws, ensuring that development efforts prioritize secure coding practices,
   reduce the risk of breaches, and maintain the integrity of the software
   development lifecycle. This metric is important as it directly impacts the
   organization's ability to deliver secure products and protect against
   potential cyber threats.
+how: |
+  Query the code repository management system to identify all repositories
+  with exploitable vulnerabilities. Calculate the percentage of repositories
+  without exploitable vulnerabilities against the total number of repositories.
 slo:
   - 0.98
   - 0.99

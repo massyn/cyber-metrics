@@ -1,13 +1,18 @@
 ---
 metric_id: sd_repository_coverage
-title: Repositories with SAST / DAST scanning enabled
+title: SDLC - Repositories with SAST / DAST scanning enabled
 category: Software Development
 type: control
-description: The percentage of code repositories with Static Application
+description: |
+  The percentage of code repositories with Static Application
   Security Testing (SAST) and Dynamic Application Security Testing (DAST)
   scanning enabled, ensuring early detection of vulnerabilities during
   development and reducing the risk of security breaches before code is
   deployed.
+how: |
+  Query the code repository management system to identify all repositories
+  with SAST and DAST scanning enabled. Calculate the percentage of repositories
+  with scanning enabled against the total number of repositories.
 slo:
   - 0.90
   - 0.95
