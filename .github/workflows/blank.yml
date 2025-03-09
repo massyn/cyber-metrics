@@ -6,7 +6,7 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 jobs:
-  mkdocs:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Check me out
@@ -22,29 +22,35 @@ jobs:
       - name: Build the site
         run: cd docs && mkdocs build -f mkdocs.yml -d ../dist -c --no-directory-urls
       
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: ./dist
-          retention-days: 1
-
-  cloudflare:
-    runs-on: ubuntu-latest
-    needs: mkdocs
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: dist
-      
       - name: Publish to Cloudflare
         uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: 'metric-library'
-          directory: '.'
+          directory: './dist'
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
   
-  
+  notify-on-success:
+    if: success()
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Slack Success Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_MESSAGE: "✅ *Build Succeeded!* 🎯\n*Repo:* ${{ github.repository }}"
+          SLACK_COLOR: "#36A64F"
+
+  notify-on-failure:
+    if: failure()
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Slack Failure Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_MESSAGE: "🚨 *Build Failed!* ❌\n*Repo:* ${{ github.repository }}\n*Branch:* ${{ github.ref }}\n*Commit:* ${{ github.sha }}"
+          SLACK_COLOR: "#FF0000"
