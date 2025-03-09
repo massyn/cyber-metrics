@@ -1,6 +1,6 @@
 site_name: Cyber Metric Library
 site_description: Cyber Metric Library
-site_url: https://cyber-metric.pages.dev
+site_url: https://www.metricslibrary.net
 #copyright: TODO
 
 nav:
@@ -38,3 +38,7 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:mermaid2.fence_mermaid_custom
   - pymdownx.caret
+extra:
+  analytics:
+    provider: google
+    property: G-86GYW9MWMM
