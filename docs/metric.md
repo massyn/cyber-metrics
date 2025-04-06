@@ -1,10 +1,10 @@
 {%- macro icon(text) -%}
     {%- if text == 'control' -%}
-        ![control](https://img.shields.io/badge/CONTROL-0000F0)
+        ![control](https://img.shields.io/badge/CONTROL-1E90FF)
     {%- elif text == 'risk' -%}
-        ![risk](https://img.shields.io/badge/RISK-c00000)
+        ![risk](https://img.shields.io/badge/RISK-DC143C)
     {%- elif text == 'performance' -%}
-        ![performance](https://img.shields.io/badge/PERFORMANCE-0F00)
+        ![performance](https://img.shields.io/badge/PERFORMANCE-32CD32)
     {%- else -%}
         {{ text }}
     {%- endif -%}
