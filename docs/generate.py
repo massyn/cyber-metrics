@@ -40,6 +40,7 @@ def main():
                 data[c].append(n)
 
     render_jinja(data,"index.md","docs/index.md")
+    render_jinja(data,"library.md","docs/library.md")
     
     fw = readCSV('../99-templates/framework.csv')
 

@@ -5,6 +5,7 @@ site_url: https://www.metricslibrary.net
 
 nav:
   - Home: index.md
+  - Library: library.md
   - About: about.md
 theme:
   icon:
