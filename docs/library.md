@@ -12,10 +12,10 @@
 
 # Library List
 
-| Category | Metric | Type |
-|----------|--------|------|
+| Category | Metric | Description | Type |
+|----------|--------|-------------|------|
 {% for category, metrics in data.items() -%}
   {% for m in metrics -%}
-| {{ category if loop.first else '' }} | [{{ m['title'] }}]({{ m['metric_id'] }}.md) | {{ icon(m['type']) }} |
+| {{ category if loop.first else '' }} | [{{ m['title'] }}]({{ m['metric_id'] }}.md) | {{ m['description'] }} | {{ icon(m['type']) }} |
   {% endfor -%}
 {% endfor %}
