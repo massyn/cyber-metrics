@@ -19,16 +19,11 @@ The Cyber Metric Library provides a curated list of measurable security indicato
 
 ### Types of Metrics
 
-* ![control](https://img.shields.io/badge/CONTROL-1E90FF) A measure that tracks the implementation of actions, processes, or technologies designed to reduce or mitigate risks within the organization.
-* ![risk](https://img.shields.io/badge/RISK-DC143C) A measure that provides visibility into existing or potential risks within the organization, helping to assess areas of vulnerability.
-* ![performance](https://img.shields.io/badge/PERFORMANCE-32CD32) A measure that evaluates the efficiency and speed with which a team is executing and delivering on control implementations and operational tasks.
-
-#### Examples
-
-- ![control](https://img.shields.io/badge/CONTROL-1E90FF) % of systems with MFA enforced  
-- ![risk](https://img.shields.io/badge/RISK-DC143C) % of endpoints with critical vulnerabilities  
-- ![performance](https://img.shields.io/badge/PERFORMANCE-32CD32) Time to deploy security patches  
-
+| KxI | Description | Example |
+|-----|------------|-----------|
+| ![control](https://img.shields.io/badge/CONTROL-1E90FF) | A measure that tracks the implementation of actions, processes, or technologies designed to reduce or mitigate risks within the organization. | % of systems with MFA enforced   |
+| ![risk](https://img.shields.io/badge/RISK-DC143C) | A measure that provides visibility into existing or potential risks within the organization, helping to assess areas of vulnerability. | % of endpoints with critical vulnerabilities |
+| ![performance](https://img.shields.io/badge/PERFORMANCE-32CD32) | A measure that evaluates the efficiency and speed with which a team is executing and delivering on control implementations and operational tasks. | Time to deploy security patches |
 
 ### Framework references
 
