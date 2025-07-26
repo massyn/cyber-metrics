@@ -1,0 +1,48 @@
+---
+metric_id: ac_access_revoking
+title: Access Control - Access Revoking Process
+category: Access Control
+type: control
+description: |
+  This metric tracks the percentage of terminated user accounts that are 
+  disabled within defined timeframes, ensuring that departing employees 
+  or contractors do not retain unauthorized access to enterprise systems 
+  and data.
+how: |
+  Monitor Okta user deactivation events and compare against HR termination 
+  data to measure access revocation timeliness. Accounts are considered 
+  compliant if they are disabled within the required timeframe (typically 
+  same day or within 24 hours of termination).
+slo:
+  - 0.98
+  - 0.99
+weight: 0.9
+enabled: true
+indicator: false
+references:
+  "ISO 27001:2022":
+    - A.5.17
+  "CIS 8.1":
+    - 6.2
+  "NIST CSF v2.0":
+    - PR.AA-05
+query:
+  - |
+    SELECT
+      users.profile.login AS resource,
+      'user' AS resource_type,
+      users.status || ' - ' || 
+      (CURRENT_DATE - CAST(users.statusChanged AS DATE)) || ' days since status change' AS detail,
+      CASE
+        WHEN users.status = 'DEPROVISIONED' 
+             AND CURRENT_DATE - CAST(users.statusChanged AS DATE) <= 1 THEN 1
+        WHEN users.status = 'SUSPENDED' 
+             AND CURRENT_DATE - CAST(users.statusChanged AS DATE) <= 1 THEN 1
+        WHEN users.status = 'ACTIVE' THEN 1
+        ELSE 0
+      END AS compliance
+    FROM
+      {{ ref('okta_users') }} AS users
+    WHERE
+      users.status IN ('DEPROVISIONED', 'SUSPENDED', 'ACTIVE')
+      AND CURRENT_DATE - CAST(users.statusChanged AS DATE) < 30

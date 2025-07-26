@@ -2,6 +2,7 @@ from collector import Collector
 from dotenv import load_dotenv
 import requests
 import os
+import logging
 
 def meta():
     return {
@@ -16,7 +17,7 @@ def meta():
     }
 
 def call(C,url):
-    C.lib.log("INFO","src_snyk",f"Calling ({url})")
+    logging.info(f"Calling ({url})")
     data = []
     headers = {
         'Authorization' : os.environ['SNYK_TOKEN'],

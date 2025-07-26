@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import asyncio
 from okta.client import Client as OktaClient
 import os
+import logging
 
 def meta():
     return {
@@ -20,7 +21,7 @@ async def users(client,C):
     data = []
     users, resp, err = await client.list_users()
     if err:
-        C.lib.log("ERROR","src_okta",err)
+        logging.error(err)
         return False
     
     while True:

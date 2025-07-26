@@ -1,7 +1,7 @@
 site_name: Cyber Metric Library
 site_description: Cyber Metric Library
 site_url: https://www.metricslibrary.net
-#copyright: TODO
+copyright: Copyright &copy; 2025 Phil Massyn - <a rel="me" href="https://aus.social/@massyn">Mastodon</a>
 
 nav:
   - Home: index.md
@@ -10,6 +10,19 @@ nav:
 theme:
   icon:
     logo: fontawesome/solid/book
+  palette:
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
 
   features:
     - navigation.footer

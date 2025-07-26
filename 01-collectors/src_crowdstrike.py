@@ -3,9 +3,10 @@ import os
 from falconpy import Hosts, SpotlightVulnerabilities, ZeroTrustAssessment
 import time
 from dotenv import load_dotenv
+import logging
 
 def hosts(C):
-    C.lib.log("INFO","src_crowdstrike","- hosts")
+    logging.info("- hosts")
     host_detail = []
     host_list = []
     falcon = Hosts(
@@ -29,13 +30,13 @@ def hosts(C):
                 host_list.append(returned_device_list)
                 host_detail += falcon.get_device_details(ids=returned_device_list)["body"]["resources"]
         else:
-            C.lib.log("ERROR","src_crowdstrike",f"Something went wrong - {result['status_code']} - {result['body']['errors'][0]['message']}" )
+            logging.error(f"Something went wrong - {result['status_code']} - {result['body']['errors'][0]['message']}")
             break
     C.store('crowdstrike_hosts',host_detail)
     return host_list
 
 def vulnerabilities(C):
-    C.lib.log("INFO","src_crowdstrike","- vulnerabilities")
+    logging.info("- vulnerabilities")
     #query_filter = "cve.id:!['']+status:!'closed'+status:!'expired'+last_seen_within:'14'"
     #query_filter = "cve.id:!['']+cve.exprt_rating:['HIGH','CRITICAL']+status:!'closed'+status:!'expired'+last_seen_within:'14'"
     #query_filter = "cve.id:!['']+cve.exprt_rating:['HIGH','CRITICAL']+last_seen_within:'14'"
@@ -50,13 +51,13 @@ def vulnerabilities(C):
     returned_vulnerabilities = []
     while RETURNED < TOTAL:
         if spotlight.token_expired():
-            C.lib.log("WARNING","src_crowdstrike","Token expired...")
+            logging.warning("Token expired...")
             spotlight = SpotlightVulnerabilities(
                 client_id=os.environ["FALCON_CLIENT_ID"],
                 client_secret=os.environ["FALCON_SECRET"]
             )
             
-        C.lib.log("INFO","src_crowdstrike",f"returned = {RETURNED} / {TOTAL}")
+        logging.info(f"returned = {RETURNED} / {TOTAL}")
         result = spotlight.query_vulnerabilities_combined(
             filter=query_filter,
             after=AFTER,
@@ -84,12 +85,12 @@ def vulnerabilities(C):
             RETURNED = len(returned_vulnerabilities)
 
         else:
-            C.lib.log("ERROR","src_crowdstrike",f"Something went wrong - {result['status_code']} - {result['body']['errors'][0]['message']}" )
+            logging.error(f"Something went wrong - {result['status_code']} - {result['body']['errors'][0]['message']}")
             break
     C.store('crowdstrike_vulnerabilities',returned_vulnerabilities)
 
 def zero_trust_assessment(C,host_list):
-    C.lib.log("INFO","src_crowdstrike","- zero_trust_assessment")
+    logging.info("- zero_trust_assessment")
     zta = ZeroTrustAssessment(
         client_id=os.environ["FALCON_CLIENT_ID"],
         client_secret=os.environ["FALCON_SECRET"]

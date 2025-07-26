@@ -9,6 +9,10 @@ description: |
   as dormant accounts are prime targets for unauthorized access and
   exploitation, making their identification and timely deactivation essential
   for reducing the attack surface and maintaining robust access controls.
+how: |
+  Find all active users from Okta and check their last login date.
+  Users are considered compliant if they have logged in within the last 90
+  days, ensuring accounts are actively used and not dormant.
 slo:
   - 0.98
   - 0.99
@@ -29,7 +33,7 @@ query:
       'user' as resource_type,
       last_login  as detail,
       case
-        when datediff('day',cast(last_login as date),current_date()) < 90 then 1
+        when CURRENT_DATE - CAST(last_login AS DATE) < 90 then 1
         else 0
       end as compliance
     from

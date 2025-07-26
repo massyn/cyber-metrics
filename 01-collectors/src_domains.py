@@ -4,6 +4,7 @@ import os
 import whois
 import dns.resolver
 import requests
+import logging
 
 def get_server_headers(url):
     try:
@@ -22,7 +23,7 @@ def get_domain_info(domain,type):
     
 def domains(C):
     data = []
-    C.lib.log("INFO","src_domains","- domains")
+    logging.info("- domains")
     for domain in os.environ["DOMAINS"].split(';'):
         w = whois.whois(domain)
         data.append({

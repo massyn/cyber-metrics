@@ -4,26 +4,30 @@ from dotenv import load_dotenv
 import sys
 sys.path.append('../')
 from library import Library
+import logging
 
 def main():
     lib = Library()
-    lib.log("INFO","wrapper","Starting the collection process",True)
+    logging.info("Starting the collection process")
+    lib.alert("INFO", "Starting the collection process")
     for filename in os.listdir('.'):
         if filename.startswith('src') and filename.endswith('.py'):
             plugin = os.path.splitext(filename)[0]
-            lib.log("INFO","wrapper",f"Plugin : {plugin}")
+            logging.info(f"Plugin : {plugin}")
 
             try:
                 module = importlib.import_module(plugin)
                 m = module.meta()
-                lib.log("INFO","wrapper",m['title'])
+                logging.info(m['title'])
                 module.main()
             except ModuleNotFoundError:
-                lib.log("WARNING","wrapper",f"Plugin '{plugin}' not found.")
+                logging.warning(f"Plugin '{plugin}' not found.")
             except Exception as e:
-                lib.log("ERROR","wrapper",f"Plugin '{plugin}' had an error {e}",True)
+                logging.error(f"Plugin '{plugin}' had an error {e}")
+                lib.alert("ERROR", f"Plugin '{plugin}' had an error {e}")
     
-    lib.log("SUCCESS","wrapper","Completed with the collection process",True)
+    logging.info("Completed with the collection process")
+    lib.alert("SUCCESS", "Completed with the collection process")
 if __name__=='__main__':
     load_dotenv()
     main()

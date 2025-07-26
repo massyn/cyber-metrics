@@ -7,6 +7,36 @@ import boto3
 from botocore.exceptions import ClientError
 import uuid
 import sys
+import logging
+
+try:
+    import colorama
+    colorama.init()
+except ImportError:
+    os.system('')  # Enables ANSI escape characters in terminal on Windows
+
+class ColorFormatter(logging.Formatter):
+    COLORS = {
+        'DEBUG': '\033[36m',    # Cyan
+        'INFO': '\033[32m',     # Green
+        'WARNING': '\033[33m',  # Yellow
+        'ERROR': '\033[31m',    # Red
+        'CRITICAL': '\033[41m', # Red background
+    }
+    RESET = '\033[0m'
+
+    def format(self, record):
+        # Center the levelname in a field of width 8
+        levelname = record.levelname.center(8)
+        color = self.COLORS.get(record.levelname.strip(), '')
+        record.levelname = f"{color}{levelname}{self.RESET}"
+        return super().format(record)
+
+handler = logging.StreamHandler()
+formatter = ColorFormatter('%(asctime)s - %(levelname)s %(message)s')
+formatter.datefmt = '%Y-%m-%d %H:%M:%S'
+handler.setFormatter(formatter)
+logging.basicConfig(level=logging.INFO, handlers=[handler])
 
 class Library:
     def __init__(self):
@@ -24,12 +54,8 @@ class Library:
         self.datetime = datetime.datetime.now(datetime.timezone.utc)
         self.datestamp = self.datetime.strftime('%Y-%m-%d')
 
-    def log(self,sev,mod,txt,alert = False):
-        ts = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d %H:%H:%S')
-        print(f"{ts} [{sev:^9}] {mod:^16} : {txt}")
-        sys.stdout.flush()
-
-        if alert and os.environ.get('SLACK_WEBHOOK','') != '':
+    def alert(self,sev,txt):
+        if os.environ.get('SLACK_WEBHOOK','') != '':
             severity_icons = {
                 'ERROR': ':x:',      # Red Cross
                 'INFO': ':information_source:',  # Information Icon
@@ -41,9 +67,9 @@ class Library:
             try:
                 x = requests.post(os.environ['SLACK_WEBHOOK'],data=json.dumps({ 'type': 'mrkdwn', 'text' : message }).encode('utf-8'),headers = {   
                     'Content-Type': 'application/json'})
-                self.log("SUCCESS","slack",f"Slack Response Code: {x.status_code}")
+                logging.info(f"Slack Response Code: {x.status_code}")
             except Exception as e:
-                self.log("WARNING","slack",f"Error sending Slack alert: {e}")
+                logging.warning(f"Error sending Slack alert: {e}")
     
     def variables(self,tag,input):
         if tag == None:
@@ -64,61 +90,61 @@ class Library:
     
     def backup_to_s3(self,file_name,bucket,key):
         if bucket != '' and bucket != None and key != '' and key != None and file_name != None and file_name != '':
-            self.log("INFO","backup_to_s3",f"bucket    = {bucket}")
-            self.log("INFO","backup_to_s3",f"key       = {key}")
-            self.log("INFO","backup_to_s3",f"file_name = {file_name}")
+            logging.info(f"bucket    = {bucket}")
+            logging.info(f"key       = {key}")
+            logging.info(f"file_name = {file_name}")
             s3_client = boto3.client('s3')
             if os.path.exists(file_name):    
                 try:
                     s3_client.upload_file(file_name, bucket, key, ExtraArgs={'ACL': 'bucket-owner-full-control'})
-                    self.log("SUCCESS","backup_to_s3",f"Upload complete.")
+                    logging.info(f"Upload complete.")
                 except ClientError as e:
-                    self.log("ERROR","backup_to_s3",e)
+                    logging.error(e)
             else:
-                self.log("WARNING","backup_to_s3",f"The file {file_name} does not exist, so we will try to grab it from S3")
+                logging.warning(f"The file {file_name} does not exist, so we will try to grab it from S3")
                 try:
                     s3_client.download_file(bucket, key, file_name)
-                    self.log("SUCCESS","backup_to_s3",f"Downloaded from s3://{bucket}/{key} --> {file_name}")
+                    logging.info(f"Downloaded from s3://{bucket}/{key} --> {file_name}")
                 except ClientError as e:
-                    self.log("ERROR","backup_to_s3",e)
+                    logging.error(e)
 
     def upload_to_s3(self,file_name,bucket,key):
-        self.log("INFO","upload_to_s3",f"Bucket = {bucket} , key = {key}, file_name = {file_name} ...")
+        logging.info(f"Bucket = {bucket} , key = {key}, file_name = {file_name} ...")
         if not os.path.exists(file_name):
-            self.log("WARNING","upload_to_s3",f"Not uploading to S3 because {file_name} does not exist")
+            logging.warning(f"Not uploading to S3 because {file_name} does not exist")
         else:
             if bucket != None and bucket != '' and key != None and os.path.exists(file_name):
-                self.log("INFO","upload_to_s3",f"Uploading {file_name} to s3://{bucket}/{key}")
+                logging.info(f"Uploading {file_name} to s3://{bucket}/{key}")
                 s3_client = boto3.client('s3')
                 try:
                     s3_client.upload_file(file_name, bucket, key, ExtraArgs={'ACL': 'bucket-owner-full-control'})
-                    self.log("SUCCESS","upload_to_s3",f"Upload complete.")
+                    logging.info(f"Upload complete.")
                 except ClientError as e:
-                    self.log("ERROR","upload_to_s3",e)
+                    logging.error(e)
                     return False
                 return True
             else:
-                self.log("WARNING","upload_to_s3","Not uploading to S3 because none of the variables are defined.")
+                logging.warning("Not uploading to S3 because none of the variables are defined.")
 
     def download_from_s3(self,bucket,key,target = 'blob',parameter = None):
         if bucket != '' and bucket != None and key != '' and key != None:
-            self.log("INFO","download_from_s3",f"Bucket    = {bucket}")
-            self.log("INFO","download_from_s3",f"Key       = {key}")
-            self.log("INFO","download_from_s3",f"Target    = {target}")
-            self.log("INFO","download_from_s3",f"Parameter = {parameter}")
+            logging.info(f"Bucket    = {bucket}")
+            logging.info(f"Key       = {key}")
+            logging.info(f"Target    = {target}")
+            logging.info(f"Parameter = {parameter}")
 
             s3_client = boto3.client('s3')
             if target == 'file':
                 try:
                     s3_client.download_file(bucket, key, parameter)
-                    self.log("SUCCESS","download_from_s3",f"Downloaded from s3://{bucket}/{key} --> {parameter}")
+                    logging.info(f"Downloaded from s3://{bucket}/{key} --> {parameter}")
                     return True
                 except ClientError as e:
-                    self.log("ERROR","download_from_s3",e)
+                    logging.error(e)
                     return False
             else:
                 print("TODO")
                 exit(1)
 
         else:
-            self.log("WARNING","download_from_s3","Not downloading since bucket or key is not defined")
+            logging.warning("Not downloading since bucket or key is not defined")

@@ -11,6 +11,7 @@ import sys
 from dotenv import load_dotenv
 sys.path.append('../')
 from library import Library
+import logging
 
 class Metric:
     def __init__(self,**KW):
@@ -18,13 +19,14 @@ class Metric:
         
         if KW.get('data_path'):
             self.data_path = KW['data_path']
-            self.lib.log("INFO","init",f"Data Path = {self.data_path}")
+            logging.info(f"Data Path = {self.data_path}")
         else:
-            self.lib.log("ERROR","init","No data path specified")
+            logging.error("No data path specified")
+            # Note: No alert possible here as lib is not available in __init__
             exit(1)
         
         self.datestamp = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d')
-        self.lib.log("INFO","init",f"Datestamp = {self.datestamp}")
+        logging.info(f"Datestamp = {self.datestamp}")
         self.history = []
         self.data_tables = {}
 
@@ -36,9 +38,9 @@ class Metric:
 
         return f"read_json('{self.data_tables[table_name]}'{col})"
         
-    def metric_run(self,yaml_config,query):
+    def metric_run(self,yaml_config,query,alert=False):
         if yaml_config.get('enabled',True) == False or query == None:
-            self.lib.log("INFO","metric_run",f"Metric {yaml_config['metric_id']} is disabled")
+            logging.info(f"Metric {yaml_config['metric_id']} is disabled")
             return pd.DataFrame()
         self.data_tables = {}
         env = Environment(loader=FileSystemLoader('.'))
@@ -49,9 +51,11 @@ class Metric:
         success = True
         for table in self.data_tables:
             if len(glob.glob(self.data_tables[table])) > 0:
-                self.lib.log("INFO","metric_run",f"Table {table} exists")
+                logging.info(f"Table {table} exists")
             else:
-                self.lib.log("ERROR","metric_run",f"Table {table} does not exist ({self.data_tables[table]})")
+                logging.error(f"Table {table} does not exist ({self.data_tables[table]})")
+                if alert:
+                    self.lib.alert("ERROR", f"Table {table} does not exist ({self.data_tables[table]})")
                 success = False
         if not success:
             return pd.DataFrame()
@@ -60,11 +64,13 @@ class Metric:
         try:
             # Execute query
             df = duckdb.query(template).df()
-            self.lib.log("SUCCESS","metric_run",f"Retrieved {len(df)} records")
+            logging.info(f"Retrieved {len(df)} records")
             if args.dryrun:
                 print(df)
         except duckdb.Error as e:
-            self.lib.log("ERROR","metric_run",f"Failed to execute query: {e}")
+            logging.error(f"Failed to execute query: {e}")
+            if alert:
+                self.lib.alert("ERROR", f"Failed to execute query: {e}")
             print(template)
             return pd.DataFrame()
         
@@ -72,7 +78,9 @@ class Metric:
         success = True
         for col in [ 'resource','resource_type','compliance','detail']:
             if not col in df.columns:
-                self.lib.log("ERROR","metric_run",f" - Column {col} does not exists.  Check the SQL in your metric defintion")
+                logging.error(f" - Column {col} does not exists.  Check the SQL in your metric defintion")
+                if alert:
+                    self.lib.alert("ERROR", f"Column {col} does not exist. Check the SQL in your metric definition")
                 success = False
         if not success:
             return pd.DataFrame()
@@ -84,8 +92,23 @@ class Metric:
             if f in yaml_config:
                 df[f] = yaml_config[f]
             else:
-                self.lib.log("ERROR",f"metric_run",f"{f} is missing in meta data")
+                logging.error(f"{f} is missing in meta data")
+                if alert:
+                    self.lib.alert("ERROR", f"{f} is missing in meta data")
                 success = False
+        
+        # Handle SLO - extract from array format
+        if 'slo' in yaml_config and yaml_config['slo']:
+            slo_values = yaml_config['slo']
+            if isinstance(slo_values, list) and len(slo_values) > 0:
+                df['slo_min'] = slo_values[0] if len(slo_values) > 0 else None
+                df['slo'] = slo_values[1] if len(slo_values) > 1 else slo_values[0]
+            else:
+                df['slo'] = slo_values
+                df['slo_min'] = slo_values
+        else:
+            df['slo'] = None
+            df['slo_min'] = None
         
         if not success:
             return pd.DataFrame()
@@ -117,28 +140,32 @@ def main(**KW):
                 metric = yaml.safe_load(y)
             
             if KW['metric'] == None or KW['metric'] == metric_file or KW['metric'] == metric['metric_id']:
-                M.lib.log("INFO","main","-----------------------------------------------------------------------")
-                M.lib.log("INFO","main",f"Metric : {metric_file}")
+                logging.info("-----------------------------------------------------------------------")
+                logging.info(f"Metric : {metric_file}")
                 df_metric = pd.DataFrame()
                 if 'query' in metric and metric['query'] != None:
                     for i,query in enumerate(metric['query']):
-                        df = M.metric_run(metric,query)
+                        df = M.metric_run(metric,query,alert)
                         if df.empty:
-                            M.lib.log("WARNING","main",f"The metric {metric_file} query ({i}) returned an empty dataset.")
+                            logging.warning(f"The metric {metric_file} query ({i}) returned an empty dataset.")
                         else:
                             df_metric = pd.concat([df_metric, df], ignore_index=True)
                 
                     if df_metric.empty:
-                        M.lib.log("ERROR","main",f"The metric {metric_file} had no data returned.  It will not be counted.")
+                        logging.error(f"The metric {metric_file} had no data returned.  It will not be counted.")
+                        if alert:
+                            M.lib.alert("ERROR", f"The metric {metric_file} had no data returned.  It will not be counted.")
                     else:
                         if KW['metric'] != None:
                             print(df_metric)
 
                     df_detail = pd.concat([df_detail, df_metric], ignore_index=True)
                 else:
-                    M.lib.log("WARNING","main",f"No query found in {metric_file}.yml.  It will not be counted.")
+                    logging.warning(f"No query found in {metric_file}.yml.  It will not be counted.")
     if df_detail.empty:
-        M.lib.log("ERROR","main","The detail dataframe is empty - are you sure the metrics ran ok?",alert)
+        logging.error("The detail dataframe is empty - are you sure the metrics ran ok?")
+        if alert:
+            M.lib.alert("ERROR", "The detail dataframe is empty - are you sure the metrics ran ok?")
         exit(1)
 
     # == This is just cosmetic, to show the resulting scores on the screen, so developers can see the results of their work
@@ -150,14 +177,51 @@ def main(**KW):
     print("")
 
     # == save the data file to be used by the publish process
-    M.lib.log("INFO","main","Saving the detail data to parquet")
+    logging.info("Saving the detail data to parquet")
     try:
-        df_detail.to_parquet(f"{KW['parquet']}")
-        M.lib.log("SUCCESS","main",f"Detail data saved to {KW['parquet']}")
+        df_detail.to_parquet(f"{KW['parquet']}/detail.parquet")
+        logging.info(f"Detail data saved to {KW['parquet']}/detail.parquet")
     except Exception as e:
-        M.lib.log("ERROR","main",f"Failed to save the detail data to {KW['parquet']}: {e}",alert)
+        logging.error(f"Failed to save the detail data to {KW['parquet']}/detail.parquet: {e}")
+        if alert:
+            M.lib.alert("ERROR", f"Failed to save the detail data to {KW['parquet']}/detail.parquet: {e}")
 
-    M.lib.log("SUCCESS","main","Metric generation completed",alert)
+    # == pivot the summary
+    primary_columns = ['datestamp','metric_id','title','category','slo','slo_min','weight','indicator']
+    new_columns = [key for key in ['business_unit','team','location'] if key not in primary_columns]
+    
+    # Group by primary columns and count compliance
+    df_summary = df_detail.groupby(primary_columns + new_columns).agg({'compliance' : ['sum','count']}).reset_index()
+    df_summary.columns = primary_columns + new_columns + ['totalok', 'total']
+
+    if os.path.exists(f"{KW['parquet']}/summary.parquet"):
+        orig_summary_df = pd.read_parquet(f"{KW['parquet']}/summary.parquet")
+
+        # Ensure the columns exist in both DataFrames
+        if 'metric_id' in orig_summary_df.columns and 'datestamp' in orig_summary_df.columns:
+            # Get a set of metric_id and datestamp pairs to remove
+            to_remove = set(zip(df_summary['metric_id'], df_summary['datestamp']))
+
+            # Filter the original DataFrame to exclude rows matching any of the pairs
+            orig_summary_df = orig_summary_df[
+                ~orig_summary_df[['metric_id', 'datestamp']].apply(tuple, axis=1).isin(to_remove)
+            ]
+
+        # Concatenate the updated original DataFrame with the new summary
+        df_summary = pd.concat([df_summary, orig_summary_df], ignore_index=True)
+
+    df_summary['datestamp'] = pd.to_datetime(df_summary['datestamp'], errors='coerce')
+    df_summary['datestamp'] = pd.to_datetime(df_summary['datestamp'], errors='coerce').dt.strftime('%Y-%m-%d')
+
+    if 'indicator' not in df_summary.columns:
+        df_summary['indicator'] = False
+    df_summary['indicator'] = df_summary['indicator'].fillna('').astype(str).str.lower() == 'true'
+    
+    df_summary.to_parquet(f"{KW['parquet']}/summary.parquet", index=False)
+
+    logging.info("Metric generation completed")
+    if alert:
+        M.lib.alert("SUCCESS", "Metric generation completed")
 
 if __name__=='__main__':
     parser = argparse.ArgumentParser(description='Cyber Dashboard - Metric Generation')
@@ -165,7 +229,7 @@ if __name__=='__main__':
     parser.add_argument('-metric',help='Run a dry-run test against a single metric')
     parser.add_argument('-path',help='The path where the metric yaml files are stored',default='.')
     parser.add_argument('-data',help='The path where the collector saves its files',default=os.environ.get('STORE_FILE','../data/source'))
-    parser.add_argument('-parquet',help='The path where the metrics saves the resulting parquet file',default='../data/detail.parquet')
+    parser.add_argument('-parquet',help='The path where the metrics saves the resulting parquet file',default='../data')
 
     args = parser.parse_args()
 

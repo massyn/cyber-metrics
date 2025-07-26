@@ -8,6 +8,11 @@ description: The percentage of users who have completed security awareness
   the latest knowledge to identify and mitigate cyber threats, which is
   critical for reducing organizational vulnerabilities and enhancing overall
   security posture.
+how: |
+  Find all active users from Okta and join with KnowBe4 training completion
+  records to determine which users have completed awareness training within
+  the last 365 days. Users are considered compliant if they have a matching
+  training completion record in the specified timeframe.
 slo:
   - 0.80
   - 0.90
@@ -43,7 +48,6 @@ query:
         {{ ref('knowbe4_enrollments') }} AS training
       ON
         users.profile.login = training.user.email and
-        datediff('day',cast(training.completion_date as date),current_date())
-          <= 365
+        CURRENT_DATE - CAST(training.completion_date AS DATE) <= 365
       WHERE
         users.status = 'ACTIVE';

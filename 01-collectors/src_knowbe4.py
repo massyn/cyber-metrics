@@ -3,9 +3,10 @@ from collector import Collector
 from dotenv import load_dotenv
 import os
 import time
+import logging
 
 def enrollments(C):
-    C.lib.log("INFO", "src_knowbe4","- enrollments")
+    logging.info("- enrollments")
     headers = {
         "Authorization": f"Bearer {os.environ['KNOWBE4_TOKEN']}",
         "Accept": "application/json",
@@ -19,7 +20,7 @@ def enrollments(C):
         retry_count = 0
         while retry_count < max_retries:
             try:
-                C.lib.log("INFO", "src_knowbe4", f"Fetching page {page}")
+                logging.info(f"Fetching page {page}")
                 req = requests.get(
                     f"{os.environ['KNOWBE4_ENDPOINT']}?page={page}",
                     headers=headers,
@@ -30,7 +31,7 @@ def enrollments(C):
                 # Check if we hit rate limit (429)
                 if req.status_code == 429:
                     retry_after = int(req.headers.get("Retry-After", backoff_factor))
-                    C.lib.log("WARNING","src_knowbe4", f"Rate limit hit. Retrying after {retry_after} seconds...")
+                    logging.warning(f"Rate limit hit. Retrying after {retry_after} seconds...")
                     time.sleep(retry_after)
                     retry_count += 1
                     backoff_factor *= 2  # Exponential backoff
@@ -40,15 +41,15 @@ def enrollments(C):
                 break
             except requests.exceptions.HTTPError as err:
                 if req.status_code != 429:
-                    C.lib.log("ERROR", "src_knowbe4", f"HTTP error: {err}")
+                    logging.error(f"HTTP error: {err}")
                     break
             except requests.exceptions.RequestException as e:
-                C.lib.log("ERROR", "src_knowbe4",f"Request failed: {e}")
+                logging.error(f"Request failed: {e}")
                 break
             time.sleep(backoff_factor)
 
         if req.status_code == 429 and retry_count >= max_retries:
-            C.lib.log("ERROR", "src_knowbe4", "Max retries reached. Exiting.")
+            logging.error("Max retries reached. Exiting.")
             break
 
         if req.status_code != 200:

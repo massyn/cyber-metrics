@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 sys.path.append('../')
 from library import Library
 import requests
+import logging
 
 class Publish:
     def __init__(self,**KW):
@@ -16,12 +17,12 @@ class Publish:
         TOKEN = os.getenv("CYBER_DASHBOARD_TOKEN")
 
         if not all([ENDPOINT, TOKEN]):
-            self.lib.log("WARNING","upload_to_dashboard","One or more dashboard environment variables are not set.")
+            logging.warning("One or more dashboard environment variables are not set.")
             return
 
         csv_data = df.to_csv(index=False)
 
-        self.lib.log("INFO","upload_to_dashboard",f"Uploading {len(df)} records to the dashboard...")
+        logging.info(f"Uploading {len(df)} records to the dashboard...")
         try:
             response = requests.post(ENDPOINT, headers={
                 "Authorization": f"Bearer {TOKEN}",
@@ -29,27 +30,29 @@ class Publish:
             }, data=csv_data)
 
             if response.status_code == 200:
-                self.lib.log("SUCCESS","upload_to_dashboard","Data successfully uploaded to the dashboard.")
+                logging.info("Data successfully uploaded to the dashboard.")
             else:
-                self.lib.log("ERROR","upload_to_dashboard",f"Error uploading data to the dashboard: {response.status_code}",True)
-                self.lib.log("ERROR","upload_to_dashboard",response.text)
+                logging.error(f"Error uploading data to the dashboard: {response.status_code}")
+                self.lib.alert("ERROR", f"Error uploading data to the dashboard: {response.status_code}")
+                logging.error(response.text)
         except Exception as e:
-            self.lib.log("ERROR","upload_to_dashboard",f"Error uploading data to the dashboard: {e}",True)
+            logging.error(f"Error uploading data to the dashboard: {e}")
+            self.lib.alert("ERROR", f"Error uploading data to the dashboard: {e}")
 
 def main(**KW):
     load_dotenv()
     P = Publish()
 
     if not os.path.exists(KW['parquet']):
-        P.lib.log("ERROR","main",f"File {KW['parquet']} does not exist")
+        logging.error(f"File {KW['parquet']} does not exist")
         exit(1)
-    P.lib.log("INFO","main",f"Reading parquet file {KW['parquet']}")
+    logging.info(f"Reading parquet file {KW['parquet']}")
     df = pd.read_parquet(KW['parquet'])
     
     # == Upload the resulting data to their respective destinations
     P.upload_to_dashboard(df)
 
-    P.lib.log("INFO","main","All done")
+    logging.info("All done")
 
 if __name__=='__main__':
     parser = argparse.ArgumentParser(description='Cyber Dashboard - Publish metrics')

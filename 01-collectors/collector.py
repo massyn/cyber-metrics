@@ -10,6 +10,7 @@ from psycopg2 import Error
 import sys
 sys.path.append('../')
 from library import Library
+import logging
 
 class Collector:
     def __init__(self,meta = { 'title' : 'Collector'}):
@@ -28,7 +29,7 @@ class Collector:
                 if self.meta['env'][v] is not None:
                     os.environ[v] = self.meta['env'][v]
                 else:
-                    self.lib.log("WARNING","test_environment",f"Environment variable {v} not found")
+                    logging.warning(f"Environment variable {v} not found")
                     ok = False
         return ok
         
@@ -50,7 +51,7 @@ class Collector:
     
     def store(self,tag,data1):
         if len(data1) > 0:
-            self.lib.log("INFO","store",f"Storing {tag} of {len(data1)} records")
+            logging.info(f"Storing {tag} of {len(data1)} records")
 
             data = self.add_meta(data1)
 
@@ -64,7 +65,7 @@ class Collector:
             self.store_postgres(tag,data)
             self.store_duckdb(tag,data)
         else:
-            self.lib.log("WARNING","store",f"No records to be written to {tag} - empty data set")
+            logging.warning(f"No records to be written to {tag} - empty data set")
     
     def store_file(self,tag,data):
         target = self.lib.variables(tag,self.lib.config['STORE_FILE'])
@@ -72,14 +73,14 @@ class Collector:
             os.makedirs(os.path.dirname(target),exist_ok = True)        
             with open(target,"wt",encoding='UTF-8') as q:
                 q.write(json.dumps(data,default=str))
-            self.lib.log("SUCCESS","store_file",f"Saving {len(data)} records for {tag} --> {target}")
+            logging.info(f"Saving {len(data)} records for {tag} --> {target}")
         except:
-            self.lib.log("ERROR",f"Cannot write the file - {target}")
+            logging.error(f"Cannot write the file - {target}")
 
     def upload_to_s3(self,data,tag,target):
         key = self.lib.variables(tag,target)
         if key != '' and self.lib.config['STORE_AWS_S3_BUCKET'] != '':
-            self.lib.log("INFO","upload_to_s3",f"Saving {len(data)} records for {tag} --> s3://{self.lib.config['STORE_AWS_S3_BUCKET']}/{key}")
+            logging.info(f"Saving {len(data)} records for {tag} --> s3://{self.lib.config['STORE_AWS_S3_BUCKET']}/{key}")
             try:
                 boto3.resource('s3').Bucket(self.lib.config['STORE_AWS_S3_BUCKET']).put_object(
                     ACL         = 'bucket-owner-full-control',
@@ -87,13 +88,13 @@ class Collector:
                     Key         = key,
                     Body        = json.dumps(data,default=str)
                 )
-                self.lib.log("SUCCESS","upload_to_s3",f"s3.put_object - s3://{self.check_env('STORE_AWS_S3_BUCKET')}/{target}")
+                logging.info(f"s3.put_object - s3://{self.check_env('STORE_AWS_S3_BUCKET')}/{target}")
             except botocore.exceptions.ClientError as error:
-                self.lib.log("ERROR","upload_to_s3",f"s3.put_object - {error.response['Error']['Code']}")
+                logging.error(f"s3.put_object - {error.response['Error']['Code']}")
             except:
-                self.lib.log("ERROR","upload_to_s3",f"s3.put_object")
+                logging.error(f"s3.put_object")
         else:
-            self.lib.log("WARNING","upload_to_s3",f"- Not uploading to S3...")
+            logging.warning(f"- Not uploading to S3...")
 
     def store_postgres(self,tag,data):
         host        = self.check_env('STORE_POSTGRES_HOST')
@@ -115,23 +116,23 @@ class Collector:
                 )
             except (Exception, Error) as error:
                 self.con = False
-                self.lib.log("ERROR","store_postgres",f"Postgres - Unable to connect : {host}")
+                logging.error(f"Postgres - Unable to connect : {host}")
                 return
 
             if con:
-                self.lib.log("SUCCESS","store_postgres",f"Postgres : Connected : {host}")
+                logging.info(f"Postgres : Connected : {host}")
 
                 try:
                     cursor = con.cursor()
                     cursor.execute(f"CREATE SCHEMA IF NOT EXISTS {schema}")
                     con.commit()
                 except (Exception, Error) as error:
-                    self.lib.log("ERROR","store_postgres",f"Postgres - Unable to create schema : {error}")
+                    logging.error(f"Postgres - Unable to create schema : {error}")
 
                 try:
                     cursor.execute(f"CREATE TABLE IF NOT EXISTS {schema}.{tag} (upload_timestamp timestamp, tenancy VARCHAR, json_data json)")
                 except (Exception, Error) as error:
-                    self.lib.log("ERROR","store_postgres",f"Postgres - Unable to create table : {error}")
+                    logging.error(f"Postgres - Unable to create table : {error}")
                 con.commit()
 
                 # -- insert data
@@ -139,20 +140,20 @@ class Collector:
                     try:
                         cursor.execute(f"INSERT INTO {schema}.{tag} (upload_timestamp,tenancy,json_data) VALUES(%s,%s,%s)",(self.upload_timestamp,self.lib.config['tenancy'],json.dumps(d)))
                     except (Exception, Error) as error:
-                        self.lib.log("ERROR","store_postgres",f"Postgres - Unable to insert record : {error}")
+                        logging.error(f"Postgres - Unable to insert record : {error}")
                 con.commit()
                 cursor.close()
-                self.lib.log("SUCCESS","store_postgres",f"Postgres - {tag} - Inserted {len(data)} records.")
+                logging.info(f"Postgres - {tag} - Inserted {len(data)} records.")
 
     def store_duckdb(self,tag,data):
         target = self.lib.variables(tag,self.lib.config['STORE_DUCKDB'])
         if target != '':
             try:
                 db = duckdb.connect(database = target, read_only = False)
-                self.lib.log("SUCCESS","store_duckdb",f"DuckDB : Connected : {target}")
+                logging.info(f"DuckDB : Connected : {target}")
             except:
                 db = False
-                self.lib.log("ERROR","store_duckdb",f"DuckDB - Unable to connect : {target}")
+                logging.error(f"DuckDB - Unable to connect : {target}")
 
             if db:
                 # -- create table
@@ -165,4 +166,4 @@ class Collector:
                     cursor.execute(f"INSERT INTO {tag} (upload_timestamp,tenancy,json_data) VALUES(?,?,?)",(self.upload_timestamp,self.lib.config['tenancy'],json.dumps(d)))
                 db.commit()
                 cursor.close()
-                self.lib.log("SUCCESS","store_duckdb",f"DuckDB - {tag} - Inserted {len(data)} records.")
+                logging.info(f"DuckDB - {tag} - Inserted {len(data)} records.")
