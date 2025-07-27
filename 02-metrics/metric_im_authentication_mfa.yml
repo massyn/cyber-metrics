@@ -1,6 +1,6 @@
 ---
 metric_id: im_authentication_mfa
-title: Identities with MFA
+title: Identity Management - Multi-Factor Authentication Coverage
 category: Identity Management
 type: risk
 description: The percentage of user accounts secured with multi-factor

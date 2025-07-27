@@ -1,6 +1,6 @@
 ---
 metric_id: im_dormant
-title: Identity - Inactive Identities
+title: Identity Management - Inactive Account Detection
 category: Identity Management
 type: control
 description: |

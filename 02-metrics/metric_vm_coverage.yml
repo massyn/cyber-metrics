@@ -1,6 +1,6 @@
 ---
 metric_id: vm_coverage
-title: Systems with an up-to-date agent deployed
+title: Vulnerability Management - Agent Deployment Coverage
 category: Vulnerability Management
 type: control
 description: |

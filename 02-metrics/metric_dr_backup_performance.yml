@@ -1,6 +1,6 @@
 ---
 metric_id: dr_backup_performance
-title: Systems that has had a successful backup per their SLO
+title: Disaster Recovery - Backup Success Rate
 category: Disaster Recovery
 type: performance
 description: The percentage of systems that successfully complete backups

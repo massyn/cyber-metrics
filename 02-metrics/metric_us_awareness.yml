@@ -1,6 +1,6 @@
 ---
 metric_id: us_awareness
-title: Users completed awareness training in the last 12 months
+title: User Security - Awareness Training Completion
 category: User Security
 type: control
 description: The percentage of users who have completed security awareness

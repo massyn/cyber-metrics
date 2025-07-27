@@ -1,6 +1,6 @@
 ---
 metric_id: mp_coverage
-title: Systems with an up-to-date agent deployed
+title: Malware Protection - Agent Deployment Coverage
 category: Malware Protection
 type: control
 description: The percentage of systems with an up-to-date malware detection

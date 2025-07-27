@@ -1,6 +1,6 @@
 ---
 metric_id: dr_backup_coverage
-title: Systems with backups configured per their SLO
+title: Disaster Recovery - Backup Configuration Coverage
 category: Disaster Recovery
 type: control
 description: The percentage of systems with backups configured in accordance

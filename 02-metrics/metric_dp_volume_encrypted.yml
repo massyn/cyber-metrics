@@ -1,6 +1,6 @@
 ---
 metric_id: dp_volume_encrypted
-title: Systems with their volumes encrypted
+title: Data Protection - Volume Encryption Coverage
 category: Data Protection
 type: risk
 description: The percentage of systems with their volumes fully encrypted,

@@ -1,6 +1,6 @@
 ---
 metric_id: im_privileges
-title: Accounts without Admin privileges
+title: Identity Management - Privileged Account Control
 category: Identity Management
 type: risk
 description: The percentage of user accounts configured without administrative

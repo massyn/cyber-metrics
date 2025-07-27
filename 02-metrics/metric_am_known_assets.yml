@@ -1,6 +1,6 @@
 ---
 metric_id: am_known_assets
-title: Assets known to Asset Management
+title: Asset Management - Asset Discovery Coverage
 category: Asset Management
 type: control
 description: Using our scanning tools, we identify systems that may exist in the environment that may not have been recorded in the asset management system.
