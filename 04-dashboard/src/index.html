@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Compliance Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sparklines@1.3.0/source/sparkline.js"></script>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#overview">Security Dashboard</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#overview" id="nav-overview">Overview</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#scorecard" id="nav-scorecard">Scorecard</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Filters -->
+            <div class="col-md-3 col-lg-2 sidebar bg-light p-3">
+                <h5>Filters</h5>
+                
+                <div class="filter-group mb-3">
+                    <label for="business-unit-filter" class="form-label">Business Unit</label>
+                    <select class="form-select" id="business-unit-filter">
+                        <option value="">All Business Units</option>
+                    </select>
+                </div>
+
+                <div class="filter-group mb-3">
+                    <label for="team-filter" class="form-label">Team</label>
+                    <select class="form-select" id="team-filter">
+                        <option value="">All Teams</option>
+                    </select>
+                </div>
+
+                <div class="filter-group mb-3">
+                    <label for="location-filter" class="form-label">Location</label>
+                    <select class="form-select" id="location-filter">
+                        <option value="">All Locations</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-secondary btn-sm" id="clear-filters">Clear All</button>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10 main-content">
+                <!-- Overview Section -->
+                <div id="overview-section" class="content-section">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2>Executive Overview</h2>
+                        <span class="text-muted" id="last-updated">Last updated: Loading...</span>
+                    </div>
+                    
+                    <!-- Overall Metric Info Cards -->
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Overall Score</h5>
+                                    <span id="overview-score-badge" class="badge fs-6">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Average Target (SLO)</h5>
+                                    <span id="overview-slo-value" class="text-success fs-5">-</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Average Minimum (SLO Min)</h5>
+                                    <span id="overview-slo-min-value" class="text-warning fs-5">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">Compliance Score Trend</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="chart-container" style="height: 400px;">
+                                        <canvas id="overview-chart"></canvas>
+                                    </div>
+                                    <div id="no-data-message" class="text-center text-muted" style="display: none;">
+                                        <h5>No data found</h5>
+                                        <p>Unable to load compliance data. Please check if data files are available.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scorecard Section -->
+                <div id="scorecard-section" class="content-section" style="display: none;">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2>Metric Scorecard</h2>
+                        <span class="text-muted" id="scorecard-last-updated">Last updated: Loading...</span>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">Individual Metric Performance</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="scorecard-table-container">
+                                        <table class="table table-striped table-hover" id="scorecard-table">
+                                            <thead class="table-dark">
+                                                <tr>
+                                                    <th scope="col" class="sortable" data-sort="title">
+                                                        Metric Title <span class="sort-icon">↕</span>
+                                                    </th>
+                                                    <th scope="col" class="sortable" data-sort="score">
+                                                        Current Score <span class="sort-icon">↕</span>
+                                                    </th>
+                                                    <th scope="col">Trend</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="scorecard-table-body">
+                                                <tr>
+                                                    <td colspan="3" class="text-center text-muted">Loading...</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div id="scorecard-no-data-message" class="text-center text-muted" style="display: none;">
+                                        <h5>No data found</h5>
+                                        <p>Unable to load scorecard data. Please check if data files are available.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detail Section -->
+                <div id="detail-section" class="content-section" style="display: none;">
+                    <!-- Detail Header -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <button class="btn btn-outline-secondary btn-sm me-3" id="back-to-scorecard">
+                                ← Back to Scorecard
+                            </button>
+                            <h2 id="detail-metric-title">Metric Detail</h2>
+                        </div>
+                        <span class="text-muted" id="detail-last-updated">Last updated: Loading...</span>
+                    </div>
+                    
+                    <!-- Metric Info Cards -->
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Current Score</h5>
+                                    <span id="detail-score-badge" class="badge fs-6">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Target (SLO)</h5>
+                                    <span id="detail-slo-value" class="text-success fs-5">-</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Minimum (SLO Min)</h5>
+                                    <span id="detail-slo-min-value" class="text-warning fs-5">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Performance Chart -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">Performance Trend</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="detail-chart-container" style="height: 400px;">
+                                        <canvas id="detail-chart"></canvas>
+                                    </div>
+                                    <div id="detail-no-data-message" class="text-center text-muted" style="display: none;">
+                                        <h5>No data found</h5>
+                                        <p>Unable to load performance data for this metric.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Evidence Table -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title mb-0">Compliance Evidence</h5>
+                                    <div class="d-flex align-items-center">
+                                        <span id="evidence-count" class="text-muted me-3">Loading...</span>
+                                        <select class="form-select form-select-sm" id="evidence-page-size" style="width: auto;">
+                                            <option value="25">25 per page</option>
+                                            <option value="50">50 per page</option>
+                                            <option value="100">100 per page</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="evidence-table-container">
+                                        <table class="table table-striped table-hover" id="evidence-table">
+                                            <thead class="table-dark">
+                                                <tr>
+                                                    <th scope="col" class="sortable" data-sort="resource">
+                                                        Resource <span class="sort-icon">↕</span>
+                                                    </th>
+                                                    <th scope="col" class="sortable" data-sort="detail">
+                                                        Detail <span class="sort-icon">↕</span>
+                                                    </th>
+                                                    <th scope="col" class="sortable" data-sort="compliance">
+                                                        Compliance <span class="sort-icon">↕</span>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="evidence-table-body">
+                                                <tr>
+                                                    <td colspan="3" class="text-center text-muted">Loading...</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
+                                    <!-- Pagination -->
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <div>
+                                            <small class="text-muted" id="evidence-pagination-info">Loading...</small>
+                                        </div>
+                                        <nav aria-label="Evidence pagination">
+                                            <ul class="pagination pagination-sm mb-0" id="evidence-pagination">
+                                                <li class="page-item disabled">
+                                                    <span class="page-link">Loading...</span>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                    
+                                    <div id="evidence-no-data-message" class="text-center text-muted" style="display: none;">
+                                        <h5>No evidence data found</h5>
+                                        <p>Unable to load evidence data for this metric.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/data-loader.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/chart-manager.js"></script>
+    <script src="js/scorecard.js"></script>
+    <script src="js/detail.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

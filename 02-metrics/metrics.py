@@ -126,6 +126,7 @@ class Metric:
 
 def main(**KW):
     load_dotenv()
+    lib = Library()
     M = Metric(data_path = KW['data_path'])
 
     # should we send an alert?
@@ -186,6 +187,10 @@ def main(**KW):
         if alert:
             M.lib.alert("ERROR", f"Failed to save the detail data to {KW['parquet']}/detail.parquet: {e}")
 
+    # -- backup the file to S3
+    if 'STORE_AWS_S3_BUCKET' in os.environ:
+        lib.upload_to_s3(f"{KW['parquet']}/detail.parquet",os.environ['STORE_AWS_S3_BUCKET'],'detail.parquet')
+
     # == pivot the summary
     primary_columns = ['datestamp','metric_id','title','category','slo','slo_min','weight','indicator']
     new_columns = [key for key in ['business_unit','team','location'] if key not in primary_columns]
@@ -193,6 +198,11 @@ def main(**KW):
     # Group by primary columns and count compliance
     df_summary = df_detail.groupby(primary_columns + new_columns).agg({'compliance' : ['sum','count']}).reset_index()
     df_summary.columns = primary_columns + new_columns + ['totalok', 'total']
+
+    ## IMPORTANT ## 
+    # before we merge the data, we need to check if the local parquet file already exists.  If it does, we won't be grabbing it from S3.
+    if not os.path.exists(f"{KW['parquet']}/summary.parquet") and 'STORE_AWS_S3_BUCKET' in os.environ:
+        lib.download_from_s3(os.environ['STORE_AWS_S3_BUCKET'],'summary.parquet',target = f"{KW['parquet']}/summary.parquet",parameter = None)
 
     if os.path.exists(f"{KW['parquet']}/summary.parquet"):
         orig_summary_df = pd.read_parquet(f"{KW['parquet']}/summary.parquet")
@@ -218,6 +228,8 @@ def main(**KW):
     df_summary['indicator'] = df_summary['indicator'].fillna('').astype(str).str.lower() == 'true'
     
     df_summary.to_parquet(f"{KW['parquet']}/summary.parquet", index=False)
+    if 'STORE_AWS_S3_BUCKET' in os.environ:
+        lib.upload_to_s3(f"{KW['parquet']}/summary.parquet",os.environ['STORE_AWS_S3_BUCKET'],'summary.parquet')
 
     logging.info("Metric generation completed")
     if alert:

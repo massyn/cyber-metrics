@@ -32,12 +32,12 @@ query:
       users.profile.login AS resource,
       'user' AS resource_type,
       users.status || ' - ' || 
-      (CURRENT_DATE - CAST(users.statusChanged AS DATE)) || ' days since status change' AS detail,
+      (CURRENT_DATE - CAST(users.status_changed AS DATE)) || ' days since status change' AS detail,
       CASE
         WHEN users.status = 'DEPROVISIONED' 
-             AND CURRENT_DATE - CAST(users.statusChanged AS DATE) <= 1 THEN 1
+             AND CURRENT_DATE - CAST(users.status_changed AS DATE) <= 1 THEN 1
         WHEN users.status = 'SUSPENDED' 
-             AND CURRENT_DATE - CAST(users.statusChanged AS DATE) <= 1 THEN 1
+             AND CURRENT_DATE - CAST(users.status_changed AS DATE) <= 1 THEN 1
         WHEN users.status = 'ACTIVE' THEN 1
         ELSE 0
       END AS compliance
@@ -45,4 +45,4 @@ query:
       {{ ref('okta_users') }} AS users
     WHERE
       users.status IN ('DEPROVISIONED', 'SUSPENDED', 'ACTIVE')
-      AND CURRENT_DATE - CAST(users.statusChanged AS DATE) < 30
+      AND CURRENT_DATE - CAST(users.status_changed AS DATE) < 30
