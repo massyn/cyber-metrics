@@ -300,8 +300,8 @@ class DetailManager {
                     {
                         label: 'Score',
                         data: scores,
-                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(6, 182, 212, 0.8)',
+                        borderColor: 'rgba(6, 182, 212, 1)',
                         borderWidth: 1,
                         type: 'bar'
                     },
@@ -338,20 +338,37 @@ class DetailManager {
                         max: 100,
                         title: {
                             display: true,
-                            text: 'Compliance Score (%)'
+                            text: 'Compliance Score (%)',
+                            color: '#f9fafb'
+                        },
+                        ticks: {
+                            color: '#d1d5db'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
                         }
                     },
                     x: {
                         title: {
                             display: true,
-                            text: 'Date'
+                            text: 'Date',
+                            color: '#f9fafb'
+                        },
+                        ticks: {
+                            color: '#d1d5db'
+                        },
+                        grid: {
+                            display: false
                         }
                     }
                 },
                 plugins: {
                     legend: {
                         display: true,
-                        position: 'top'
+                        position: 'top',
+                        labels: {
+                            color: '#f9fafb'
+                        }
                     },
                     tooltip: {
                         mode: 'index',

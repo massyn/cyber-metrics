@@ -11,7 +11,7 @@
 </head>
 <body>
     <!-- Header Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#overview">Security Dashboard</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -33,7 +33,7 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar Filters -->
-            <div class="col-md-3 col-lg-2 sidebar bg-light p-3">
+            <div class="col-md-3 col-lg-2 sidebar p-3">
                 <h5>Filters</h5>
                 
                 <div class="filter-group mb-3">
@@ -133,7 +133,7 @@
                                 <div class="card-body">
                                     <div id="scorecard-table-container">
                                         <table class="table table-striped table-hover" id="scorecard-table">
-                                            <thead class="table-dark">
+                                            <thead>
                                                 <tr>
                                                     <th scope="col" class="sortable" data-sort="title">
                                                         Metric Title <span class="sort-icon">↕</span>
@@ -240,7 +240,7 @@
                                 <div class="card-body">
                                     <div id="evidence-table-container">
                                         <table class="table table-striped table-hover" id="evidence-table">
-                                            <thead class="table-dark">
+                                            <thead>
                                                 <tr>
                                                     <th scope="col" class="sortable" data-sort="resource">
                                                         Resource <span class="sort-icon">↕</span>

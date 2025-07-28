@@ -18,8 +18,8 @@ class ChartManager {
                 datasets: [{
                     label: 'Compliance Score',
                     data: [],
-                    backgroundColor: 'rgba(13, 110, 253, 0.8)', // Bootstrap primary blue
-                    borderColor: 'rgba(13, 110, 253, 1)',
+                    backgroundColor: 'rgba(6, 182, 212, 0.8)', // Teal - better for dark theme
+                    borderColor: 'rgba(6, 182, 212, 1)',
                     borderWidth: 1
                 }, {
                     label: 'SLO Target',
@@ -59,7 +59,8 @@ class ChartManager {
                         position: 'top',
                         labels: {
                             usePointStyle: true,
-                            padding: 20
+                            padding: 20,
+                            color: '#f9fafb' // Light text for dark theme
                         }
                     },
                     tooltip: {
@@ -82,7 +83,11 @@ class ChartManager {
                         display: true,
                         title: {
                             display: true,
-                            text: 'Date'
+                            text: 'Date',
+                            color: '#f9fafb' // Light text for dark theme
+                        },
+                        ticks: {
+                            color: '#d1d5db' // Secondary text color
                         },
                         grid: {
                             display: false
@@ -92,17 +97,19 @@ class ChartManager {
                         display: true,
                         title: {
                             display: true,
-                            text: 'Compliance Score (%)'
+                            text: 'Compliance Score (%)',
+                            color: '#f9fafb' // Light text for dark theme
                         },
-                        min: 0,
-                        max: 1.0,
                         ticks: {
+                            color: '#d1d5db', // Secondary text color
                             callback: function(value) {
                                 return (value * 100) + '%';
                             }
                         },
+                        min: 0,
+                        max: 1.0,
                         grid: {
-                            color: 'rgba(0, 0, 0, 0.1)'
+                            color: 'rgba(255, 255, 255, 0.1)' // Light grid lines for dark theme
                         }
                     }
                 }
