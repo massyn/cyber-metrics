@@ -8,3 +8,4 @@ pyarrow
 Jinja2
 pytest
 urllib3>=2.5.0 # not directly required, pinned by Snyk to avoid a vulnerability
+werkzeug>=3.1.9 # not directly required, pinned by Snyk to avoid a vulnerability
