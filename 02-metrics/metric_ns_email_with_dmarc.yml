@@ -7,8 +7,9 @@ description: |
   The percentage of DNS domains with email configured that have a DMARC record
   created in the DNS zone.
 how: |
-  Query all DNS domains. For every domain that has an MX record, check if a 
-  DMARC record is present in the DNS zone.
+  Find all DNS zones in DNSimple and Cloudflare. For every zone with an MX
+  record, check that a DMARC record is present at _dmarc. Zones without an MX
+  record are assumed not to send email.
 slo:
   - 0.90
   - 0.95
@@ -23,20 +24,37 @@ references:
     - 12.6
   "NIST CSF v2.0":
     - PR.DS-02
-query: 
+query:
   - |
     SELECT
-      domain AS resource,
-      'domain' as resource_type,
+      zone AS resource,
+      'domain' AS resource_type,
       CASE
-        when mx == [] then 1
-        when cast(txt as string) like '%v=DMARC1%' then 1
-        else 0
-      end as compliance,
+        WHEN count(*) FILTER (WHERE type = 'MX' AND name = '') = 0 THEN 1
+        WHEN count(*) FILTER (WHERE type = 'TXT' AND name = '_dmarc' AND content ILIKE '%v=DMARC1%') > 0 THEN 1
+        ELSE 0
+      END AS compliance,
       CASE
-        when mx == [] then 'No MX record found - assumed no email'
-        when cast(txt as string) like '%v=DMARC1%' then 'DMARC record found'
-        else 'MX record found, but no DMARC record'
-      end as detail
-    FROM
-      {{ ref('domains') }}
+        WHEN count(*) FILTER (WHERE type = 'MX' AND name = '') = 0 THEN 'No MX record found - assumed no email'
+        WHEN count(*) FILTER (WHERE type = 'TXT' AND name = '_dmarc' AND content ILIKE '%v=DMARC1%') > 0 THEN 'DMARC record found'
+        ELSE 'MX record found, but no DMARC record'
+      END AS detail
+    FROM {{ ref('dnsimple_zone_records') }}
+    GROUP BY zone
+  - |
+    SELECT
+      zones.name AS resource,
+      'domain' AS resource_type,
+      CASE
+        WHEN count(records.id) FILTER (WHERE records.type = 'MX' AND records.name = zones.name) = 0 THEN 1
+        WHEN count(records.id) FILTER (WHERE records.type = 'TXT' AND records.name = '_dmarc.' || zones.name AND records.content ILIKE '%v=DMARC1%') > 0 THEN 1
+        ELSE 0
+      END AS compliance,
+      CASE
+        WHEN count(records.id) FILTER (WHERE records.type = 'MX' AND records.name = zones.name) = 0 THEN 'No MX record found - assumed no email'
+        WHEN count(records.id) FILTER (WHERE records.type = 'TXT' AND records.name = '_dmarc.' || zones.name AND records.content ILIKE '%v=DMARC1%') > 0 THEN 'DMARC record found'
+        ELSE 'MX record found, but no DMARC record'
+      END AS detail
+    FROM {{ ref('cloudflare_zones') }} AS zones
+    LEFT JOIN {{ ref('cloudflare_dns_records') }} AS records ON records.zone_id = zones.id
+    GROUP BY zones.name

@@ -1,32 +1,25 @@
-# Security Metrics Engine
+# Metric Definitions
 
-The metrics engine processes collected security data into meaningful compliance metrics using YAML-defined SQL queries. It supports complex aggregations, historical trending, and compliance framework mapping.
+Each `metric_*.yml` file in this folder defines one security metric: its metadata, its SLO, the compliance controls it maps to, and the SQL queries that score every resource. The [dashboard](../03-dashboard/) runs these queries against posture's parquet files and shows the results.
 
 ## Quick Start
 
 ```bash
-cd 02-metrics
-python metrics.py                    # Run all metrics
-python metrics.py -dryrun           # Test run without updating targets
-python metrics.py -metric vm_coverage # Test specific metric
+cd ../03-dashboard
+python app.py        # runs every metric and serves the results at http://127.0.0.1:5000
 ```
 
-## Architecture
+## How Metrics Are Run
 
-### Core Components
-
-- **`metrics.py`** - Main execution engine that processes all metric definitions
-- **`metric_*.yml`** - YAML files defining individual security metrics
-- **Query Engine** - DuckDB with Jinja2 templating for SQL queries
-- **Output Generation** - Parquet files with compliance scores and metadata
-
-### Data Flow
+- **`metric_*.yml`** - one file per metric, in this folder
+- **Engine** - `03-dashboard/engine/` loads the definitions, points each `{{ref('...')}}` at the latest parquet file, and runs the queries in DuckDB
+- **Results** - each metric's score (compliant ÷ total) and resource-level detail, shown on the dashboard
 
 ```
-JSON Data → DuckDB → SQL Queries → Metric Results → Parquet Output
-    ↓          ↓         ↓            ↓              ↓
-Raw Security  In-Memory  Jinja2     Compliance    Historical
-Data Files    Database   Templates   Scores        Data
+Parquet Data → DuckDB → SQL Queries → Metric Results → Dashboard
+     ↓            ↓          ↓              ↓
+posturecollect  In-Memory  Jinja2      Compliance
+output          Engine     Templates   Scores
 ```
 
 ## Metric Definition Structure
@@ -34,36 +27,47 @@ Data Files    Database   Templates   Scores        Data
 Metrics are defined in YAML files with the following structure:
 
 ```yaml
-# metric_example.yml
-metric_id: access_mfa
-title: "Access Control - Multi-Factor Authentication"
+# metric_im_privileged_mfa.yml
+metric_id: im_privileged_mfa
+title: "Privileged accounts with MFA"
 category: "Identity Management"
-description: "Measures MFA adoption across user accounts"
-how: "Counts users with MFA enabled vs total users"
+type: control
+description: |
+  The percentage of active privileged accounts with at least one active MFA factor.
+how: |
+  Find all active Okta users holding an admin role, and check whether each has an active MFA factor.
 weight: 1.0
-indicator: true
-type: "compliance"
-slo: 0.95      # Target threshold (95%)
-slo_min: 0.90  # Minimum acceptable threshold (90%)
+slo:
+  - 0.90  # Minimum acceptable threshold (90%)
+  - 0.95  # Target threshold (95%)
+enabled: true
+indicator: false
 
-# Compliance framework mappings
-iso27001: ["A.9.4.2", "A.9.4.3"]
-cis8_1: ["5.3", "5.4"]  
-nist_csf: ["PR.AC-1", "PR.AC-7"]
-essential8: ["Essential Eight Control 5"]
+# Compliance framework mappings (framework names and refs as listed in 99-templates/framework.csv)
+references:
+  "ISO 27001:2022":
+    - A.8.5
+  "CIS 8.1":
+    - 6.5
+  "NIST CSF v2.0":
+    - PR.AA-03
 
-# SQL query with Jinja2 templating
-query: |
-  SELECT
-    resource,
-    resource_type,
-    CASE 
-      WHEN mfa_enabled = true THEN 1 
-      ELSE 0 
-    END as compliance,
-    detail
-  FROM {{ref('okta_users')}}
-  WHERE account_status = 'ACTIVE'
+# One or more SQL queries; their results are combined
+query:
+  - |
+    SELECT
+      users.profile_login AS resource,
+      'user' AS resource_type,
+      CASE WHEN count(factors.id) > 0 THEN 1 ELSE 0 END AS compliance,
+      CAST(count(factors.id) AS VARCHAR) || ' active MFA factors' AS detail
+    FROM {{ref('okta_users')}} AS users
+    JOIN (SELECT DISTINCT user_id FROM {{ref('okta_user_roles')}}) AS admins
+      ON admins.user_id = users.id
+    LEFT JOIN {{ref('okta_user_factors')}} AS factors
+      ON factors.user_id = users.id
+      AND factors.status = 'ACTIVE'
+    WHERE users.status = 'ACTIVE'
+    GROUP BY users.profile_login
 ```
 
 ## Required Query Output
@@ -77,67 +81,81 @@ All metric queries must return these columns:
 | `compliance` | Number (0-1) | Compliance score (1=compliant, 0=non-compliant) |
 | `detail` | String | Human-readable description of the finding |
 
-## Command Line Options
-
-| Option | Description | Example |
-|--------|-------------|---------|
-| `-h` | Display help information | |
-| `-dryrun` | Test mode - show results without updating targets | `python metrics.py -dryrun` |
-| `-metric <id>` | Run specific metric only | `python metrics.py -metric access_mfa` |
-| `-path <path>` | Specify metric YAML files directory | `python metrics.py -path ./custom/` |
-| `-data <path>` | Specify data source directory | `python metrics.py -data ../data/source` |
-| `-parquet <path>` | Output parquet file location | `python metrics.py -parquet ../output/metrics.parquet` |
-| `-privacyoff` | Disable privacy masking of resource/detail columns | `python metrics.py -privacyoff` |
-
 ## Data Reference System
 
-The metrics engine uses a `{{ref('table_name')}}` function to reference collected data:
+The metrics engine uses a `{{ref('table_name')}}` function to reference collected data. Table names follow posture's `<source>_<resource>` naming:
 
 ```sql
--- Reference CrowdStrike device data
-SELECT * FROM {{ref('crowdstrike_devices')}}
+-- Reference CrowdStrike host data
+SELECT * FROM {{ref('crowdstrike_hosts')}}
 
--- Reference Tenable vulnerability data  
-SELECT * FROM {{ref('tenable_vulnerabilities')}}
+-- Reference Tenable.io vulnerability data
+SELECT * FROM {{ref('tenableio_vulnerabilities')}}
 
 -- Reference Okta user data
 SELECT * FROM {{ref('okta_users')}}
 ```
 
-### Available Data Tables
+If a referenced table has no parquet file, that query is skipped and the error is shown on the metric's dashboard page.
 
-| Collector | Table Reference | Description |
-|-----------|----------------|-------------|
-| CrowdStrike | `{{ref('crowdstrike_devices')}}` | Endpoint device information |
-| CrowdStrike | `{{ref('crowdstrike_vulnerabilities')}}` | Endpoint vulnerabilities |
-| Tenable | `{{ref('tenable_assets')}}` | Network asset inventory |
-| Tenable | `{{ref('tenable_vulnerabilities')}}` | Vulnerability scan results |
-| Okta | `{{ref('okta_users')}}` | User account information |
-| Okta | `{{ref('okta_applications')}}` | Application integrations |
-| Snyk | `{{ref('snyk_projects')}}` | Code project vulnerabilities |
+### Tables Used by the Current Metrics
 
-> **Complete reference**: See the Data Model section below for available tables and schemas.
+| Source | Table Reference | Description |
+|--------|----------------|-------------|
+| CrowdStrike | `{{ref('crowdstrike_hosts')}}` | Endpoint hosts with the Falcon sensor |
+| CrowdStrike | `{{ref('crowdstrike_vulnerabilities')}}` | Open endpoint vulnerabilities |
+| CrowdStrike | `{{ref('crowdstrike_vulnerability_remediations')}}` | Remediation steps per vulnerability (join on `id`) |
+| Tenable.io | `{{ref('tenableio_assets')}}` | Scanned asset inventory |
+| Tenable.io | `{{ref('tenableio_vulnerabilities')}}` | Vulnerability findings |
+| cve-db | `{{ref('cve_db_cve_summary')}}` | NVD data per CVE, used to classify vulnerabilities as OS or application |
+| Kandji | `{{ref('kandji_devices')}}` | Managed Macs and Windows devices, with check-in status |
+| Kandji | `{{ref('kandji_device_details')}}` | Device detail, including macOS version and FileVault status |
+| Workspace ONE | `{{ref('workspaceone_computers')}}` | Managed computers, with enrolment status |
+| Salesforce | `{{ref('salesforce_fixed_asset__c')}}` | Asset register (serial numbers) |
+| Salesforce | `{{ref('salesforce_krow__project_resources__c')}}` | Staff records, including employment end dates |
+| endoflife.date | `{{ref('endoflife_cycles')}}` | Support status of each product release cycle |
+| macadmins.io | `{{ref('macadmins_macos_cves')}}` | CVEs fixed in each macOS release, and whether they were exploited |
+| Okta | `{{ref('okta_users')}}` | User accounts |
+| Okta | `{{ref('okta_user_factors')}}` | Enrolled MFA factors per user |
+| Okta | `{{ref('okta_devices')}}` | Registered devices, including disk encryption |
+| KnowBe4 | `{{ref('knowbe4_training_enrollments')}}` | Security awareness training enrolments |
+| KnowBe4 | `{{ref('knowbe4_pst_recipients')}}` | Simulated phishing results per recipient |
+| Cloudflare | `{{ref('cloudflare_zones')}}` | DNS zones hosted in Cloudflare |
+| Cloudflare | `{{ref('cloudflare_dns_records')}}` | DNS records, including whether they're proxied |
+| DNSimple | `{{ref('dnsimple_domains')}}` | Registered domains and their expiry |
+| DNSimple | `{{ref('dnsimple_zone_records')}}` | DNS records for DNSimple-hosted zones |
+| GitHub | `{{ref('github_repositories')}}` | Repositories (archived ones are excluded) |
+| GitHub | `{{ref('github_dependabot_alerts')}}` | Open Dependabot alerts |
+| Snyk | `{{ref('snyk_projects')}}` | Code projects |
+| Snyk | `{{ref('snyk_issues')}}` | Issues per project (join on `project_id`) |
+
+> **Complete reference**: [schema.md](../schema.md) covers the fields the current metrics use. Every table posture can collect, with its columns, is listed in [posture's docs](https://github.com/massyn/posture/blob/main/docs/index.md).
 
 ## Example Metrics
 
+These examples show only the fields that shape the query. A real metric file also needs the other required fields shown in [Metric Definition Structure](#metric-definition-structure).
+
 ### Simple Compliance Check
 ```yaml
-metric_id: endpoint_encryption
-title: "Endpoint Encryption Coverage"
-category: "Data Protection"
-slo: 0.98
-slo_min: 0.95
+metric_id: endpoint_full_functionality
+title: "Endpoint Sensors in Full Functionality Mode"
+category: "Malware Protection"
+slo:
+  - 0.95
+  - 0.98
 
-query: |
-  SELECT
-    hostname as resource,
-    'endpoint' as resource_type,
-    CASE 
-      WHEN disk_encryption_status = 'encrypted' THEN 1 
-      ELSE 0 
-    END as compliance,
-    'Disk encryption: ' || disk_encryption_status as detail
-  FROM {{ref('crowdstrike_devices')}}
+query:
+  - |
+    SELECT
+      hostname AS resource,
+      'host' AS resource_type,
+      CASE
+        WHEN reduced_functionality_mode IS TRUE THEN 0
+        ELSE 1
+      END AS compliance,
+      'Reduced functionality mode: ' || coalesce(CAST(reduced_functionality_mode AS VARCHAR), 'unknown') AS detail
+    FROM {{ref('crowdstrike_hosts')}}
+    WHERE CURRENT_DATE - CAST(last_seen AS DATE) < 30
 ```
 
 ### Complex Aggregation
@@ -145,70 +163,90 @@ query: |
 metric_id: vulnerability_remediation
 title: "Critical Vulnerability Remediation"
 category: "Vulnerability Management"
-slo: 0.95
-slo_min: 0.90
+slo:
+  - 0.90
+  - 0.95
 
-query: |
-  SELECT
-    asset_uuid as resource,
-    'asset' as resource_type,
-    CASE 
-      WHEN days_open <= 30 THEN 1
-      WHEN days_open <= 60 THEN 0.5
-      ELSE 0
-    END as compliance,
-    'Critical vulnerability open for ' || days_open || ' days' as detail
-  FROM {{ref('tenable_vulnerabilities')}}
-  WHERE severity = 'Critical'
-    AND state = 'Open'
+query:
+  - |
+    SELECT
+      asset_hostname AS resource,
+      'host' AS resource_type,
+      CASE
+        WHEN date_diff('day', CAST(first_found AS DATE), CURRENT_DATE) <= 30 THEN 1
+        ELSE 0
+      END AS compliance,
+      plugin_name || ' open for ' || date_diff('day', CAST(first_found AS DATE), CURRENT_DATE) || ' days' AS detail
+    FROM {{ref('tenableio_vulnerabilities')}}
+    WHERE severity = 'critical'
+      AND state IN ('OPEN', 'REOPENED')
 ```
 
 ### Multi-Source Query
 ```yaml
 metric_id: privileged_account_mfa
-title: "Privileged Account MFA Coverage" 
+title: "Privileged Account MFA Coverage"
 category: "Identity Management"
-slo: 1.0
-slo_min: 0.98
+slo:
+  - 0.98
+  - 1.0
 
-query: |
-  WITH privileged_users AS (
-    SELECT DISTINCT user_id 
-    FROM {{ref('okta_users')}} 
-    WHERE admin_roles IS NOT NULL
-  ),
-  mfa_status AS (
-    SELECT 
-      user_id,
-      mfa_enabled
-    FROM {{ref('okta_users')}}
-  )
-  SELECT
-    p.user_id as resource,
-    'privileged_user' as resource_type,
-    CASE WHEN m.mfa_enabled THEN 1 ELSE 0 END as compliance,
-    CASE 
-      WHEN m.mfa_enabled THEN 'MFA enabled for privileged account'
-      ELSE 'MFA NOT enabled for privileged account'
-    END as detail
-  FROM privileged_users p
-  JOIN mfa_status m ON p.user_id = m.user_id
+query:
+  - |
+    WITH privileged_users AS (
+      SELECT DISTINCT user_id
+      FROM {{ref('okta_user_roles')}}
+    ),
+    mfa_users AS (
+      SELECT DISTINCT user_id
+      FROM {{ref('okta_user_factors')}}
+      WHERE status = 'ACTIVE'
+    )
+    SELECT
+      u.profile_login AS resource,
+      'user' AS resource_type,
+      CASE WHEN m.user_id IS NOT NULL THEN 1 ELSE 0 END AS compliance,
+      CASE
+        WHEN m.user_id IS NOT NULL THEN 'MFA enabled for privileged account'
+        ELSE 'MFA NOT enabled for privileged account'
+      END AS detail
+    FROM {{ref('okta_users')}} u
+    JOIN privileged_users p ON p.user_id = u.id
+    LEFT JOIN mfa_users m ON m.user_id = u.id
+    WHERE u.status = 'ACTIVE'
 ```
 
 ## Data Model
 
 ### Input Data Structure
-Collectors provide JSON data with standardized metadata:
-```json
-{
-  "data": [...],           // Raw extracted data
-  "metadata": {
-    "_tenancy": "company",         // TENANT environment variable
-    "_upload_timestamp": "2024-07-15T14:30:45Z",
-    "_upload_id": "uuid"           // Unique ID for this collection run
-  }
-}
+Source data comes from [posture](https://github.com/massyn/posture)'s `posturecollect`, which writes one Parquet file per table to the data path (default `../data/source`):
+
 ```
+data/source/<source>_<resource>.parquet                 # default: latest snapshot, overwritten each run
+data/source/<source>_<resource>/<YYYY.MM.DD>.parquet    # with --history: one snapshot per day
+```
+
+`{{ref('<source>_<resource>')}}` resolves to the matching file. With `--history`, only the most recent snapshot is read.
+
+Each file is one flat table. Columns are typed as posture declares them (strings, numbers, timestamps, etc.), so no casting from text is needed. Every table also has a metadata column:
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `_collected_at` | `TIMESTAMP WITH TIME ZONE` | UTC time the data was collected |
+
+For example, `endoflife_products`:
+
+| Column | Type |
+|--------|------|
+| `product` | `VARCHAR` |
+| `label` | `VARCHAR` |
+| `category` | `VARCHAR` |
+| `aliases` | `VARCHAR` |
+| `tags` | `VARCHAR` |
+| `uri` | `VARCHAR` |
+| `_collected_at` | `TIMESTAMP WITH TIME ZONE` |
+
+See [posture's docs](https://github.com/massyn/posture/blob/main/docs/index.md) for the tables and column types for every source.
 
 ### Metric Output Schema
 Each metric query must return this exact structure:
@@ -218,28 +256,10 @@ SELECT
   resource_type,   -- string: Type of resource (user, host, device, etc.)
   compliance,      -- float: Compliance state (0.0 to 1.0, where 1.0 = compliant)
   detail           -- string: Additional information for remediation
-FROM {{ref('data_source')}}
+FROM {{ref('<source>_<resource>')}}
 ```
 
-## Output Format
-
-The metrics engine generates two output files:
-
-### Detail Parquet
-Individual resource-level compliance records:
-```
-../data/detail.parquet
-```
-
-Contains all resource-level findings with compliance scores and evidence.
-
-### Summary Parquet
-Aggregated metrics by organizational dimensions:
-```
-../data/summary.parquet
-```
-
-Contains rolled-up compliance statistics grouped by metric, business unit, team, and location.
+`detail` must be text. Cast timestamps and numbers with `CAST(... AS VARCHAR)` before using them as `detail`.
 
 ## Development
 
@@ -253,47 +273,50 @@ When defining a metric, start by figuring out what you are trying to measure. Da
    metric_id: your_metric
    title: "Your Metric Title"
    category: "Your Category"
+   type: control
    description: "What this metric measures"
    how: "How the metric is calculated"
    weight: 1.0
-   slo: 0.95
-   slo_min: 0.90
+   slo:
+     - 0.90  # minimum acceptable
+     - 0.95  # target
    enabled: true
    indicator: false  # true if not percentage-based
+   references:
+     "ISO 27001:2022":
+       - A.8.8
    ```
 
 3. **Write SQL query**:
    ```yaml
-   query: |
-     SELECT
-       resource_id as resource,
-       'resource_type' as resource_type,
-       compliance_calculation as compliance,
-       description as detail
-     FROM {{ref('data_source')}}
+   query:
+     - |
+       SELECT
+         hostname AS resource,
+         'host' AS resource_type,
+         CASE WHEN <condition> THEN 1 ELSE 0 END AS compliance,
+         <description> AS detail
+       FROM {{ref('<source>_<resource>')}}
    ```
 
-4. **Test metric**:
-   ```bash
-   python metrics.py -metric your_metric -dryrun
-   ```
+4. **Test metric**: open `http://127.0.0.1:5000/metric/your_metric` on the running dashboard. It picks up the new file automatically, and any query errors are shown at the top of the page.
 
 ### Complete YAML Schema Reference
 
 | Field | Type | Description | Valid Values |
 |-------|------|-------------|--------------|
-| `metric_id` | string | Unique identifier for the metric | Any alphanumeric string |
+| `metric_id` | string | Unique identifier for the metric, used in the dashboard and docs URLs | Lowercase letters, digits and `_`; usually matches the file name `metric_<metric_id>.yml` |
 | `title` | string | Descriptive title for the metric | Any string |
-| `category` | string | Category (e.g., Vulnerability Management) | Any string |
+| `category` | string | Category (e.g., Vulnerability Management) | One of the categories in `generate_documentation.py` |
 | `type` | string | Type of metric being measured | `performance`, `control`, `risk` |
 | `description` | string | Detailed explanation of the metric | Any multiline string |
-| `how` | string | Instructions on how to compute the metric | Any multiline string |
-| `slo` | list[float] | Service Level Objectives (performance thresholds) | List of decimal values (e.g., `0.9`) |
-| `weight` | integer | Weight in overall scoring system | Integer between 0 and 100 |
-| `enabled` | boolean | Whether the metric is currently active | `true`, `false` |
-| `indicator` | boolean | If true, not aggregated as percentage | `true`, `false` (default) |
-| `references` | object | Standards and guidelines related to metric | Key-value pairs |
-| `query` | list[string] | SQL query definitions | List of multiline strings |
+| `how` | string | Instructions on how to compute the metric (optional) | Any multiline string |
+| `slo` | list[float] | Service Level Objectives: `[minimum, target]` | Two decimal values, e.g. `[0.90, 0.95]` |
+| `weight` | float | Weight in overall scoring system | Decimal between 0 and 1, e.g. `0.8` |
+| `enabled` | boolean | Whether the metric's queries are run | `true` (default), `false` |
+| `indicator` | boolean | If true, left out of the dashboard's weighted overall score | `true`, `false` |
+| `references` | object | Compliance frameworks, each with a list of control refs | See below |
+| `query` | list[string] | SQL queries; results from every query are combined | List of multiline strings, or `null` for a metric with no query yet |
 
 ### Required Query Output Schema
 
@@ -306,145 +329,87 @@ The query MUST return these columns:
 | `detail` | string | Additional detail for remediation | Any string |
 | `resource_type` | string | Resource type for asset mapping | `host`, `device`, `user`, etc. |
 
-The query can optionally return dimensions: `business_unit`, `team`, `location`.
+Any other columns a query returns are ignored.
 
 ### Compliance Framework Mapping
 
-Map metrics to compliance frameworks:
+Map metrics to compliance frameworks under `references`. Framework names and refs must match `99-templates/framework.csv`, which `generate_documentation.py` uses to link each ref to its control:
 
 ```yaml
-# ISO 27001 controls
-iso27001: ["A.12.6.1", "A.16.1.4"]
-
-# CIS Controls v8.1  
-cis8_1: ["4.1", "4.2", "4.3"]
-
-# NIST Cybersecurity Framework
-nist_csf: ["PR.DS-1", "PR.DS-2"]
-
-# Australian Essential 8
-essential8: ["Essential Eight Control 1"]
+references:
+  "ISO 27001:2022":
+    - A.8.8
+  "CIS 8.1":
+    - 7.5
+    - 7.6
+  "NIST CSF v2.0":
+    - ID.RA-01
+  "Essential8":
+    - ISM-1698
 ```
 
-### Advanced SQL Features
-
-The metrics engine supports advanced DuckDB SQL features:
+### Useful DuckDB SQL Features
 
 ```sql
--- Window functions for trending
-SELECT 
-  resource,
-  compliance,
-  LAG(compliance, 1) OVER (PARTITION BY resource ORDER BY date) as prev_compliance
-FROM {{ref('historical_data')}}
+-- Date arithmetic on posture's typed timestamps
+SELECT hostname, CURRENT_DATE - CAST(last_seen AS DATE) AS days_since_seen
+FROM {{ref('crowdstrike_hosts')}}
 
--- JSON extraction
-SELECT 
-  json_extract(metadata, '$.severity') as severity
-FROM {{ref('vulnerability_data')}}
+-- JSON array columns (posture stores these as JSON text)
+SELECT asset_hostname, unnest(from_json(cve, '["VARCHAR"]')) AS cve_id
+FROM {{ref('tenableio_vulnerabilities')}}
 
--- Array operations
-SELECT 
-  resource,
-  list_contains(permissions, 'admin') as has_admin
-FROM {{ref('user_permissions')}}
+-- Array membership
+SELECT asset_hostname, plugin_name
+FROM {{ref('tenableio_vulnerabilities')}}
+WHERE list_contains(from_json(cve, '["VARCHAR"]'), 'CVE-2024-3094')
 ```
 
 ## Workflow Example
 
-Typical end-to-end metrics workflow:
+Typical end-to-end workflow:
 
 ```bash
-# 1. Collect data first (if needed)
-cd ../01-collectors
-python wrapper.py
+# 1. Collect data (from the repo root)
+posturecollect --output data/source
 
-# 2. Run metrics with testing
-cd ../02-metrics
-python metrics.py -dryrun           # Verify queries work
-python metrics.py -metric vm_coverage # Test specific metric
-
-# 3. Run full metrics generation
-python metrics.py                   # Generate complete metrics
-
-# 4. Publish results
-cd ../03-publish
-python publish.py                   # Send to dashboard
+# 2. Run the metrics and view the results
+cd 03-dashboard
+python app.py
 ```
 
 ## Testing & Validation
 
-### Dry Run Mode
-Test metrics without updating targets:
-```bash
-python metrics.py -dryrun
-```
+### Testing a Metric
 
-Shows:
-- SQL query execution results
-- Compliance score calculations  
-- Data validation errors
-- Performance metrics
-
-### Single Metric Testing
-```bash
-python metrics.py -metric access_mfa -dryrun
-```
-
-Displays:
-- Full query results
-- Compliance distribution
-- Sample records
-- Execution time
+Open the metric on the dashboard (`/metric/<metric_id>`). The page shows its score, every resource row, and any query errors. The dashboard re-runs the metrics whenever a `metric_*.yml` or source parquet file changes, so edit the file and refresh the page.
 
 ### Data Validation
 
-The engine validates:
-- **Required columns**: Ensures query returns `resource`, `resource_type`, `compliance`, `detail`
-- **Data types**: Validates compliance scores are numeric (0-1)
-- **Referential integrity**: Checks that referenced tables exist
-- **Query syntax**: Validates SQL syntax before execution
+When loading definitions, the engine checks:
+- **Metadata**: the YAML has `metric_id`, `title`, `category`, `type`, `description`, `weight` and `indicator` (`how` is optional), and `query` is a list. Invalid files are skipped and logged
 
-## Performance Optimization
+For each query, it checks:
+- **Referenced tables**: every `{{ref('...')}}` table has a parquet file; if not, the query is skipped
+- **Query execution**: a query that DuckDB rejects is skipped, with DuckDB's error shown
+- **Required columns**: the result includes `resource`, `resource_type`, `compliance` and `detail`
+- **Compliance values**: rows whose `compliance` isn't numeric are dropped and reported
 
-### Query Performance
-- **Use indexes**: DuckDB automatically creates indexes for common patterns
-- **Limit data scope**: Filter data early in queries
-- **Avoid cartesian products**: Use proper JOIN conditions
-- **Use CTEs**: Break complex queries into readable components
+A metric whose queries all return nothing is listed under the **No data** status on the scorecard.
 
-### Memory Management
-- **Streaming processing**: Large datasets are processed in chunks
-- **Columnar storage**: Parquet format provides efficient storage and querying
-- **Garbage collection**: Automatic cleanup of temporary tables
+## Logging
 
-## Monitoring
-
-### Execution Metrics
-Each metric run provides:
-- **Execution time**: Query performance monitoring
-- **Record counts**: Input and output record statistics
-- **Error rates**: Failed queries and validation errors
-- **Resource usage**: Memory and CPU utilization
-
-### Logging
-Structured logging includes:
-- **Metric execution**: Start/end times, record counts
-- **Query performance**: Execution time, optimization hints
-- **Data quality**: Validation errors, missing data warnings
-- **System health**: Resource usage, error rates
+The dashboard logs each skipped query with the reason, and how long each full run of the metrics took.
 
 ## Troubleshooting
 
 ### Common Issues
 
-**No data found errors**: Ensure collectors have run and data exists in `../data/source/`
+**Source table not found**: Run `posturecollect` (see `../01-collectors`) and check the parquet file is in `data/source/`, or in the folder set by `METRICS_DATA`
 
-**SQL query errors**: Use `-dryrun` to test queries without side effects  
+**SQL query errors**: Open the metric on the dashboard; DuckDB's error message is shown at the top of the page
 
-**Missing tables**: Verify collector names match `{{ref('table_name')}}` references in metric YAML files
-
-**Performance issues**: Use query optimization techniques and check data volume
+**Missing tables**: `{{ref('...')}}` names must match posture's `<source>_<resource>` file names. Sources that need no credentials, such as `cve_db`, are only collected when named with `posturecollect --include`
 
 **Validation failures**: Ensure queries return required columns: `resource`, `resource_type`, `compliance`, `detail`
 

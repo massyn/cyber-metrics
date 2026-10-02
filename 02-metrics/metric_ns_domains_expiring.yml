@@ -6,7 +6,8 @@ type: risk
 description: |
   The percentage of DNS domains that are set to expire within the next month, which could lead to service disruptions if not renewed in time.
 how: |
-  Query all DNS domains and check their expiration date. Identify domains whose expiration date falls within the next 30 days.
+  Find all domains registered with DNSimple. Domains are considered compliant if
+  they are set to auto-renew, or don't expire within the next 30 days.
 slo:
   - 0.99
   - 1.00
@@ -20,18 +21,12 @@ references:
     - 9.3
   "NIST CSF v2.0":
     - ID.AM-04
-query: 
+query:
   - |
     SELECT
-      domain AS resource,
-      'domain' as resource_type,
-      CASE
-        WHEN expiration_date <= CURRENT_DATE + INTERVAL 30 DAY THEN 0
-        ELSE 1
-      END as compliance,
-      CASE
-        WHEN expiration_date <= CURRENT_DATE + INTERVAL 30 DAY THEN 'Domain expiring within 30 days'
-        ELSE 'Domain expiration is beyond 30 days'
-      END as detail
-    FROM
-      {{ ref('domains') }}
+      name AS resource,
+      'domain' AS resource_type,
+      CASE WHEN auto_renew OR CAST(expires_on AS DATE) > CURRENT_DATE + 30 THEN 1 ELSE 0 END AS compliance,
+      'Expires ' || CAST(CAST(expires_on AS DATE) AS VARCHAR) || CASE WHEN auto_renew THEN ', auto-renew on' ELSE ', auto-renew off' END AS detail
+    FROM {{ ref('dnsimple_domains') }}
+    WHERE state = 'registered'

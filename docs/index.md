@@ -23,28 +23,21 @@ The Cyber Metrics Platform transforms raw security tool data into actionable bus
 
 **Framework Alignment**: Every metric maps to established frameworks (ISO 27001, CIS Controls, NIST CSF, Essential 8) while maintaining practical utility for day-to-day security operations.
 
-**Multi-Tenant Architecture**: Built for scale with support for multiple storage backends (local files, AWS S3, PostgreSQL, DuckDB) and configurable data retention policies.
+**Simple Architecture**: Data is collected to Parquet files, and a dashboard runs the metrics against them and shows the current scores.
 
 ## Platform Architecture
 
-### Three-Stage Pipeline
+### Two-Stage Pipeline
 
-1. **Collect** (`01-collectors/`): Automated data extraction from security tools via APIs
-   - CrowdStrike Falcon (endpoints, vulnerabilities)
-   - Tenable.io (vulnerability scans, asset inventory)
-   - Okta (identity and access management)
-   - Snyk (application security, dependencies)
-   - KnowBe4 (security awareness training)
+1. **Collect** (`01-collectors/`): Automated data extraction from security tools via [posture](https://github.com/massyn/posture)
+   - `posturecollect` writes every table from every configured source to Parquet
+   - See the [supported sources](https://github.com/massyn/posture/blob/main/docs/index.md)
 
-2. **Process** (`02-metrics/`): SQL-based metric calculation using YAML definitions
+2. **Measure** (`02-metrics/`, `03-dashboard/`): SQL-based metrics defined in YAML, run and displayed by the dashboard
    - DuckDB query engine with Jinja2 templating
    - Standardized output schema (resource, compliance, detail)
    - Configurable SLO thresholds and weighting
-
-3. **Publish** (`03-publish/`): Delivery to dashboards and reporting systems
-   - Parquet data format for analytics
-   - REST API endpoints for integration
-   - Configurable notification thresholds
+   - Web scorecard with resource-level detail and filters
 
 ### Example: Vulnerability Management
 
@@ -78,17 +71,14 @@ The following frameworks are used in the mapping of metrics
 ### Quick Start
 ```bash
 # 1. Collect data from your security tools
-cd 01-collectors && python wrapper.py
+posturecollect --output data/source
 
-# 2. Generate metrics from collected data  
-cd 02-metrics && python metrics.py
-
-# 3. Publish results to your dashboard
-cd 03-publish && python publish.py
+# 2. Run the metrics and view them at http://127.0.0.1:5000
+cd 03-dashboard && python app.py
 ```
 
 ### Configuration
-Set environment variables for your security tool APIs and storage preferences. The platform supports multiple simultaneous storage backends - local files, AWS S3, PostgreSQL, and DuckDB.
+Set environment variables (or a `.env` file) for your security tool APIs. See `01-collectors/` for posture's settings and `03-dashboard/` for the dashboard's.
 
 ### Creating Custom Metrics
 Define new metrics using YAML files in `02-metrics/`. Each metric specification includes:
@@ -101,8 +91,7 @@ See `schema.md` for complete data source documentation.
 ## Contribute
 
 **New Metrics**: Define additional metrics using the YAML specification format  
-**New Collectors**: Add support for additional security tools via the collector framework  
-**New Publishers**: Integrate with additional dashboard and reporting platforms  
+**New Collectors**: Add support for additional security tools in [posture](https://github.com/massyn/posture)  
 
 [Submit contributions](https://github.com/massyn/cyber-metrics/issues)
 

@@ -8,6 +8,11 @@ description: The "Insecure Ports" metric tracks external endpoints with open
   entry points for cyberattacks, which is critical for reducing the
   organization's exposure to exploitation and ensuring the security of its
   network infrastructure.
+how: |
+  Find all external-facing endpoints from your external attack surface or
+  network scanning tools and check their open ports. Endpoints are considered
+  compliant if they expose no insecure ports (e.g. Telnet, FTP, SMB, RDP or
+  unencrypted database ports).
 slo:
   - 0.90
   - 0.95

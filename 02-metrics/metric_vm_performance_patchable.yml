@@ -33,33 +33,36 @@ query:
       'host'    AS resource_type,
       CASE
         WHEN cve.status NOT IN ('open', 'reopen') then 1
-        WHEN CURRENT_DATE - CAST(cve.published_date AS DATE) 		< 21 THEN 1
-        WHEN CURRENT_DATE - CAST(cve.created_timestamp AS DATE) < 14 THEN 1
+        WHEN CURRENT_DATE - CAST(cve.published_on AS DATE) 		< 21 THEN 1
+        WHEN CURRENT_DATE - CAST(cve.created_at AS DATE) < 14 THEN 1
         ELSE 0
       END AS compliance,
-      'Crowdstrike : ' || cve.cve.id || '(' || cve.severity || ') - ' || unnest(cve.remediation.entities).title AS detail
+      'Crowdstrike : ' || cve.cve_id || '(' || cve.severity || ') - ' || coalesce(remediation.title, 'No remediation listed') AS detail
     FROM
       {{ ref('crowdstrike_hosts') }} AS host
     LEFT JOIN
       {{ ref('crowdstrike_vulnerabilities') }} AS cve
-      ON host.device_id = cve.aid
+      ON host.device_id = cve.agent_id
       AND cve.status IN ('open', 'reopen')
+    LEFT JOIN
+      {{ ref('crowdstrike_vulnerability_remediations') }} AS remediation
+      ON remediation.id = cve.id
     WHERE
-      CURRENT_DATE - CAST(STRPTIME(host.last_seen, '%Y-%m-%dT%H:%M:%SZ') AS DATE) < 30 AND
-      coalesce(cve.cve.remediation_level = 'O', false) is true
+      CURRENT_DATE - CAST(host.last_seen AS DATE) < 30 AND
+      coalesce(cve.remediation_level = 'O', false) is true
   - |
     SELECT
-      cve.asset.hostname as resource,
+      cve.asset_hostname as resource,
       'host'    AS resource_type,
       CASE
         WHEN cve.state NOT IN ('OPEN', 'REOPENED') then 1
-        WHEN CURRENT_DATE - CAST(cve.plugin.publication_date AS DATE) 		< 21 THEN 1
+        WHEN CURRENT_DATE - CAST(cve.publication_date AS DATE) 		< 21 THEN 1
         WHEN CURRENT_DATE - CAST(cve.first_found AS DATE) < 14 THEN 1
         ELSE 0
       END AS compliance,
-      'TenableIO : ' || unnest(cve.plugin.cve) || '(' || cve.severity || ') - ' || cve.plugin.name AS detail
+      'TenableIO : ' || unnest(from_json(cve.cve, '["VARCHAR"]')) || '(' || cve.severity || ') - ' || cve.plugin_name AS detail
     FROM
-      {{ ref('tenable_vulnerabilities') }} AS cve
+      {{ ref('tenableio_vulnerabilities') }} AS cve
     WHERE
       CURRENT_DATE - CAST(cve.last_found AS DATE) < 30 AND
-      cve.plugin.has_patch
+      cve.has_patch

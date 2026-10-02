@@ -1,0 +1,48 @@
+{% import "_macros.html" as m %}
+
+<div class="row g-3 mb-4">
+  <div class="col-6 col-lg">
+    <div class="card h-100">
+      <div class="card-body">
+        <div class="small text-body-secondary">Overall score</div>
+        <div class="fs-2 fw-semibold">{{ m.percent(summary.overall) }}</div>
+        <div class="small text-body-secondary">weighted, excluding indicators</div>
+      </div>
+    </div>
+  </div>
+  {% for status in statuses %}
+    <div class="col-6 col-lg">
+      <a class="card h-100 text-decoration-none status-card {{ 'border-' ~ m.STATUS_CLASSES[status] ~ ' border-2' if filters.status == status }}"
+         href="{{ url_for('dashboard.scorecard', **filters.as_args(status=('' if filters.status == status else status))) }}">
+        <div class="card-body">
+          <div class="small text-body-secondary">{{ m.STATUS_LABELS[status] }}</div>
+          <div class="fs-2 fw-semibold text-{{ m.STATUS_CLASSES[status] }}">{{ summary.status_counts[status] }}</div>
+          <div class="small text-body-secondary">metrics</div>
+        </div>
+      </a>
+    </div>
+  {% endfor %}
+</div>
+
+{% if summary.categories %}
+<div class="card mb-4">
+  <div class="card-body">
+    <h2 class="h6 mb-3">Score by category <span class="small text-body-secondary fw-normal">weighted, excluding indicators</span></h2>
+    {% for c in summary.categories %}
+      <div class="row align-items-center g-2 mb-2">
+        <div class="col-12 col-md-3 small">
+          <a class="text-reset text-decoration-none" href="{{ url_for('dashboard.scorecard', **filters.as_args(category=c.category)) }}">{{ c.category }}</a>
+          <span class="text-body-secondary">({{ c.metrics }})</span>
+        </div>
+        <div class="col">
+          <div class="progress category-bar" role="progressbar" aria-label="{{ c.category }} score"
+               aria-valuenow="{{ (c.value * 100)|round(1) }}" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar bg-{{ m.STATUS_CLASSES[c.status] }}" style="width: {{ (c.value * 100)|round(1) }}%"></div>
+          </div>
+        </div>
+        <div class="col-auto small fw-semibold text-end category-value">{{ m.percent(c.value) }}</div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}

@@ -1,0 +1,50 @@
+---
+metric_id: ac_leavers_disabled
+title: Access Control - Leavers with Disabled Accounts
+category: Access Control
+type: control
+description: |
+  The percentage of people who have left the organisation whose identity
+  account has been disabled, ensuring former staff cannot keep accessing
+  company systems and data after their employment ends.
+how: |
+  Find everyone whose employment end date in Salesforce (Krow project resources)
+  has passed, excluding people who were rehired and have a current record.
+  Leavers are considered compliant if their Okta account has been suspended,
+  deprovisioned or removed.
+slo:
+  - 0.98
+  - 1.0
+weight: 0.8
+enabled: true
+indicator: false
+references:
+  "ISO 27001:2022":
+    - A.5.18
+  "CIS 8.1":
+    - 6.2
+  "NIST CSF v2.0":
+    - PR.AA-05
+query:
+  - |
+    WITH employment AS (
+      SELECT lower(user_email__c) AS email, CAST(employment_end_date__c AS DATE) AS end_date
+      FROM {{ ref('salesforce_krow__project_resources__c') }}
+      WHERE user_email__c IS NOT NULL
+    ),
+    leavers AS (
+      -- people whose every employment record has ended (rehires with a current record are excluded)
+      SELECT email, max(end_date) AS end_date
+      FROM employment
+      GROUP BY email
+      HAVING count(*) = count(end_date) AND max(end_date) < CURRENT_DATE
+    )
+    SELECT
+      leavers.email AS resource,
+      'user' AS resource_type,
+      CASE WHEN users.id IS NULL OR users.status IN ('SUSPENDED', 'DEPROVISIONED') THEN 1 ELSE 0 END AS compliance,
+      'Left ' || CAST(leavers.end_date AS VARCHAR) || '; Okta account ' ||
+        CASE WHEN users.id IS NULL THEN 'removed' ELSE lower(users.status) END AS detail
+    FROM leavers
+    LEFT JOIN {{ ref('okta_users') }} AS users
+      ON lower(users.profile_login) = leavers.email

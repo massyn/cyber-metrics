@@ -29,7 +29,7 @@ references:
 query:
   - |
     SELECT
-      users.profile.login AS resource,
+      users.profile_login AS resource,
       'user' AS resource_type,
       users.status || ' - ' || 
       (CURRENT_DATE - CAST(users.status_changed AS DATE)) || ' days since status change' AS detail,

@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+
+{% set d = page.definition %}
+{% set OUTCOME_CLASSES = {'pass': 'success', 'fail': 'danger', 'partial': 'warning'} %}
+
+{% macro sort_link(column, label) -%}
+  {% set active = filters.sort == column %}
+  {% set order = 'desc' if active and not filters.descending else 'asc' %}
+  <a class="text-reset text-decoration-none" href="{{ url_for('dashboard.metric', metric_id=d.metric_id, **filters.as_args(sort=column, order=order, page=1)) }}">
+    {{ label }}{% if active %} <span aria-hidden="true">{{ '▼' if filters.descending else '▲' }}</span>{% endif %}
+  </a>
+{%- endmacro %}
+
+{% block title %}{{ d.title }} · Cyber Metrics{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ url_for('dashboard.scorecard') }}">Scorecard</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ d.title }}</li>
+  </ol>
+</nav>
+
+<div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+  <h1 class="h3 mb-0 me-2">{{ d.title }}</h1>
+  <span class="badge text-bg-secondary">{{ d.category }}</span>
+  <span class="badge text-bg-light border text-capitalize">{{ d.type }}</span>
+  {% if d.indicator %}<span class="badge text-bg-light border">Indicator</span>{% endif %}
+  {% if not d.enabled %}<span class="badge text-bg-dark">Disabled</span>{% endif %}
+</div>
+
+{% for error in page.errors %}
+  <div class="alert alert-warning py-2 small mb-2">{{ error }}</div>
+{% endfor %}
+
+<div class="row g-3 mb-4">
+  <div class="col-12 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <div class="small text-body-secondary">Score</div>
+        <div class="fs-1 fw-semibold">{{ m.score_badge(page.score) }}</div>
+        <div class="small text-body-secondary mt-2">
+          {{ '{:,.0f}'.format(page.score.passed) }} of {{ '{:,}'.format(page.score.total) }} resources compliant
+        </div>
+        <div class="small text-body-secondary">SLO {{ m.slo_text(d) }} (min / target)</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-lg-9">
+    <div class="card h-100">
+      <div class="card-body">
+        <p class="mb-2">{{ d.description }}</p>
+        {% if d.how %}<p class="small text-body-secondary mb-2"><strong>How:</strong> {{ d.how }}</p>{% endif %}
+        {% if d.references %}
+          <div class="small">
+            {% for framework, refs in d.references.items() %}
+              <span class="me-3"><strong>{{ framework }}:</strong> {{ refs|join(', ') }}</span>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<form class="row g-2 align-items-end mb-3" method="get" action="{{ url_for('dashboard.metric', metric_id=d.metric_id) }}">
+  <input type="hidden" name="sort" value="{{ filters.sort }}">
+  <input type="hidden" name="order" value="{{ 'desc' if filters.descending else 'asc' }}">
+  <div class="col-12 col-lg-3">
+    <label class="form-label small text-body-secondary mb-1" for="filter-search">Search</label>
+    <input class="form-control form-control-sm" type="search" id="filter-search" name="search"
+           value="{{ filters.search }}" placeholder="Resource or detail">
+  </div>
+  <div class="col-12 col-sm-6 col-lg-auto">
+    <label class="form-label small text-body-secondary mb-1" for="filter-compliance">Compliance</label>
+    <select class="form-select form-select-sm" id="filter-compliance" name="compliance" data-autosubmit>
+      <option value="">All</option>
+      <option value="pass" {{ 'selected' if filters.compliance == 'pass' }}>Compliant</option>
+      <option value="fail" {{ 'selected' if filters.compliance == 'fail' }}>Non-compliant</option>
+    </select>
+  </div>
+  {{ m.select('resource_type', 'Resource type', page.resource_types, filters.resource_type) }}
+  <div class="col-auto">
+    <button class="btn btn-sm btn-primary" type="submit">Apply</button>
+    <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('dashboard.metric', metric_id=d.metric_id) }}">Clear</a>
+  </div>
+</form>
+
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-sm table-hover align-middle mb-0">
+      <thead>
+        <tr>
+          <th>{{ sort_link('resource', 'Resource') }}</th>
+          <th>{{ sort_link('resource_type', 'Type') }}</th>
+          <th>{{ sort_link('compliance', 'Compliance') }}</th>
+          <th>{{ sort_link('detail', 'Detail') }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for record in page.records %}
+          <tr>
+            <td class="font-monospace small">{{ record.resource }}</td>
+            <td>{{ record.resource_type }}</td>
+            <td>
+              <span class="badge text-bg-{{ OUTCOME_CLASSES[record.outcome] }}">
+                {{ {'pass': 'Compliant', 'fail': 'Non-compliant'}.get(record.outcome, m.percent(record.compliance)) }}
+              </span>
+            </td>
+            <td class="small detail-cell">{{ record.detail }}</td>
+          </tr>
+        {% else %}
+          <tr><td colspan="4" class="text-center text-body-secondary py-4">No resources match these filters.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer d-flex flex-wrap justify-content-between align-items-center gap-2">
+    <span class="small text-body-secondary">{{ '{:,}'.format(page.matching_records) }} matching resources</span>
+    {% if page.pages > 1 %}
+      <nav aria-label="Detail pages">
+        <ul class="pagination pagination-sm mb-0">
+          <li class="page-item {{ 'disabled' if page.page == 1 }}">
+            <a class="page-link" href="{{ url_for('dashboard.metric', metric_id=d.metric_id, **filters.as_args(page=page.page - 1)) }}">Previous</a>
+          </li>
+          <li class="page-item disabled"><span class="page-link">Page {{ page.page }} of {{ page.pages }}</span></li>
+          <li class="page-item {{ 'disabled' if page.page == page.pages }}">
+            <a class="page-link" href="{{ url_for('dashboard.metric', metric_id=d.metric_id, **filters.as_args(page=page.page + 1)) }}">Next</a>
+          </li>
+        </ul>
+      </nav>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

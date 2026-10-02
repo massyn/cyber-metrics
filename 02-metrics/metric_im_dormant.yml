@@ -29,9 +29,9 @@ references:
 query:
   - |
     select
-      profile.login as resource,
+      profile_login as resource,
       'user' as resource_type,
-      last_login  as detail,
+      CAST(last_login AS VARCHAR) as detail,
       case
         when CURRENT_DATE - CAST(last_login AS DATE) < 90 then 1
         else 0

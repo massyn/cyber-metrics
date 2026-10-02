@@ -7,6 +7,12 @@ description: |
   The percentage of systems with up-to-date vulnerability management agents
   deployed, providing critical visibility into security gaps and enabling swift
   action to protect the organization from exploitable weaknesses.
+how: |
+  Find all computers managed by Kandji (checked in within the last 30 days) or
+  Workspace ONE (enrolled and seen within the last 30 days), and match them by
+  serial number to CrowdStrike hosts. CrowdStrike Spotlight assesses
+  vulnerabilities through the Falcon sensor, so computers are considered
+  compliant if the sensor has reported in within the last 7 days.
 slo:
   - 0.8
   - 0.95
@@ -28,4 +34,44 @@ references:
     - ISM-1702
     - ISM-1703
     - ISM-1900
-query: null
+query:
+  - |
+    WITH inventory AS (
+      SELECT upper(serial_number) AS serial, device_name AS name, 'Kandji' AS source
+      FROM {{ ref('kandji_devices') }}
+      WHERE NOT is_missing AND NOT is_removed
+        AND CURRENT_DATE - CAST(last_check_in AS DATE) <= 30
+      UNION ALL
+      SELECT upper(serial_number), device_friendly_name, 'Workspace ONE'
+      FROM {{ ref('workspaceone_computers') }}
+      WHERE enrollment_status = 'ENROLLED'
+        AND CURRENT_DATE - CAST(last_seen AS DATE) <= 30
+    ),
+    devices AS (
+      SELECT serial, any_value(name) AS name, string_agg(DISTINCT source, ', ') AS sources
+      FROM inventory
+      WHERE serial IS NOT NULL AND serial <> ''
+      GROUP BY serial
+    ),
+    sensors AS (
+      SELECT upper(serial_number) AS serial,
+             max(last_seen) AS last_seen,
+             arg_max(reduced_functionality_mode, last_seen) AS reduced_functionality_mode
+      FROM {{ ref('crowdstrike_hosts') }}
+      GROUP BY 1
+    )
+    SELECT
+      devices.name || ' (' || devices.serial || ')' AS resource,
+      'host' AS resource_type,
+      CASE
+        WHEN sensors.serial IS NULL THEN 0
+        WHEN CURRENT_DATE - CAST(sensors.last_seen AS DATE) > 7 THEN 0
+        ELSE 1
+      END AS compliance,
+      CASE
+        WHEN sensors.serial IS NULL THEN 'No CrowdStrike Spotlight sensor (serial ' || devices.serial || ', managed by ' || devices.sources || ')'
+        WHEN CURRENT_DATE - CAST(sensors.last_seen AS DATE) > 7 THEN 'CrowdStrike sensor last seen ' || CAST(CAST(sensors.last_seen AS DATE) AS VARCHAR)
+        ELSE 'CrowdStrike sensor reporting'
+      END AS detail
+    FROM devices
+    LEFT JOIN sensors ON sensors.serial = devices.serial

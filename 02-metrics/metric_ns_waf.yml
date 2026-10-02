@@ -8,6 +8,11 @@ description: The metric measures the proportion of external-facing endpoints
   ability to prevent unauthorized access, mitigate threats like SQL injection
   and cross-site scripting, and safeguard critical systems from cyberattacks,
   making it a key indicator of external-facing application security.
+how: |
+  Find all DNS records in Cloudflare that can be proxied (A, AAAA and CNAME
+  records for web endpoints). Records are considered compliant if they are
+  proxied through Cloudflare, which places Cloudflare's WAF in front of the
+  endpoint.
 slo:
   - 0.9
   - 0.95
@@ -21,4 +26,12 @@ references:
     - A.8.20
   NIST CSF v2.0:
     - PR.IR-01
-query: null
+query:
+  - |
+    SELECT
+      name || ' (' || type || ')' AS resource,
+      'dns_record' AS resource_type,
+      CASE WHEN proxied THEN 1 ELSE 0 END AS compliance,
+      CASE WHEN proxied THEN 'Proxied through Cloudflare' ELSE type || ' record is DNS only, not proxied through Cloudflare' END AS detail
+    FROM {{ ref('cloudflare_dns_records') }}
+    WHERE proxiable

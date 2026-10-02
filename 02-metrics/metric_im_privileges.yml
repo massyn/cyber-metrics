@@ -8,6 +8,10 @@ description: The percentage of user accounts configured without administrative
   potential impact of compromised credentials, and aligning with
   least-privilege security principles to protect organizational systems and
   data.
+how: |
+  Find all active user accounts from the identity provider and check their
+  assigned roles and group memberships. Users are considered compliant if they
+  hold no administrative roles.
 slo:
   - 0.9
   - 0.95

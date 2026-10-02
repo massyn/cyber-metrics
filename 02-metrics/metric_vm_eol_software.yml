@@ -7,8 +7,10 @@ description: |
   Ensure that systems are not running end-of-life, unsuported or unpatchable
   software.
 how: |
-  Using the list of installed software on all systems, compare that with an
-  online database like https://endoflife.date/.
+  Find all Macs managed by Kandji that checked in within the last 30 days and
+  match their macOS version to its release cycle on https://endoflife.date/.
+  Macs are considered compliant if their macOS release is still supported.
+  Windows and installed applications are not covered yet.
 slo:
   - 0.9
   - 0.95
@@ -28,4 +30,30 @@ references:
     - ISM-1905
     - ISM-1407
     - ISM-1501
-query: null
+query:
+  - |
+    WITH macs AS (
+      SELECT details.device_name || ' (' || details.serial_number || ')' AS device_name, details.os_version
+      FROM {{ ref('kandji_device_details') }} AS details
+      JOIN {{ ref('kandji_devices') }} AS devices ON devices.device_id = details.device_id
+      WHERE details.platform = 'Mac'
+        AND NOT devices.is_missing AND NOT devices.is_removed
+        AND CURRENT_DATE - CAST(devices.last_check_in AS DATE) <= 30
+    ),
+    cycles AS (
+      SELECT cycle, label, is_eol, eol_from
+      FROM {{ ref('endoflife_cycles') }}
+      WHERE product = 'macos'
+    )
+    SELECT
+      macs.device_name AS resource,
+      'host' AS resource_type,
+      CASE WHEN cycles.cycle IS NOT NULL AND NOT coalesce(cycles.is_eol, false) THEN 1 ELSE 0 END AS compliance,
+      CASE
+        WHEN cycles.cycle IS NULL THEN 'macOS ' || macs.os_version || ' not found on endoflife.date'
+        WHEN cycles.is_eol THEN cycles.label || ' (' || macs.os_version || ') end of life since ' || CAST(CAST(cycles.eol_from AS DATE) AS VARCHAR)
+        ELSE cycles.label || ' (' || macs.os_version || ') supported'
+      END AS detail
+    FROM macs
+    LEFT JOIN cycles
+      ON macs.os_version = cycles.cycle OR macs.os_version LIKE cycles.cycle || '.%'

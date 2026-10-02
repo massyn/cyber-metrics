@@ -22,7 +22,7 @@ type:
 **Describe what is being measured, and why it is important**
 description: 
 
-**What does "good" look like?  What SLO (in percentage) would be the minimum, and expected target that should be reached?
+**What does "good" look like?  What SLO (in percentage) would be the minimum, and expected target that should be reached?**
 slo:
 
 **In the grand scheme of things, with all measures, how important (a score between 0 and 1) is this metric?**

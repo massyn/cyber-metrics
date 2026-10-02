@@ -1,8 +1,6 @@
 import sys
 import os
 from jinja2 import Environment, FileSystemLoader
-import importlib
-import re
 import yaml
 import csv
 
@@ -20,38 +18,11 @@ def validate_metric(x):
             print(f" !! ERROR !! - Metric '{x['metric_id']}' missing '{y}'")
             return False
     
-    if x.get('category') not in ['Vulnerability Management','User Security','Software Development','Identity Management','Network Security','Disaster Recovery','Data Protection','Malware Protection','Asset Management']:
+    if x.get('category') not in ['Access Control','Vulnerability Management','User Security','Software Development','Identity Management','Network Security','Disaster Recovery','Data Protection','Malware Protection','Asset Management']:
         print(f" !! ERROR !! - Metric '{x['metric_id']}' has a mismatched category '{x['category']}'")
         return False
     
     return True
-
-def extract_store(contents):
-    pattern = r'store\(["\']([^"\']+)["\']'
-    filenames = re.findall(pattern, contents)
-    return filenames
-
-def collector_data(src):
-    data = []
-    if src not in sys.path:
-        sys.path.append(src)
-    for filename in sorted(os.listdir(src)):
-        if filename.startswith('src') and filename.endswith('.py'):
-            plugin = os.path.splitext(filename)[0]
-            print(f"Plugin : {src}.{plugin}")
-            try:
-                module = importlib.import_module(f"{src}.{plugin}")
-                z = module.meta()
-                with open(f"{src}/{filename}",'rt',encoding='utf-8') as q:
-                    contents = q.read()
-                    z['store'] = extract_store(contents)
-                z['filename'] = filename
-                data.append(z)
-            except ModuleNotFoundError:
-                print(f"Plugin '{plugin}' not found.")
-            except Exception as e:
-                print(f"Plugin '{plugin}' had an error {e}")
-    return data
 
 def metrics_data(src):
     data = []
@@ -75,7 +46,6 @@ def render_jinja(data,template,output):
     with open(output,'wt',encoding='utf-8') as q:
         q.write(result)
 
-col = collector_data('01-collectors')
 met = metrics_data('02-metrics')
 fw = readCSV('99-templates/framework.csv')
 
@@ -94,5 +64,4 @@ for m in met:
             if not found:
                 print(f"Could not find {F} - {r} in {m['metric_id']} ")
 
-render_jinja(col,'collectors.md','00-docs/collectors.md')
 render_jinja(met,'metrics.md','00-docs/metrics.md')

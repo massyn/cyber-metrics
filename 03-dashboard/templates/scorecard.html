@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+
+{% block title %}Scorecard · Cyber Metrics{% endblock %}
+
+{% block content %}
+<div id="summary" data-summary-url="{{ url_for('dashboard.summary', **filters.as_args()) }}">
+  <div class="card mb-4">
+    <div class="card-body text-body-secondary small">
+      <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+      Calculating scores… <span id="score-progress"></span>
+    </div>
+  </div>
+</div>
+
+<form class="row g-2 align-items-end mb-3" method="get" action="{{ url_for('dashboard.scorecard') }}">
+  <div class="col-12 col-lg-3">
+    <label class="form-label small text-body-secondary mb-1" for="filter-search">Search</label>
+    <input class="form-control form-control-sm" type="search" id="filter-search" name="search"
+           value="{{ filters.search }}" placeholder="Metric title or ID">
+  </div>
+  {{ m.select('category', 'Category', page.categories, filters.category) }}
+  {{ m.select('type', 'Type', page.types, filters.type) }}
+  <div class="col-12 col-sm-6 col-lg-auto">
+    <label class="form-label small text-body-secondary mb-1" for="filter-status">Status</label>
+    <select class="form-select form-select-sm" id="filter-status" name="status" data-autosubmit>
+      <option value="">All with data</option>
+      <option value="{{ all_status }}" {{ 'selected' if filters.status == all_status }}>All metrics</option>
+      {% for status in statuses %}
+        <option value="{{ status }}" {{ 'selected' if status == filters.status }}>{{ m.STATUS_LABELS[status] }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-auto">
+    <button class="btn btn-sm btn-primary" type="submit">Apply</button>
+    <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('dashboard.scorecard') }}">Clear</a>
+  </div>
+</form>
+
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0" id="scorecard-table"
+           data-status-classes="{{ m.STATUS_CLASSES|tojson|forceescape }}"
+           data-status-labels="{{ m.STATUS_LABELS|tojson|forceescape }}">
+      <thead>
+        <tr>
+          <th class="sortable" data-sort-key="title" data-sort-type="text">Metric</th>
+          <th class="sortable" data-sort-key="category" data-sort-type="text">Category</th>
+          <th class="sortable" data-sort-key="type" data-sort-type="text">Type</th>
+          <th class="sortable text-end" data-sort-key="total" data-sort-type="number">Resources</th>
+          <th class="sortable text-end" data-sort-key="score" data-sort-type="number">Score</th>
+          <th class="sortable text-end" data-sort-key="slo" data-sort-type="number">SLO (min / target)</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for d in page.definitions %}
+          <tr class="clickable-row"
+              data-href="{{ url_for('dashboard.metric', metric_id=d.metric_id) }}"
+              data-score-url="{{ url_for('dashboard.metric_score', metric_id=d.metric_id, **filters.as_args()) }}"
+              data-sort-title="{{ d.title }}" data-sort-category="{{ d.category }}" data-sort-type="{{ d.type }}"
+              data-sort-slo="{{ d.slo if d.slo is not none else '' }}">
+            <td>
+              <a class="fw-semibold text-decoration-none" href="{{ url_for('dashboard.metric', metric_id=d.metric_id) }}">{{ d.title }}</a>
+            </td>
+            <td>{{ d.category }}</td>
+            <td>
+              <span class="text-capitalize">{{ d.type }}</span>
+              {% if d.indicator %}<span class="badge text-bg-light border ms-1">Indicator</span>{% endif %}
+            </td>
+            <td class="text-end" data-cell="total"><span class="placeholder col-6"></span></td>
+            <td class="text-end" data-cell="score">
+              <span class="badge text-bg-secondary score-badge"><span class="spinner-border spinner-border-sm" aria-label="Loading"></span></span>
+            </td>
+            <td class="text-end text-body-secondary">{{ m.slo_text(d) }}</td>
+            <td class="small text-body-secondary" data-cell="note"></td>
+          </tr>
+        {% endfor %}
+        <tr id="no-metrics" class="{{ 'd-none' if page.definitions }}">
+          <td colspan="7" class="text-center text-body-secondary py-4">No metrics match these filters.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

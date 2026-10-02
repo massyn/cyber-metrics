@@ -23,53 +23,122 @@ The following frameworks are used in the mapping of metrics
 
 |**Category**|**Title**|**Type**|**Query**|
 |--|--|--|--|
+|**Access Control**|||||
+||[Access Control - Account Deactivation Timeliness](#access-control---account-deactivation-timeliness)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Access Control - Leavers with Disabled Accounts](#access-control---leavers-with-disabled-accounts)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
 |**Asset Management**|||||
-||[Assets known to Asset Management](#assets-known-to-asset-management)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
+||[Asset Management - Asset Discovery Coverage](#asset-management---asset-discovery-coverage)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
 |**Data Protection**|||||
-||[Systems with their volumes encrypted](#systems-with-their-volumes-encrypted)|![risk](https://img.shields.io/badge/RISK-c00000)|![No](https://img.shields.io/badge/NO-00F)|
+||[Data Protection - Volume Encryption Coverage](#data-protection---volume-encryption-coverage)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 |**Disaster Recovery**|||||
-||[Systems with backups configured per their SLO](#systems-with-backups-configured-per-their-slo)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
-||[Systems that has had a successful backup per their SLO](#systems-that-has-had-a-successful-backup-per-their-slo)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![No](https://img.shields.io/badge/NO-00F)|
+||[Disaster Recovery - Backup Configuration Coverage](#disaster-recovery---backup-configuration-coverage)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
+||[Disaster Recovery - Backup Success Rate](#disaster-recovery---backup-success-rate)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![No](https://img.shields.io/badge/NO-00F)|
 |**Identity Management**|||||
-||[Identities with MFA](#identities-with-mfa)|![risk](https://img.shields.io/badge/RISK-c00000)|![No](https://img.shields.io/badge/NO-00F)|
-||[Identity - Credentials - Regular Password Rotation](#identity---credentials---regular-password-rotation)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
-||[Identity - Inactive Identities](#identity---inactive-identities)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
-||[Accounts without Admin privileges](#accounts-without-admin-privileges)|![risk](https://img.shields.io/badge/RISK-c00000)|![No](https://img.shields.io/badge/NO-00F)|
+||[Identity Management - Multi-Factor Authentication Coverage](#identity-management---multi-factor-authentication-coverage)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Identity Management - Password Rotation Compliance](#identity-management---password-rotation-compliance)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Identity Management - Inactive Account Detection](#identity-management---inactive-account-detection)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Identity Management - Phishing-Resistant MFA Coverage](#identity-management---phishing-resistant-mfa-coverage)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Identity Management - Privileged Account Control](#identity-management---privileged-account-control)|![risk](https://img.shields.io/badge/RISK-c00000)|![No](https://img.shields.io/badge/NO-00F)|
 |**Malware Protection**|||||
-||[Systems with an up-to-date agent deployed](#systems-with-an-up-to-date-agent-deployed)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
+||[Malware Protection - Agent Deployment Coverage](#malware-protection---agent-deployment-coverage)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
 |**Network Security**|||||
 ||[Network Security - DNS Domains Expiring Within the Next Month](#network-security---dns-domains-expiring-within-the-next-month)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Network Security - DNS Domains with SPF configured](#network-security---dns-domains-with-spf-configured)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Network Security - DNS Domains with DMARC Configured](#network-security---dns-domains-with-dmarc-configured)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Network Security - External endpoints with insecure ports exposed](#network-security---external-endpoints-with-insecure-ports-exposed)|![risk](https://img.shields.io/badge/RISK-c00000)|![No](https://img.shields.io/badge/NO-00F)|
-||[Network Security - External endpoints protected by a WAF](#network-security---external-endpoints-protected-by-a-waf)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
+||[Network Security - External endpoints protected by a WAF](#network-security---external-endpoints-protected-by-a-waf)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
 |**Software Development**|||||
-||[Repositories with SAST / DAST scanning enabled](#repositories-with-sast-/-dast-scanning-enabled)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
-||[Repositories without exploitable vulnerabilities](#repositories-without-exploitable-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
-||[Repositories without exploitable vulnerabilities remediated within SLO](#repositories-without-exploitable-vulnerabilities-remediated-within-slo)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![No](https://img.shields.io/badge/NO-00F)|
+||[SDLC - Repositories with SAST / DAST scanning enabled](#sdlc---repositories-with-sast-/-dast-scanning-enabled)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
+||[SDLC - Repositories without exploitable vulnerabilities](#sdlc---repositories-without-exploitable-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[SDLC - Repositories without exploitable vulnerabilities remediated within SLO](#sdlc---repositories-without-exploitable-vulnerabilities-remediated-within-slo)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
 |**User Security**|||||
-||[Users completed awareness training in the last 12 months](#users-completed-awareness-training-in-the-last-12-months)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[User Security - Awareness Training Completion](#user-security---awareness-training-completion)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[User Security - Phishing Simulation Resilience](#user-security---phishing-simulation-resilience)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 |**Vulnerability Management**|||||
-||[Systems with an up-to-date agent deployed](#systems-with-an-up-to-date-agent-deployed)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
+||[Vulnerability Management - Agent Deployment Coverage](#vulnerability-management---agent-deployment-coverage)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Systems with an up-to-date vulnerability database deployed](#systems-with-an-up-to-date-vulnerability-database-deployed)|![control](https://img.shields.io/badge/CONTROL-0000F0)|![No](https://img.shields.io/badge/NO-00F)|
-||[End-of-life - Systems running vendor-supported software](#end-of-life---systems-running-vendor-supported-software)|![risk](https://img.shields.io/badge/RISK-c00000)|![No](https://img.shields.io/badge/NO-00F)|
-||[Vulnerabilities not remediated within SLO - critical and high](#vulnerabilities-not-remediated-within-slo---critical-and-high)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
-||[Vulnerabilities not remediated within SLO - exploitable](#vulnerabilities-not-remediated-within-slo---exploitable)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
-||[Vulnerabilities not remediated within SLO - exploitable patchable](#vulnerabilities-not-remediated-within-slo---exploitable-patchable)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[End-of-life - Systems running vendor-supported software](#end-of-life---systems-running-vendor-supported-software)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Vulnerability Management - Macs without actively exploited macOS vulnerabilities](#vulnerability-management---macs-without-actively-exploited-macos-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Vulnerabilities not remediated within SLO - exploitable patchable critical and high](#vulnerabilities-not-remediated-within-slo---exploitable-patchable-critical-and-high)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Application vulnerabilities not mitigated within SLO - non-patchable exploitable](#application-vulnerabilities-not-mitigated-within-slo---non-patchable-exploitable)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[OS vulnerabilities not mitigated within SLO - non-patchable exploitable](#os-vulnerabilities-not-mitigated-within-slo---non-patchable-exploitable)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
 ||[Vulnerabilities not remediated within SLO - patchable](#vulnerabilities-not-remediated-within-slo---patchable)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
-||[Systems without vulnerabilities - exploitable and patchable critical and high](#systems-without-vulnerabilities---exploitable-and-patchable-critical-and-high)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
-||[Systems without vulnerabilities - exploitable and patchable critical and high](#systems-without-vulnerabilities---exploitable-and-patchable-critical-and-high)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
-||[Systems without vulnerabilities in 48 hours - exploitable or critical and high](#systems-without-vulnerabilities-in-48-hours---exploitable-or-critical-and-high)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
-||[Systems without vulnerabilities - exploitable and patchable critical and high](#systems-without-vulnerabilities---exploitable-and-patchable-critical-and-high)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
-||[Systems without vulnerabilities - exploitable and patchable critical and high](#systems-without-vulnerabilities---exploitable-and-patchable-critical-and-high)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
-||[Systems without vulnerabilities - non critical patched in 2 weeks](#systems-without-vulnerabilities---non-critical-patched-in-2-weeks)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
-||[Systems without vulnerabilities - non critical patched in a month](#systems-without-vulnerabilities---non-critical-patched-in-a-month)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
-||[Systems without vulnerabilities - exploitable and patchable critical and high](#systems-without-vulnerabilities---exploitable-and-patchable-critical-and-high)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Application vulnerabilities not remediated within SLO - patchable exploitable](#application-vulnerabilities-not-remediated-within-slo---patchable-exploitable)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[OS vulnerabilities not remediated within SLO - patchable exploitable](#os-vulnerabilities-not-remediated-within-slo---patchable-exploitable)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[OS vulnerabilities not remediated within SLO - patchable non-exploitable](#os-vulnerabilities-not-remediated-within-slo---patchable-non-exploitable)|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Systems without non-patchable exploitable application vulnerabilities](#systems-without-non-patchable-exploitable-application-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Systems without non-patchable exploitable OS vulnerabilities](#systems-without-non-patchable-exploitable-os-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Systems without non-patchable non-exploitable application vulnerabilities](#systems-without-non-patchable-non-exploitable-application-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Systems without non-patchable non-exploitable OS vulnerabilities](#systems-without-non-patchable-non-exploitable-os-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Systems without patchable exploitable application vulnerabilities](#systems-without-patchable-exploitable-application-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Systems without patchable exploitable OS vulnerabilities](#systems-without-patchable-exploitable-os-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Systems without patchable non-exploitable application vulnerabilities](#systems-without-patchable-non-exploitable-application-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
+||[Systems without patchable non-exploitable OS vulnerabilities](#systems-without-patchable-non-exploitable-os-vulnerabilities)|![risk](https://img.shields.io/badge/RISK-c00000)|![yes](https://img.shields.io/badge/YES-00F0)|
 
 
 ## List of metrics
-### Assets known to Asset Management
+### Access Control - Account Deactivation Timeliness
+
+#### Description
+
+This metric tracks the percentage of terminated user accounts that are 
+disabled within defined timeframes, ensuring that departing employees 
+or contractors do not retain unauthorized access to enterprise systems 
+and data.
+
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`ac_access_revoking`|
+|**Category**|Access Control|
+|**SLO**|98.00% - 99.00%|
+|**Weight**|0.9|
+|**Type**|![control](https://img.shields.io/badge/CONTROL-0000F0)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|ISO 27001:2022|A.5.17|5 Organizational controls|Authentication information|
+|CIS 8.1|6.2|Access Control Management|Establish an Access Revoking Process|
+|NIST CSF v2.0|PR.AA-05|Identity Management, Authentication, and Access Control (PR.AA)|PR.AA-05: Access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed, and incorporate the principles of least privilege and separation of duties|
+
+
+
+
+### Access Control - Leavers with Disabled Accounts
+
+#### Description
+
+The percentage of people who have left the organisation whose identity
+account has been disabled, ensuring former staff cannot keep accessing
+company systems and data after their employment ends.
+
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`ac_leavers_disabled`|
+|**Category**|Access Control|
+|**SLO**|98.00% - 100.00%|
+|**Weight**|0.8|
+|**Type**|![control](https://img.shields.io/badge/CONTROL-0000F0)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|ISO 27001:2022|A.5.18|5 Organizational controls|Access rights|
+|CIS 8.1|6.2|Access Control Management|Establish an Access Revoking Process|
+|NIST CSF v2.0|PR.AA-05|Identity Management, Authentication, and Access Control (PR.AA)|PR.AA-05: Access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed, and incorporate the principles of least privilege and separation of duties|
+
+
+
+
+### Asset Management - Asset Discovery Coverage
 
 #### Description
 
@@ -102,7 +171,7 @@ Using our scanning tools, we identify systems that may exist in the environment 
 
 
 
-### Systems with their volumes encrypted
+### Data Protection - Volume Encryption Coverage
 
 #### Description
 
@@ -129,7 +198,7 @@ The percentage of systems with their volumes fully encrypted, ensuring that sens
 
 
 
-### Systems with backups configured per their SLO
+### Disaster Recovery - Backup Configuration Coverage
 
 #### Description
 
@@ -156,7 +225,7 @@ The percentage of systems with backups configured in accordance with their Servi
 
 
 
-### Systems that has had a successful backup per their SLO
+### Disaster Recovery - Backup Success Rate
 
 #### Description
 
@@ -183,7 +252,7 @@ The percentage of systems that successfully complete backups within their define
 
 
 
-### Identities with MFA
+### Identity Management - Multi-Factor Authentication Coverage
 
 #### Description
 
@@ -212,7 +281,7 @@ The percentage of user accounts secured with multi-factor authentication, a crit
 
 
 
-### Identity - Credentials - Regular Password Rotation
+### Identity Management - Password Rotation Compliance
 
 #### Description
 
@@ -238,11 +307,12 @@ organization's systems and data.
 |--|--|--|--|
 |ISO 27001:2022|A.8.5|8 Technological controls|Secure authentication|
 |NIST CSF v2.0|PR.AA-02|Identity Management, Authentication, and Access Control (PR.AA)|PR.AA-02: Identities are proofed and bound to credentials based on the context of interactions|
+|CIS 8.1|5.2|Account Management|Use Unique Passwords|
 
 
 
 
-### Identity - Inactive Identities
+### Identity Management - Inactive Account Detection
 
 #### Description
 
@@ -274,7 +344,43 @@ for reducing the attack surface and maintaining robust access controls.
 
 
 
-### Accounts without Admin privileges
+### Identity Management - Phishing-Resistant MFA Coverage
+
+#### Description
+
+The percentage of active user accounts with a phishing-resistant
+multi-factor authentication method enrolled, protecting accounts against
+adversary-in-the-middle phishing and push fatigue attacks that defeat
+one-time codes and push notifications.
+
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`im_phishing_resistant_mfa`|
+|**Category**|Identity Management|
+|**SLO**|80.00% - 95.00%|
+|**Weight**|0.5|
+|**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|ISO 27001:2022|A.8.5|8 Technological controls|Secure authentication|
+|CIS 8.1|6.3|Access Control Management|Require MFA for Externally-Exposed Applications|
+|CIS 8.1|6.5|Access Control Management|Require MFA for Administrative Access|
+|NIST CSF v2.0|PR.AA-03|Identity Management, Authentication, and Access Control (PR.AA)|PR.AA-03: Users, services, and hardware are authenticated|
+|Essential8-ML2|ISM-1682|Multi-factor authentication|Multi-factor authentication used for authenticating users of systems is phishing-resistant.|
+|Essential8-ML3|ISM-1682|Multi-factor authentication|Multi-factor authentication used for authenticating users of systems is phishing-resistant.|
+|Essential8-ML2|ISM-1872|Multi-factor authentication|Multi-factor authentication used for authenticating users of online services is phishing-resistant.|
+|Essential8-ML3|ISM-1872|Multi-factor authentication|Multi-factor authentication used for authenticating users of online services is phishing-resistant.|
+
+
+
+
+### Identity Management - Privileged Account Control
 
 #### Description
 
@@ -301,7 +407,7 @@ The percentage of user accounts configured without administrative rights, which 
 
 
 
-### Systems with an up-to-date agent deployed
+### Malware Protection - Agent Deployment Coverage
 
 #### Description
 
@@ -471,11 +577,16 @@ The metric measures the proportion of external-facing endpoints shielded by a We
 
 
 
-### Repositories with SAST / DAST scanning enabled
+### SDLC - Repositories with SAST / DAST scanning enabled
 
 #### Description
 
-The percentage of code repositories with Static Application Security Testing (SAST) and Dynamic Application Security Testing (DAST) scanning enabled, ensuring early detection of vulnerabilities during development and reducing the risk of security breaches before code is deployed.
+The percentage of code repositories with Static Application
+Security Testing (SAST) and Dynamic Application Security Testing (DAST)
+scanning enabled, ensuring early detection of vulnerabilities during
+development and reducing the risk of security breaches before code is
+deployed.
+
 
 #### Meta Data
 
@@ -498,11 +609,17 @@ The percentage of code repositories with Static Application Security Testing (SA
 
 
 
-### Repositories without exploitable vulnerabilities
+### SDLC - Repositories without exploitable vulnerabilities
 
 #### Description
 
-The percentage of code repositories free from known security flaws, ensuring that development efforts prioritize secure coding practices, reduce the risk of breaches, and maintain the integrity of the software development lifecycle. This metric is important as it directly impacts the organization's ability to deliver secure products and protect against potential cyber threats.
+The percentage of code repositories free from known security
+flaws, ensuring that development efforts prioritize secure coding practices,
+reduce the risk of breaches, and maintain the integrity of the software
+development lifecycle. This metric is important as it directly impacts the
+organization's ability to deliver secure products and protect against
+potential cyber threats.
+
 
 #### Meta Data
 
@@ -525,11 +642,16 @@ The percentage of code repositories free from known security flaws, ensuring tha
 
 
 
-### Repositories without exploitable vulnerabilities remediated within SLO
+### SDLC - Repositories without exploitable vulnerabilities remediated within SLO
 
 #### Description
 
-The percentage of code repositories in the development pipeline that have resolved critical security vulnerabilities within the established service level objective (SLO), ensuring that potential threats are mitigated in a timely manner to reduce exposure to security risks and maintain compliance with security standards.
+The percentage of code repositories in the development pipeline
+that have resolved critical security vulnerabilities within the established
+service level objective (SLO), ensuring that potential threats are mitigated
+in a timely manner to reduce exposure to security risks and maintain
+compliance with security standards.
+
 
 #### Meta Data
 
@@ -552,7 +674,7 @@ The percentage of code repositories in the development pipeline that have resolv
 
 
 
-### Users completed awareness training in the last 12 months
+### User Security - Awareness Training Completion
 
 #### Description
 
@@ -585,7 +707,37 @@ The percentage of users who have completed security awareness training in the la
 
 
 
-### Systems with an up-to-date agent deployed
+### User Security - Phishing Simulation Resilience
+
+#### Description
+
+The percentage of users who did not fall for any simulated phishing email in
+the last 12 months, showing how well staff recognise and resist social
+engineering attacks.
+
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`us_phishing_simulation`|
+|**Category**|User Security|
+|**SLO**|80.00% - 90.00%|
+|**Weight**|0.5|
+|**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|ISO 27001:2022|A.6.3|6 People controls|Information security awareness, education and training|
+|CIS 8.1|14.2|Security Awareness and Skills Training|Train Workforce Members to Recognize Social Engineering Attacks|
+|NIST CSF v2.0|PR.AT-01|Awareness and Training (PR.AT)|PR.AT-01: Personnel are provided with awareness and training so that they possess the knowledge and skills to perform general tasks with cybersecurity risks in mind|
+
+
+
+
+### Vulnerability Management - Agent Deployment Coverage
 
 #### Description
 
@@ -644,7 +796,7 @@ exploitable weaknesses.
 
 | Attribute | Value |
 |-----------|-------|
-|**Metric id**|`vm_coverage`|
+|**Metric id**|`vm_coverage_database`|
 |**Category**|Vulnerability Management|
 |**SLO**|80.00% - 95.00%|
 |**Weight**|0.4|
@@ -708,98 +860,35 @@ software.
 
 
 
-### Vulnerabilities not remediated within SLO - critical and high
+### Vulnerability Management - Macs without actively exploited macOS vulnerabilities
 
 #### Description
 
-The percentage of systems that were active in the last 30 days
-that have resolved critical and high vulnerabilities within the agreed
-Service Level Objective (SLO), providing critical insight into the
-organisation's ability to minimize exposure to known threats and reduce
-the attack surface effectively.
+The percentage of Macs running a macOS version with no known actively
+exploited vulnerabilities that a later release has already fixed, measuring
+how quickly critical operating system updates reach the fleet.
 
 
 #### Meta Data
 
 | Attribute | Value |
 |-----------|-------|
-|**Metric id**|`vm_performance_critical`|
+|**Metric id**|`vm_macos_exploited_cves`|
 |**Category**|Vulnerability Management|
-|**SLO**|90.00% - 95.00%|
-|**Weight**|0|
-|**Type**|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)
+|**SLO**|90.00% - 98.00%|
+|**Weight**|0.8|
+|**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
 
 #### References
 
 |**Framework**|**Ref**|**Domain**|**Control**|
 |--|--|--|--|
-|CIS 8.1|7.7|Continuous Vulnerability Management|Remediate Detected Vulnerabilities|
 |ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
-|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
-
-
-
-
-### Vulnerabilities not remediated within SLO - exploitable
-
-#### Description
-
-The percentage of systems that were active in the last 30 days
-that have resolved exploitable vulnerabilities within the agreed
-Service Level Objective (SLO), providing critical insight into the
-organisation's ability to minimize exposure to known threats and reduce the
-attack surface effectively.
-
-
-#### Meta Data
-
-| Attribute | Value |
-|-----------|-------|
-|**Metric id**|`vm_performance_exploitable`|
-|**Category**|Vulnerability Management|
-|**SLO**|90.00% - 95.00%|
-|**Weight**|0|
-|**Type**|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)
-
-#### References
-
-|**Framework**|**Ref**|**Domain**|**Control**|
-|--|--|--|--|
+|CIS 8.1|7.3|Continuous Vulnerability Management|Perform Automated Operating System Patch Management|
 |CIS 8.1|7.7|Continuous Vulnerability Management|Remediate Detected Vulnerabilities|
-|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
 |NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
-
-
-
-
-### Vulnerabilities not remediated within SLO - exploitable patchable
-
-#### Description
-
-The percentage of systems that were active in the last 30 days
-that have resolved exploitable, patchable vulnerabilities within the agreed
-Service Level Objective (SLO), providing critical insight into the
-organisation's ability to minimize exposure to known threats and reduce the
-attack surface effectively.
-
-
-#### Meta Data
-
-| Attribute | Value |
-|-----------|-------|
-|**Metric id**|`vm_performance_exploitable_patchable`|
-|**Category**|Vulnerability Management|
-|**SLO**|90.00% - 95.00%|
-|**Weight**|0|
-|**Type**|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)
-
-#### References
-
-|**Framework**|**Ref**|**Domain**|**Control**|
-|--|--|--|--|
-|CIS 8.1|7.7|Continuous Vulnerability Management|Remediate Detected Vulnerabilities|
-|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
-|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
+|Essential8-ML1|ISM-1695|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in operating systems of workstations, non-internet-facing servers and non-internet-facing network devices are applied within one month of release.|
+|Essential8-ML2|ISM-1695|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in operating systems of workstations, non-internet-facing servers and non-internet-facing network devices are applied within one month of release.|
 
 
 
@@ -823,6 +912,68 @@ reduce the attack surface effectively.
 |**Category**|Vulnerability Management|
 |**SLO**|90.00% - 95.00%|
 |**Weight**|0|
+|**Type**|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|CIS 8.1|7.7|Continuous Vulnerability Management|Remediate Detected Vulnerabilities|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
+|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
+
+
+
+
+### Application vulnerabilities not mitigated within SLO - non-patchable exploitable
+
+#### Description
+
+The percentage of systems that were active in the last 30 days
+that have addressed non-patchable, exploitable application vulnerabilities within the agreed
+Service Level Objective (SLO), providing critical insight into the
+organisation's "Isolation Protocol" - Contain or remove effectiveness.
+
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`vm_performance_non_patchable_exploitable_apps`|
+|**Category**|Vulnerability Management|
+|**SLO**|90.00% - 95.00%|
+|**Weight**|0.8|
+|**Type**|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|CIS 8.1|7.7|Continuous Vulnerability Management|Remediate Detected Vulnerabilities|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
+|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
+
+
+
+
+### OS vulnerabilities not mitigated within SLO - non-patchable exploitable
+
+#### Description
+
+The percentage of systems that were active in the last 30 days
+that have addressed non-patchable, exploitable operating system vulnerabilities within the agreed
+Service Level Objective (SLO), providing critical insight into the
+organisation's "Emergency Mitigations" - Compensating controls NOW effectiveness.
+
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`vm_performance_non_patchable_exploitable_os`|
+|**Category**|Vulnerability Management|
+|**SLO**|95.00% - 98.00%|
+|**Weight**|0.9|
 |**Type**|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)
 
 #### References
@@ -868,23 +1019,212 @@ attack surface effectively.
 
 
 
-### Systems without vulnerabilities - exploitable and patchable critical and high
+### Application vulnerabilities not remediated within SLO - patchable exploitable
 
 #### Description
 
 The percentage of systems that were active in the last 30 days
-that have vulnerabilities classified as critical or high priority, providing
-critical insight into the organisation's ability to minimize exposure to
-known threats and effectively reduce the attack surface.
+that have resolved patchable, exploitable application vulnerabilities within the agreed
+Service Level Objective (SLO), providing critical insight into the
+organisation's "Quick Wins" - Update the software effectiveness.
 
 
 #### Meta Data
 
 | Attribute | Value |
 |-----------|-------|
-|**Metric id**|`vm_posture_critical`|
+|**Metric id**|`vm_performance_patchable_exploitable_apps`|
 |**Category**|Vulnerability Management|
-|**SLO**|80.00% - 95.00%|
+|**SLO**|90.00% - 95.00%|
+|**Weight**|0.8|
+|**Type**|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|CIS 8.1|7.7|Continuous Vulnerability Management|Remediate Detected Vulnerabilities|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
+|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
+
+
+
+
+### OS vulnerabilities not remediated within SLO - patchable exploitable
+
+#### Description
+
+The percentage of systems that were active in the last 30 days
+that have resolved patchable, exploitable operating system vulnerabilities within the agreed
+Service Level Objective (SLO), providing critical insight into the
+organisation's "Patch Tuesday Priority" - Just bloody patch it effectiveness.
+
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`vm_performance_patchable_exploitable_os`|
+|**Category**|Vulnerability Management|
+|**SLO**|95.00% - 98.00%|
+|**Weight**|0.9|
+|**Type**|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|CIS 8.1|7.7|Continuous Vulnerability Management|Remediate Detected Vulnerabilities|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
+|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
+
+
+
+
+### OS vulnerabilities not remediated within SLO - patchable non-exploitable
+
+#### Description
+
+The percentage of systems that were active in the last 30 days
+that have resolved patchable, non-exploitable operating system vulnerabilities within the agreed
+Service Level Objective (SLO), providing insight into the
+organisation's "Standard Cycle" - Include in regular patching effectiveness.
+
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`vm_performance_patchable_non_exploitable_os`|
+|**Category**|Vulnerability Management|
+|**SLO**|85.00% - 90.00%|
+|**Weight**|0.4|
+|**Type**|![performance](https://img.shields.io/badge/PERFORMANCE-0F00)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|CIS 8.1|7.7|Continuous Vulnerability Management|Remediate Detected Vulnerabilities|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
+|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
+
+
+
+
+### Systems without non-patchable exploitable application vulnerabilities
+
+#### Description
+
+The percentage of systems that were active in the last 30 days
+that have addressed non-patchable, exploitable application vulnerabilities,
+providing critical insight into the organisation's "Isolation Protocol"
+capability to contain or remove vulnerable applications.
+
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`vm_posture_non_patchable_exploitable_apps`|
+|**Category**|Vulnerability Management|
+|**SLO**|85.00% - 95.00%|
+|**Weight**|0.8|
+|**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
+|CIS 8.1|7.5|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Internal Enterprise Assets|
+|CIS 8.1|7.6|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets|
+|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
+
+
+
+
+### Systems without non-patchable exploitable OS vulnerabilities
+
+#### Description
+
+The percentage of systems that were active in the last 30 days
+that have addressed non-patchable, exploitable operating system vulnerabilities,
+providing critical insight into the organisation's "Emergency Mitigations"
+capability requiring compensating controls NOW.
+
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`vm_posture_non_patchable_exploitable_os`|
+|**Category**|Vulnerability Management|
+|**SLO**|90.00% - 98.00%|
+|**Weight**|0.9|
+|**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
+|CIS 8.1|7.5|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Internal Enterprise Assets|
+|CIS 8.1|7.6|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets|
+|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
+
+
+
+
+### Systems without non-patchable non-exploitable application vulnerabilities
+
+#### Description
+
+The percentage of systems that were active in the last 30 days
+that have addressed non-patchable, non-exploitable application vulnerabilities,
+providing insight into the organisation's "Backlog" management
+for vulnerabilities that should be documented and reviewed periodically.
+
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`vm_posture_non_patchable_non_exploitable_apps`|
+|**Category**|Vulnerability Management|
+|**SLO**|50.00% - 75.00%|
+|**Weight**|0.1|
+|**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
+
+#### References
+
+|**Framework**|**Ref**|**Domain**|**Control**|
+|--|--|--|--|
+|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
+|CIS 8.1|7.5|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Internal Enterprise Assets|
+|CIS 8.1|7.6|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets|
+|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
+
+
+
+
+### Systems without non-patchable non-exploitable OS vulnerabilities
+
+#### Description
+
+The percentage of systems that were active in the last 30 days
+that have addressed non-patchable, non-exploitable operating system vulnerabilities,
+providing insight into the organisation's "Monitor & Plan" capability
+to watch for exploits and plan replacement strategies.
+
+
+#### Meta Data
+
+| Attribute | Value |
+|-----------|-------|
+|**Metric id**|`vm_posture_non_patchable_non_exploitable_os`|
+|**Category**|Vulnerability Management|
+|**SLO**|60.00% - 80.00%|
 |**Weight**|0.2|
 |**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
 
@@ -900,95 +1240,21 @@ known threats and effectively reduce the attack surface.
 
 
 
-### Systems without vulnerabilities - exploitable and patchable critical and high
-
-#### Description
-
-The percentage of systems that have been active in the last 30
-days and that have resolved exploitable vulnerabilities, providing
-critical insight into the organisation's ability to minimize exposure to
-known threats and effectively reduce the attack surface.
-
-
-#### Meta Data
-
-| Attribute | Value |
-|-----------|-------|
-|**Metric id**|`vm_posture_exploitable`|
-|**Category**|Vulnerability Management|
-|**SLO**|80.00% - 95.00%|
-|**Weight**|0.2|
-|**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
-
-#### References
-
-|**Framework**|**Ref**|**Domain**|**Control**|
-|--|--|--|--|
-|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
-|CIS 8.1|7.5|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Internal Enterprise Assets|
-|CIS 8.1|7.6|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets|
-|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
-
-
-
-
-### Systems without vulnerabilities in 48 hours - exploitable or critical and high
-
-#### Description
-
-The percentage of systems that have been active in the last 30
-days and that have resolved exploitable or critical and high vulnerabilities published in the last 48 hours,
-providing critical insight into the organisation's ability to minimize
-exposure to known threats and effectively reduce the attack surface.
-
-
-#### Meta Data
-
-| Attribute | Value |
-|-----------|-------|
-|**Metric id**|`vm_posture_exploitable_critical_48_hours`|
-|**Category**|Vulnerability Management|
-|**SLO**|90.00% - 95.00%|
-|**Weight**|0.8|
-|**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
-
-#### References
-
-|**Framework**|**Ref**|**Domain**|**Control**|
-|--|--|--|--|
-|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
-|CIS 8.1|7.5|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Internal Enterprise Assets|
-|CIS 8.1|7.6|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets|
-|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
-|Essential8-ML3|ISM-1692|Patch applications|Patches, updates or other vendor mitigations for vulnerabilities in office productivity suites, web browsers and their extensions, email clients, PDF software, and security products are applied within 48 hours of release when vulnerabilities are assessed as critical by vendors or when working exploits exist.|
-|Essential8-ML1|ISM-1876|Patch applications|Patches, updates or other vendor mitigations for vulnerabilities in online services are applied within 48 hours of release when vulnerabilities are assessed as critical by vendors or when working exploits exist.|
-|Essential8-ML2|ISM-1876|Patch applications|Patches, updates or other vendor mitigations for vulnerabilities in online services are applied within 48 hours of release when vulnerabilities are assessed as critical by vendors or when working exploits exist.|
-|Essential8-ML3|ISM-1876|Patch applications|Patches, updates or other vendor mitigations for vulnerabilities in online services are applied within 48 hours of release when vulnerabilities are assessed as critical by vendors or when working exploits exist.|
-|Essential8-ML3|ISM-1696|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in operating systems of workstations, non-internet-facing servers and non-internet-facing network devices are applied within 48 hours of release when vulnerabilities are assessed as critical by vendors or when working exploits exist.|
-|Essential8-ML1|ISM-1877|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in operating systems of internet-facing servers and internet-facing network devices are applied within 48 hours of release when vulnerabilities are assessed as critical by vendors or when working exploits exist.|
-|Essential8-ML2|ISM-1877|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in operating systems of internet-facing servers and internet-facing network devices are applied within 48 hours of release when vulnerabilities are assessed as critical by vendors or when working exploits exist.|
-|Essential8-ML3|ISM-1877|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in operating systems of internet-facing servers and internet-facing network devices are applied within 48 hours of release when vulnerabilities are assessed as critical by vendors or when working exploits exist.|
-|Essential8-ML3|ISM-1879|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in drivers are applied within 48 hours of release when vulnerabilities are assessed as critical by vendors or when working exploits exist.|
-|Essential8-ML3|ISM-1903|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in firmware are applied within 48 hours of release when vulnerabilities are assessed as critical by vendors or when working exploits exist.|
-
-
-
-
-### Systems without vulnerabilities - exploitable and patchable critical and high
+### Systems without patchable exploitable application vulnerabilities
 
 #### Description
 
 The percentage of systems that were active in the last 30 days
-that have resolved exploitable, patchable vulnerabilities, providing
-critical insight into the organisation's ability to minimize exposure to
-known threats and effectively reduce the attack surface.
+that have resolved patchable, exploitable application vulnerabilities,
+providing critical insight into the organisation's ability to minimize
+exposure to "Quick Wins" threats by updating software and effectively reduce the attack surface.
 
 
 #### Meta Data
 
 | Attribute | Value |
 |-----------|-------|
-|**Metric id**|`vm_posture_exploitable_patchable`|
+|**Metric id**|`vm_posture_patchable_exploitable_apps`|
 |**Category**|Vulnerability Management|
 |**SLO**|80.00% - 95.00%|
 |**Weight**|0.8|
@@ -1006,57 +1272,24 @@ known threats and effectively reduce the attack surface.
 
 
 
-### Systems without vulnerabilities - exploitable and patchable critical and high
+### Systems without patchable exploitable OS vulnerabilities
 
 #### Description
 
 The percentage of systems that were active in the last 30 days
-taht have resolved exploitable, patchable vulnerabilities classified as
-critical or high priority, providing critical insight into the
-organisation's ability to minimize exposure to known threats and
-effectively reduce the attack surface.
-
-
-#### Meta Data
-
-| Attribute | Value |
-|-----------|-------|
-|**Metric id**|`vm_posture_exploitable_patchable_critical`|
-|**Category**|Vulnerability Management|
-|**SLO**|80.00% - 95.00%|
-|**Weight**|0.8|
-|**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
-
-#### References
-
-|**Framework**|**Ref**|**Domain**|**Control**|
-|--|--|--|--|
-|ISO 27001:2022|A.8.8|8 Technological controls|Management of technical vulnerabilities|
-|CIS 8.1|7.5|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Internal Enterprise Assets|
-|CIS 8.1|7.6|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets|
-|NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
-
-
-
-
-### Systems without vulnerabilities - non critical patched in 2 weeks
-
-#### Description
-
-The percentage of systems that have been active in the last 30
-days and that have resolved non critical vulnerabilities published in the 2 weeks,
+that have resolved patchable, exploitable operating system vulnerabilities,
 providing critical insight into the organisation's ability to minimize
-exposure to known threats and effectively reduce the attack surface.
+exposure to "Patch Tuesday Priority" threats and effectively reduce the attack surface.
 
 
 #### Meta Data
 
 | Attribute | Value |
 |-----------|-------|
-|**Metric id**|`vm_posture_non_critical_month`|
+|**Metric id**|`vm_posture_patchable_exploitable_os`|
 |**Category**|Vulnerability Management|
-|**SLO**|90.00% - 95.00%|
-|**Weight**|0.8|
+|**SLO**|85.00% - 98.00%|
+|**Weight**|0.9|
 |**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
 
 #### References
@@ -1067,39 +1300,28 @@ exposure to known threats and effectively reduce the attack surface.
 |CIS 8.1|7.5|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Internal Enterprise Assets|
 |CIS 8.1|7.6|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets|
 |NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
-|Essential8-ML1|ISM-1690|Patch applications|Patches, updates or other vendor mitigations for vulnerabilities in online services are applied within two weeks of release when vulnerabilities are assessed as non-critical by vendors and no working exploits exist.|
-|Essential8-ML2|ISM-1690|Patch applications|Patches, updates or other vendor mitigations for vulnerabilities in online services are applied within two weeks of release when vulnerabilities are assessed as non-critical by vendors and no working exploits exist.|
-|Essential8-ML3|ISM-1690|Patch applications|Patches, updates or other vendor mitigations for vulnerabilities in online services are applied within two weeks of release when vulnerabilities are assessed as non-critical by vendors and no working exploits exist.|
-|Essential8-ML1|ISM-1691|Patch applications|Patches, updates or other vendor mitigations for vulnerabilities in office productivity suites, web browsers and their extensions, email clients, PDF software, and security products are applied within two weeks of release.|
-|Essential8-ML2|ISM-1691|Patch applications|Patches, updates or other vendor mitigations for vulnerabilities in office productivity suites, web browsers and their extensions, email clients, PDF software, and security products are applied within two weeks of release.|
-|Essential8-ML2|ISM-1700|Patch applications|A vulnerability scanner is used at least fortnightly to identify missing patches or updates for vulnerabilities in applications other than office productivity suites, web browsers and their extensions, email clients, PDF software, and security products.|
-|Essential8-ML3|ISM-1700|Patch applications|A vulnerability scanner is used at least fortnightly to identify missing patches or updates for vulnerabilities in applications other than office productivity suites, web browsers and their extensions, email clients, PDF software, and security products.|
-|Essential8-ML3|ISM-1901|Patch applications|Patches, updates or other vendor mitigations for vulnerabilities in office productivity suites, web browsers and their extensions, email clients, PDF software, and security products are applied within two weeks of release when vulnerabilities are assessed as non-critical by vendors and no working exploits exist.|
-|Essential8-ML1|ISM-1694|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in operating systems of internet-facing servers and internet-facing network devices are applied within two weeks of release when vulnerabilities are assessed as non-critical by vendors and no working exploits exist.|
-|Essential8-ML2|ISM-1694|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in operating systems of internet-facing servers and internet-facing network devices are applied within two weeks of release when vulnerabilities are assessed as non-critical by vendors and no working exploits exist.|
-|Essential8-ML3|ISM-1694|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in operating systems of internet-facing servers and internet-facing network devices are applied within two weeks of release when vulnerabilities are assessed as non-critical by vendors and no working exploits exist.|
 
 
 
 
-### Systems without vulnerabilities - non critical patched in a month
+### Systems without patchable non-exploitable application vulnerabilities
 
 #### Description
 
-The percentage of systems that have been active in the last 30
-days and that have resolved non critical vulnerabilities published in the last month,
-providing critical insight into the organisation's ability to minimize
-exposure to known threats and effectively reduce the attack surface.
+The percentage of systems that were active in the last 30 days
+that have resolved patchable, non-exploitable application vulnerabilities,
+providing insight into the organisation's "Maintenance Queue" effectiveness
+for vulnerabilities that should be updated when convenient.
 
 
 #### Meta Data
 
 | Attribute | Value |
 |-----------|-------|
-|**Metric id**|`vm_posture_non_critical_month`|
+|**Metric id**|`vm_posture_patchable_non_exploitable_apps`|
 |**Category**|Vulnerability Management|
-|**SLO**|90.00% - 95.00%|
-|**Weight**|0.8|
+|**SLO**|70.00% - 85.00%|
+|**Weight**|0.3|
 |**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
 
 #### References
@@ -1110,35 +1332,28 @@ exposure to known threats and effectively reduce the attack surface.
 |CIS 8.1|7.5|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Internal Enterprise Assets|
 |CIS 8.1|7.6|Continuous Vulnerability Management|Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets|
 |NIST CSF v2.0|ID.RA-01|Risk Assessment (ID.RA)|ID.RA-01: Vulnerabilities in assets are identified, validated, and recorded|
-|Essential8-ML2|ISM-1693|Patch applications|Patches, updates or other vendor mitigations for vulnerabilities in applications other than office productivity suites, web browsers and their extensions, email clients, PDF software, and security products are applied within one month of release.|
-|Essential8-ML3|ISM-1693|Patch applications|Patches, updates or other vendor mitigations for vulnerabilities in applications other than office productivity suites, web browsers and their extensions, email clients, PDF software, and security products are applied within one month of release.|
-|Essential8-ML1|ISM-1695|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in operating systems of workstations, non-internet-facing servers and non-internet-facing network devices are applied within one month of release.|
-|Essential8-ML2|ISM-1695|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in operating systems of workstations, non-internet-facing servers and non-internet-facing network devices are applied within one month of release.|
-|Essential8-ML3|ISM-1697|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in drivers are applied within one month of release when vulnerabilities are assessed as non-critical by vendors and no working exploits exist.|
-|Essential8-ML3|ISM-1902|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in operating systems of workstations, non-internet-facing servers and non-internet-facing network devices are applied within one month of release when vulnerabilities are assessed as non-critical by vendors and no working exploits exist.|
-|Essential8-ML3|ISM-1904|Patch operating systems|Patches, updates or other vendor mitigations for vulnerabilities in firmware are applied within one month of release when vulnerabilities are assessed as non-critical by vendors and no working exploits exist.|
 
 
 
 
-### Systems without vulnerabilities - exploitable and patchable critical and high
+### Systems without patchable non-exploitable OS vulnerabilities
 
 #### Description
 
-The percentage of systems that have been active in the last 30
-days and that have patchable vulnerabilities providing critical insight
-into the organisation's ability to minimize exposure to known threats and
-effectively reduce the attack surface.
+The percentage of systems that were active in the last 30 days
+that have resolved patchable, non-exploitable operating system vulnerabilities,
+providing insight into the organisation's "Standard Cycle" patching effectiveness
+for vulnerabilities that should be included in regular patching cycles.
 
 
 #### Meta Data
 
 | Attribute | Value |
 |-----------|-------|
-|**Metric id**|`vm_posture_patchable`|
+|**Metric id**|`vm_posture_patchable_non_exploitable_os`|
 |**Category**|Vulnerability Management|
-|**SLO**|80.00% - 95.00%|
-|**Weight**|0.8|
+|**SLO**|75.00% - 90.00%|
+|**Weight**|0.4|
 |**Type**|![risk](https://img.shields.io/badge/RISK-c00000)
 
 #### References

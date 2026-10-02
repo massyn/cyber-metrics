@@ -2,10 +2,9 @@ import yaml
 import os
 from jinja2 import Environment, FileSystemLoader
 import csv
-import sys
-sys.path.append('../')
-from library import Library
 import logging
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s %(message)s')
 
 def readCSV(file):
     with open(file, 'rt',encoding='utf-8') as q:

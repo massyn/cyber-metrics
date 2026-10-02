@@ -4,6 +4,11 @@ title: Asset Management - Asset Discovery Coverage
 category: Asset Management
 type: control
 description: Using our scanning tools, we identify systems that may exist in the environment that may not have been recorded in the asset management system.
+how: |
+  Find all computers seen in the last 30 days by CrowdStrike (excluding cloud
+  instances and Linux servers), Kandji or Workspace ONE, and match them by
+  serial number to the Salesforce asset register. Computers are considered
+  compliant if their serial number is recorded in the register.
 slo:
   - 0.9
   - 0.95
@@ -19,4 +24,44 @@ references:
     - ID.AM-01
   "Essential8":
     - ISM-1807
-query: null
+query:
+  - |
+    WITH discovered AS (
+      SELECT upper(serial_number) AS serial, hostname AS name, 'CrowdStrike' AS source
+      FROM {{ ref('crowdstrike_hosts') }}
+      WHERE CURRENT_DATE - CAST(last_seen AS DATE) <= 30
+        AND platform_name IN ('Mac', 'Windows')
+        AND cloud_provider IS NULL
+      UNION ALL
+      SELECT upper(serial_number), device_name, 'Kandji'
+      FROM {{ ref('kandji_devices') }}
+      WHERE NOT is_missing AND NOT is_removed
+        AND CURRENT_DATE - CAST(last_check_in AS DATE) <= 30
+      UNION ALL
+      SELECT upper(serial_number), device_friendly_name, 'Workspace ONE'
+      FROM {{ ref('workspaceone_computers') }}
+      WHERE enrollment_status = 'ENROLLED'
+        AND CURRENT_DATE - CAST(last_seen AS DATE) <= 30
+    ),
+    systems AS (
+      SELECT serial, any_value(name) AS name, string_agg(DISTINCT source, ', ') AS sources
+      FROM discovered
+      WHERE serial IS NOT NULL AND serial <> ''
+      GROUP BY serial
+    ),
+    register AS (
+      SELECT upper(serial_number__c) AS serial, any_value(status__c) AS status
+      FROM {{ ref('salesforce_fixed_asset__c') }}
+      WHERE serial_number__c IS NOT NULL
+      GROUP BY 1
+    )
+    SELECT
+      systems.name || ' (' || systems.serial || ')' AS resource,
+      'host' AS resource_type,
+      CASE WHEN register.serial IS NULL THEN 0 ELSE 1 END AS compliance,
+      CASE
+        WHEN register.serial IS NULL THEN 'Not in the asset register (serial ' || systems.serial || ', seen by ' || systems.sources || ')'
+        ELSE 'In the asset register (status: ' || coalesce(register.status, 'none') || ')'
+      END AS detail
+    FROM systems
+    LEFT JOIN register ON register.serial = systems.serial

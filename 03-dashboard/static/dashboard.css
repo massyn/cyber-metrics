@@ -1,0 +1,38 @@
+.clickable-row {
+  cursor: pointer;
+}
+
+.score-badge {
+  min-width: 4.5rem;
+}
+
+.status-card:hover {
+  box-shadow: var(--bs-box-shadow-sm);
+}
+
+.detail-cell {
+  max-width: 48rem;
+  word-break: break-word;
+}
+
+th.sortable {
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+th.sortable[data-order="asc"]::after {
+  content: " ▲";
+}
+
+th.sortable[data-order="desc"]::after {
+  content: " ▼";
+}
+
+.category-bar {
+  height: 1rem;
+}
+
+.category-value {
+  min-width: 4rem;
+}

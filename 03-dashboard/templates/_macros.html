@@ -1,0 +1,26 @@
+{% set STATUS_CLASSES = {'good': 'success', 'warning': 'warning', 'bad': 'danger', 'no_data': 'secondary'} %}
+{% set STATUS_LABELS = {'good': 'Meeting SLO', 'warning': 'Below target', 'bad': 'Below minimum', 'no_data': 'No data'} %}
+
+{% macro percent(value) -%}
+  {{ '—' if value is none else '%.1f%%'|format(value * 100) }}
+{%- endmacro %}
+
+{% macro score_badge(score) -%}
+  <span class="badge text-bg-{{ STATUS_CLASSES[score.status] }} score-badge" title="{{ STATUS_LABELS[score.status] }}">{{ percent(score.value) }}</span>
+{%- endmacro %}
+
+{% macro slo_text(definition) -%}
+  {% if definition.slo is none %}—{% else %}{{ percent(definition.slo_min) }} / {{ percent(definition.slo) }}{% endif %}
+{%- endmacro %}
+
+{% macro select(name, label, options, current, all_label='All') -%}
+  <div class="col-12 col-sm-6 col-lg-auto">
+    <label class="form-label small text-body-secondary mb-1" for="filter-{{ name }}">{{ label }}</label>
+    <select class="form-select form-select-sm" id="filter-{{ name }}" name="{{ name }}" data-autosubmit>
+      <option value="">{{ all_label }}</option>
+      {% for option in options %}
+        <option value="{{ option }}" {{ 'selected' if option == current }}>{{ option }}</option>
+      {% endfor %}
+    </select>
+  </div>
+{%- endmacro %}

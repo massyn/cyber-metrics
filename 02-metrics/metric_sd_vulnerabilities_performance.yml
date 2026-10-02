@@ -10,11 +10,10 @@ description: |
   in a timely manner to reduce exposure to security risks and maintain
   compliance with security standards.
 how: |
-  Query the code repository management system to identify all repositories
-  with exploitable vulnerabilities. Calculate the percentage of repositories
-  without exploitable vulnerabilities against the total number of repositories
-  that have resolved critical security vulnerabilities within the established
-  service level objective (SLO).
+  Find all open critical and high Dependabot alerts in active (non-archived)
+  GitHub repositories. Alerts are considered compliant while they are within
+  their remediation SLO: 14 days for critical and 30 days for high. Only open
+  alerts are collected, so alerts that have already been fixed are not measured.
 slo:
   - 0.9
   - 0.95
@@ -28,4 +27,22 @@ references:
     - A.8.25
   NIST CSF v2.0:
     - PR.PS-06
-query: null
+query:
+  - |
+    SELECT
+      repos.full_name AS resource,
+      'repository' AS resource_type,
+      CASE
+        WHEN alerts.severity = 'critical' AND CURRENT_DATE - CAST(alerts.created_at AS DATE) > 14 THEN 0
+        WHEN alerts.severity = 'high' AND CURRENT_DATE - CAST(alerts.created_at AS DATE) > 30 THEN 0
+        ELSE 1
+      END AS compliance,
+      coalesce(alerts.cve_id, alerts.ghsa_id) || ' in ' || alerts.package_name || ' (' || alerts.severity || ') open for '
+        || CAST(CURRENT_DATE - CAST(alerts.created_at AS DATE) AS VARCHAR) || ' days' AS detail
+    FROM {{ ref('github_dependabot_alerts') }} AS alerts
+    JOIN {{ ref('github_repositories') }} AS repos
+      ON repos.org = alerts.org
+      AND repos.name = alerts.repo
+    WHERE NOT repos.archived
+      AND alerts.state = 'open'
+      AND alerts.severity IN ('critical', 'high')

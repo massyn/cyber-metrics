@@ -30,18 +30,35 @@ references:
 query:
   - |
     SELECT
-        projects.attributes.name AS resource,
+        projects.name AS resource,
         'snyk' as resource_type,
         CASE
-            WHEN issues.relationships.scan_item.data.id IS NOT NULL THEN 1
+            WHEN count(issues.id) = 0 THEN 1
             ELSE 0
         END AS compliance,
-        projects.attributes.target_file AS detail
+        CAST(count(issues.id) AS text) || ' open critical/high issues' AS detail
     FROM
         {{ ref('snyk_projects') }} AS projects
     LEFT JOIN
         {{ ref('snyk_issues') }} AS issues
     ON
-        projects.id = issues.relationships.scan_item.data.id
-        AND issues.attributes.status = 'open'
-        AND issues.attributes.effective_severity_level IN ('critical', 'high')
+        projects.id = issues.project_id
+        AND issues.status = 'open'
+        AND issues.effective_severity_level IN ('critical', 'high')
+    GROUP BY
+        projects.id,
+        projects.name
+  - |
+    SELECT
+      repos.full_name AS resource,
+      'repository' AS resource_type,
+      CASE WHEN count(alerts.number) = 0 THEN 1 ELSE 0 END AS compliance,
+      CAST(count(alerts.number) AS VARCHAR) || ' open critical/high Dependabot alerts' AS detail
+    FROM {{ ref('github_repositories') }} AS repos
+    LEFT JOIN {{ ref('github_dependabot_alerts') }} AS alerts
+      ON alerts.org = repos.org
+      AND alerts.repo = repos.name
+      AND alerts.state = 'open'
+      AND alerts.severity IN ('critical', 'high')
+    WHERE NOT repos.archived
+    GROUP BY repos.full_name

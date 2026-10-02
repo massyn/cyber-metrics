@@ -8,6 +8,10 @@ description: The percentage of systems that successfully complete backups
   and availability, which is critical for minimizing downtime, protecting
   against data loss, and maintaining business continuity in the event of an
   incident.
+how: |
+  Find all systems with backups configured and check the result of their most
+  recent backup jobs. Systems are considered compliant if a backup completed
+  successfully within the window their SLO requires.
 slo:
   - 0.9
   - 0.95

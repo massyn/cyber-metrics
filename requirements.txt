@@ -1,24 +1,10 @@
+posture>=1.9.2  # 1.9.2 adds the Tenable.io columns the vm_* metrics use
+flask
 python-dotenv
 pyyaml
 duckdb
-psycopg2-binary
-crowdstrike-falconpy
-pytenable
-requests
 pandas
+pyarrow
 Jinja2
-okta
-duckdb
-boto3==1.36.23
-tabulate
-zipp==3.19.1
-pyarrow #==14.0.1
-anyio==4.4.0
-aiohttp==3.10.11
-jwcrypto==1.5.6
-loadenv
-python-whois
-dnspython
+pytest
 urllib3>=2.5.0 # not directly required, pinned by Snyk to avoid a vulnerability
-colorama
-marshmallow>=3.26.2 # not directly required, pinned by Snyk to avoid a vulnerability

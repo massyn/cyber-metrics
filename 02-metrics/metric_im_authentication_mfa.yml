@@ -8,6 +8,10 @@ description: The percentage of user accounts secured with multi-factor
   identity protection by reducing the risk of unauthorized access and
   safeguarding sensitive assets, making it vital for minimizing the impact
   of credential-based attacks.
+how: |
+  Find all active Okta users and their enrolled authentication factors. Users
+  are considered compliant if they have at least one active multi-factor
+  authentication factor.
 slo:
   - 0.9
   - 0.95
@@ -23,4 +27,19 @@ references:
     - A.5.17
   NIST CSF v2.0:
     - PR.AA-03
-query: null
+query:
+  - |
+    SELECT
+      users.profile_login AS resource,
+      'user' AS resource_type,
+      CASE WHEN count(factors.id) > 0 THEN 1 ELSE 0 END AS compliance,
+      CASE
+        WHEN count(factors.id) = 0 THEN 'No active MFA factor'
+        ELSE 'Active MFA factors: ' || string_agg(DISTINCT factors.factor_type, ', ')
+      END AS detail
+    FROM {{ ref('okta_users') }} AS users
+    LEFT JOIN {{ ref('okta_user_factors') }} AS factors
+      ON factors.user_id = users.id
+      AND factors.status = 'ACTIVE'
+    WHERE users.status = 'ACTIVE'
+    GROUP BY users.profile_login

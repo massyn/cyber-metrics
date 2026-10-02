@@ -35,19 +35,19 @@ references:
 query:
   - |
     SELECT
-      users.profile.login AS resource,
+      users.profile_login AS resource,
       'user' AS resource_type,
       CASE
-        WHEN training.user.email IS NOT NULL THEN 1
+        WHEN training.user_email IS NOT NULL THEN 1
         ELSE 0
       END AS compliance,
-      users.profile.login AS detail
+      users.profile_login AS detail
       FROM
         {{ ref('okta_users') }} AS users
       LEFT JOIN
-        {{ ref('knowbe4_enrollments') }} AS training
+        {{ ref('knowbe4_training_enrollments') }} AS training
       ON
-        users.profile.login = training.user.email and
+        users.profile_login = training.user_email and
         CURRENT_DATE - CAST(training.completion_date AS DATE) <= 365
       WHERE
         users.status = 'ACTIVE';

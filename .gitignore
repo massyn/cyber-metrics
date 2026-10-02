@@ -1,6 +1,7 @@
 docs/docs/
 data/
-03-dashboard/public/*.csv
+# posturecollect default output when --output / POSTURE_OUTPUT is not set
+output/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -126,6 +127,8 @@ celerybeat.pid
 
 # Environments
 .env
+# alternate env files for posturecollect --env
+.env.*
 .venv
 env/
 venv/

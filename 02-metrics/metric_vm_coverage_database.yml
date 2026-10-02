@@ -1,5 +1,5 @@
 ---
-metric_id: vm_coverage
+metric_id: vm_coverage_database
 title: Systems with an up-to-date vulnerability database deployed
 category: Vulnerability Management
 type: control
@@ -8,6 +8,10 @@ description: |
   deployed with an up-to-date database, providing critical visibility into
   security gaps and enabling swift action to protect the organization from
   exploitable weaknesses.
+how: |
+  Find all active systems with a vulnerability management agent and check the
+  age of the vulnerability database or plugin set the agent last used. Systems
+  are considered compliant if the database is up to date.
 slo:
   - 0.8
   - 0.95
