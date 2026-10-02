@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check me out
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install dependencies
         run: |
@@ -21,12 +21,11 @@ jobs:
         run: cd docs && mkdocs build -f mkdocs.yml -d ../dist -c --no-directory-urls
       
       - name: Publish to Cloudflare
-        uses: cloudflare/pages-action@v1
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: 'metric-library'
-          directory: './dist'
+          command: pages deploy ./dist --project-name=metric-library
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
   
   notify-on-success:
